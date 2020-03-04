@@ -722,8 +722,17 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Settings" id="YnT-Px-AoF">
                                     <items>
-                                        <menuItem title="Hide Logo" id="I7O-Wq-Ivc">
+                                        <menuItem title="Toggle Music Logo" id="I7O-Wq-Ivc">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleLogo:" target="Ady-hI-5gd" id="tM4-BL-bRl"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Show Music Logo" hidden="YES" id="5dq-l6-7Sz">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showLogo:" target="Ady-hI-5gd" id="SIN-Rf-7Dd"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Text" id="S1O-iJ-oqc">
                                             <modifierMask key="keyEquivalentModifierMask"/>

@@ -4,7 +4,7 @@
 /* Hide Footer */
 .dt-footer { display: none; }
 /* Move down Apple Music logo - {display: none;} to hide */
-.web-navigation__logo-container { margin-top: 20px; padding-top: 20px }
+.web-navigation__logo-container { padding-top: 20px }
 /* Hide Scrollbar */
 ::-webkit-scrollbar {
     width: 0px;  /* Remove scrollbar space */
