@@ -16,7 +16,6 @@ struct Music {
     // https://beta.music.apple.com/for-you
 }
 
-
 let debug = true
 var lastURL = ""
 
@@ -113,22 +112,9 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        print("url didFinish")
-        //let css = "body { background-color : #ff0000 }"
-        //let css = ":root { --nativeBGColor: #fff;  --nativeBGColor-rgb: 255,255,255; --opaqueBackgroundColor: #ffffff; }"
-        
-        // Hide Open in Apple Music Button
-        /*
-        let css = ".web-navigation__native-upsell { display: none; }"
-        let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
-        webView.evaluateJavaScript(js, completionHandler: nil)
- */
-        /*
-        let path = Bundle.main.path(forResource: "style", ofType: "css") // file path for file "data.txt"
-        let css = String(contentsOfFile: path!, encoding: String.Encoding.utf8) throws
-        */
         //let css = "style.css".isValidFile()
         
+        // Add default CSS stylesheet
         let path = Bundle.main.path(forResource: "style", ofType: "css", inDirectory: "Resources")
         var cssString: String? = nil
         do {
