@@ -298,46 +298,21 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     // MARK: Settings
     
-   /*
-    @IBOutlet var hideLogoButton: NSMenuItem!
-    @IBOutlet var showLogoButton: NSMenuItem!
-    
-    func toggleLogo(logoHidden: Bool) {
-        if logoHidden {
-            showLogo(self)
-        } else {
-            hideLogo(self)
-        }
-    }
-     */
-    
     // Toggle Music Logo (logo is at 0px top parent onShow notHidden again)
     @IBAction func toggleLogo(_ sender: NSMenuItem) {
         sender.state = sender.state == .on ? .off : .on
         if sender.state == .on {
-            let css = ".web-navigation__logo-container { display: none; } .dt-search-box { padding-top: 20px; }"
+            //let css = ".web-navigation__logo-container { display: none; } .dt-search-box { padding-top: 20px; }"
+            let css = ".web-navigation__logo-container { opacity: 0; }"
             let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
             webView.evaluateJavaScript(js, completionHandler: nil)
         } else {
-            let css = ".web-navigation__logo-container { display: inline; padding-top: 20px; }"
+            //let css = ".web-navigation__logo-container { display: inline; padding-top: 20px; }"
+            let css = ".web-navigation__logo-container { opacity: 100; }"
             let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
             self.webView.evaluateJavaScript(js, completionHandler: nil)
         }
     }
-    
-    /*
-    @IBAction func hideLogo(_ sender: Any) {
-        let css = ".web-navigation__logo-container { display: none; }"
-        let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
-    webView.evaluateJavaScript(js, completionHandler: nil)
-    }
-    
-    @IBAction func showLogo(_ sender: Any) {
-        let css = ".web-navigation__logo-container { display: inline; }"
-        let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
-    webView.evaluateJavaScript(js, completionHandler: nil)
-    }
-    */
     
     // WindowController did enter fullscreen mode
     public func updateForFullscreenMode() {
