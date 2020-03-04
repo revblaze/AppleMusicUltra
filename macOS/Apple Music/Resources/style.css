@@ -3,6 +3,8 @@
 .web-navigation__native-upsell { display: none; }
 /* Hide Footer */
 .dt-footer { display: none; }
+/* Hide Signed-Out Bottom Banner */
+.upsell-banner { display: none; }
 /* Move down Apple Music logo - {display: none;} to hide */
 .web-navigation__logo-container { padding-top: 20px }
 /* Hide Scrollbar */
@@ -11,7 +13,6 @@
     background: transparent;  /* Optional: just make scrollbar invisible */
 }
 /* END CORE STYLES */
-
 
 /* START BLUR EFFECTS */
 /* Global UI Style */
@@ -38,6 +39,9 @@ body.dark-mode {
 .context-menu {
     background-color: rgba(0,0,0,0.65) !important;
 }
+
+/* Force Light Mode */
+
 
 /*
 .context-menu__option {

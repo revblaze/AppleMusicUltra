@@ -16,6 +16,10 @@ struct Music {
     // https://beta.music.apple.com/for-you
 }
 
+struct Default {
+    static let theme = ""
+}
+
 let debug = true
 var lastURL = ""
 
@@ -24,6 +28,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     @IBOutlet var webView: WKWebView!
     @IBOutlet var titleBar: NSTextField!
     @IBOutlet var blur: NSVisualEffectView!
+    @IBOutlet weak var imageView: NSImageView!
     @IBOutlet var topConstraint: NSLayoutConstraint!
     
     // WebView URL Observer
@@ -39,8 +44,8 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Blur
-        //blur.allowsVibrancy = true
+        // Set Default Blur
+        blur.material = .sheet
         
         // WebView Configuration
         webView.setValue(false, forKey: "drawsBackground")
@@ -73,6 +78,8 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             ViewController().titleChange(pageTitle: title)
         }
         
+        imageView.imageScaling = .scaleAxesIndependently
+        
         if debug {
             topConstraint.constant = 0
         }
@@ -94,7 +101,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         print("URL Size:", view.window!.frame.size)
     }
     
-    func windowDidResize(notification: NSNotification) {
+    private func windowDidResize(notification: NSNotification) {
         print("URL Size:", view.window!.frame.size)
     }
     
@@ -137,6 +144,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     // TO DO:
     // Close login popup on this button click:
     // <button data-targetid="continue" data-pageid="WebPlayerConfirmConnection" class="button-primary signed-in" data-ember-action="" data-ember-action-286="286">Continue</button>
+    // style: button.button-primary.signed-in
     
     
     // WebView: 650 x 710
@@ -171,20 +179,15 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     // Create new Window with Login Prompt
     private func presentLoginScreen(with loginWebView: WKWebView) {
-        
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        
         // Instantiate login window view controller from storyboard
         if let loginWindowVC = storyboard.instantiateController(withIdentifier: "LoginWindow") as? LoginWindowController {
-            
             // Keep reverence to it in mememory
             loginWindowController = loginWindowVC
-            
             if let loginVC = loginWindowVC.window?.contentViewController as? LoginViewController {
                 // Set preview webview
                 loginVC.setWebView(loginWebView)
             }
-            
             // Present login window to user
             loginWindowVC.showWindow(self)
         }
@@ -244,9 +247,74 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         }
     }
     
+    func forceLightMode() {
+        
+    }
+    
+    func forceDarkMode() {
+        
+    }
+    
     
     // MARK: Themes
     
+    // Core Vibrant Themes
+    
+    // Defaults
+    @IBAction func themeDefault(_ sender: Any) { setTheme(theme: .sheet) }                  // Default
+    @IBAction func themeVibrant(_ sender: Any) { setTheme(theme: .toolTip) }                // Vibrant
+    // Light (Force Light Mode via CSS)
+    @IBAction func themeLight(_ sender: Any) { setTheme(theme: .mediumLight) }              // Light
+    @IBAction func themeVibrantLight(_ sender: Any) { setTheme(theme: .light) }             // Vibrant Light
+    // Dark (Force Dark Mode via CSS)
+    @IBAction func themeDark(_ sender: Any) { setTheme(theme: .ultraDark) }                 // Dark
+    @IBAction func themeVibrantDark(_ sender: Any) { setTheme(theme: .dark) }               // Vibrant Dark
+    // Other System Themes
+    @IBAction func themeFrosty(_ sender: Any) { setTheme(theme: .appearanceBased) }         // Frosty
+    @IBAction func themeFlat(_ sender: Any) { setTheme(theme: .titlebar) }                  // Flat
+    @IBAction func themePlain(_ sender: Any) { setTheme(theme: .headerView) }               // Plain
+    @IBAction func themeOpaque(_ sender: Any) { setTheme(theme: .underPageBackground) }     // Opaque
+    @IBAction func themeTemp(_ sender: Any) { setTheme(theme: .underWindowBackground) }     // Unknown (Temp)
+    
+    // Custom Themes
+    @IBAction func themeWave(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "wave") }
+    @IBAction func themePurple(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "purple") }
+    @IBAction func themeSilk(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "silk") }
+    
+    
+    // Custom User Theme
+    @IBAction func themeCustom(_ sender: Any) { setCustomTheme(theme: .toolTip) }
+    
+    
+    
+    /// Sets the active theme
+    func setTheme(theme: NSVisualEffectView.Material) {
+        blur.material = theme
+        blur.blendingMode = .behindWindow
+        //imageView.isHidden = true
+        imageView.alphaValue = 0
+    }
+    
+    func setTheme(theme: NSVisualEffectView.Material, withMedia: String) {
+        blur.material = theme
+        blur.blendingMode = .withinWindow
+        //imageView.isHidden = false
+        imageView.alphaValue = 1
+        let image = NSImage(named: withMedia)
+        //imageView.imageScaling = .scaleAxesIndependently
+        imageView.image = image
+    }
+    
+    func setCustomTheme(theme: NSVisualEffectView.Material) {
+        let imageURL = windowController.selectImageFile()
+        blur.blendingMode = .withinWindow
+        imageView.alphaValue = 1
+        let image = NSImage(byReferencing: imageURL)
+        //imageView.imageScaling = .scaleAxesIndependently
+        imageView.image = image
+    }
+    
+    /*
     // System Themes
     @IBAction func themeDefault(_ sender: Any) { blur.material = .appearanceBased }
     
@@ -280,6 +348,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     @IBAction func theme10(_ sender: Any) { blur.material = .toolTip }
     
     @IBAction func theme11(_ sender: Any) { blur.material = .underPageBackground }
+    */
     
     
     // MARK: Settings
