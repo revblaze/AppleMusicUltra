@@ -9,6 +9,11 @@
 import Cocoa
 import WebKit
 
+// System Variables
+let App = NSApplication.shared
+let Defaults = UserDefaults.standard
+let Notification = NotificationCenter.default
+
 struct Music {
     static let app = "Apple Music Web Client"
     static let url = "https://beta.music.apple.com"
@@ -16,15 +21,21 @@ struct Music {
     // https://beta.music.apple.com/for-you
 }
 
-struct Default {
-    static let theme = ""
+/*
+struct Preset {
+    static let theme = Defaults.object(forKey: "theme") as? NSVisualEffectView.Material ?? .sheet
+    static let type  = Defaults.string(forKey: "type") ?? "setTheme"
+    static let media = Defaults.string(forKey: "media") ?? ""
 }
+ */
+
 
 let debug = true
 var lastURL = ""
 
 class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWindowDelegate {
 
+    // MARK: Variables
     @IBOutlet var webView: WKWebView!
     @IBOutlet var titleBar: NSTextField!
     @IBOutlet var blur: NSVisualEffectView!
@@ -43,9 +54,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Set Default Blur
-        blur.material = .sheet
         
         // WebView Configuration
         webView.setValue(false, forKey: "drawsBackground")
@@ -83,6 +91,55 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         if debug {
             topConstraint.constant = 0
         }
+        
+        /*
+        let theme = Defaults.object(forKey: "theme") as? NSVisualEffectView.Material ?? .sheet
+        let type  = Defaults.string(forKey: "type") ?? "setTheme"
+        let media = Defaults.string(forKey: "media") ?? ""
+        
+        if Defaults.bool(forKey: "hasLaunchedBefore") {
+            // Set Default Blur
+            switch type {
+            case "setTheme":
+                setTheme(theme: theme)
+            case "setThemeWithMedia":
+                setTheme(theme: theme, withMedia: media)
+            case "setCustomTheme":
+                setTheme(theme: theme, withMedia: media)
+            default:
+                setTheme(theme: .sheet)
+            }
+            print("urlTHEME made it this far")
+        } else {
+            blur.material = .sheet
+            Defaults.set(true, forKey: "hasLaunchedBefore")
+            print("urlTHEME setting default to true")
+        }
+        
+        print("URLTheme theme: \(theme), withMedia: \(media)")
+ */
+        
+        /*
+         *
+         if Defaults.bool(forKey: "hasLaunchedBefore") {
+             // Set Default Blur
+             switch Preset.type {
+             case "setTheme":
+                 setTheme(theme: Preset.theme)
+             case "setThemeWithMedia":
+                 setTheme(theme: Preset.theme, withMedia: Preset.media)
+             case "setCustomTheme":
+                 setTheme(theme: Preset.theme, withMedia: Preset.media)
+             default:
+                 setTheme(theme: .sheet)
+             }
+             // Defaults.set(true, forKey: "hasLaunchedBefore")
+             
+         } else {
+             setTheme(theme: .sheet)
+         }
+         */
+        
     }
     
     override func viewWillAppear() {
@@ -104,6 +161,8 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     private func windowDidResize(notification: NSNotification) {
         print("URL Size:", view.window!.frame.size)
     }
+    
+    // MARK: WKWebView
     
     func titleChange(pageTitle: String) {
         //self.view.window?.delegate = self
@@ -145,7 +204,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     // Close login popup on this button click:
     // <button data-targetid="continue" data-pageid="WebPlayerConfirmConnection" class="button-primary signed-in" data-ember-action="" data-ember-action-286="286">Continue</button>
     // style: button.button-primary.signed-in
-    
     
     // WebView: 650 x 710
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
@@ -280,7 +338,11 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     @IBAction func themeWave(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "wave") }
     @IBAction func themePurple(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "purple") }
     @IBAction func themeSilk(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "silk") }
-    
+    @IBAction func themeBubbles(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "bubbles") }
+    @IBAction func themeGoblin(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "goblin") }
+    @IBAction func themeSpring(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "spring") }
+    @IBAction func themeQuartz(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "quartz") }
+    @IBAction func themeDunes(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "dunes") }
     
     // Custom User Theme
     @IBAction func themeCustom(_ sender: Any) { setCustomTheme(theme: .toolTip) }
@@ -293,6 +355,12 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         blur.blendingMode = .behindWindow
         //imageView.isHidden = true
         imageView.alphaValue = 0
+        
+        /*
+        Defaults.set(theme, forKey: "theme")
+        //Preset.theme = theme
+        Defaults.set("setTheme", forKey: "type")
+         */
     }
     
     func setTheme(theme: NSVisualEffectView.Material, withMedia: String) {
@@ -301,8 +369,13 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         //imageView.isHidden = false
         imageView.alphaValue = 1
         let image = NSImage(named: withMedia)
-        //imageView.imageScaling = .scaleAxesIndependently
         imageView.image = image
+        
+        /*
+        Defaults.set(theme, forKey: "theme")
+        Defaults.set("setThemeWithMedia", forKey: "type")
+        Defaults.set(image, forKey: "media")
+        */
     }
     
     func setCustomTheme(theme: NSVisualEffectView.Material) {
@@ -310,45 +383,14 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         blur.blendingMode = .withinWindow
         imageView.alphaValue = 1
         let image = NSImage(byReferencing: imageURL)
-        //imageView.imageScaling = .scaleAxesIndependently
         imageView.image = image
+        
+        /*
+        Defaults.set(theme, forKey: "theme")
+        Defaults.set("setCustomTheme", forKey: "type")
+        Defaults.set(image, forKey: "media")
+        */
     }
-    
-    /*
-    // System Themes
-    @IBAction func themeDefault(_ sender: Any) { blur.material = .appearanceBased }
-    
-    @IBAction func themeLight(_ sender: Any) { blur.material = .light }
-
-    @IBAction func themeMediumLight(_ sender: Any) { blur.material = .mediumLight }
-    
-    @IBAction func themeDark(_ sender: Any) { blur.material = .dark }
-    
-    @IBAction func themeUltraDark(_ sender: Any) { blur.material = .ultraDark }
-    
-    // Custom Blur Themes
-    @IBAction func theme1(_ sender: Any) { blur.material = .titlebar }
-    
-    @IBAction func theme2(_ sender: Any) { blur.material = .selection }
-    
-    @IBAction func theme3(_ sender: Any) { blur.material = .menu }
-    
-    @IBAction func theme4(_ sender: Any) { blur.material = .popover }
-    
-    @IBAction func theme5(_ sender: Any) { blur.material = .sidebar }
-    
-    @IBAction func theme6(_ sender: Any) { blur.material = .headerView }
-    
-    @IBAction func theme7(_ sender: Any) { blur.material = .sheet }
-    
-    @IBAction func theme8(_ sender: Any) { blur.material = .hudWindow }
-    
-    @IBAction func theme9(_ sender: Any) { blur.material = .fullScreenUI }
-    
-    @IBAction func theme10(_ sender: Any) { blur.material = .toolTip }
-    
-    @IBAction func theme11(_ sender: Any) { blur.material = .underPageBackground }
-    */
     
     
     // MARK: Settings

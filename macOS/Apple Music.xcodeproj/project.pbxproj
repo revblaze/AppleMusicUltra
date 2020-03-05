@@ -10,6 +10,9 @@
 		D061BF02240EBE57003F0EDD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D061BF01240EBE57003F0EDD /* LoginViewController.swift */; };
 		D061BF04240EBE71003F0EDD /* LoginWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D061BF03240EBE71003F0EDD /* LoginWindowController.swift */; };
 		D061BF0B240F0660003F0EDD /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = D061BF0A240F0660003F0EDD /* Resources */; };
+		D0747F4424106D4300644340 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0747F4324106D4300644340 /* PreferencesViewController.swift */; };
+		D0747F46241077C300644340 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0747F45241077C300644340 /* Item.swift */; };
+		D0747F48241077EA00644340 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0747F47241077EA00644340 /* TestData.swift */; };
 		D0E66AD6240EB30D005D93E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E66AD5240EB30D005D93E2 /* AppDelegate.swift */; };
 		D0E66AD8240EB30D005D93E2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E66AD7240EB30D005D93E2 /* ViewController.swift */; };
 		D0E66ADA240EB30F005D93E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E66AD9240EB30F005D93E2 /* Assets.xcassets */; };
@@ -21,6 +24,9 @@
 		D061BF01240EBE57003F0EDD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D061BF03240EBE71003F0EDD /* LoginWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWindowController.swift; sourceTree = "<group>"; };
 		D061BF0A240F0660003F0EDD /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
+		D0747F4324106D4300644340 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		D0747F45241077C300644340 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		D0747F47241077EA00644340 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		D0E66AD2240EB30D005D93E2 /* Apple Music.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Apple Music.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E66AD5240EB30D005D93E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0E66AD7240EB30D005D93E2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,10 +72,13 @@
 				D0E66AE5240EB37F005D93E2 /* WindowController.swift */,
 				D061BF01240EBE57003F0EDD /* LoginViewController.swift */,
 				D061BF03240EBE71003F0EDD /* LoginWindowController.swift */,
+				D0747F4324106D4300644340 /* PreferencesViewController.swift */,
 				D0E66AD9240EB30F005D93E2 /* Assets.xcassets */,
 				D0E66ADB240EB30F005D93E2 /* Main.storyboard */,
 				D0E66ADE240EB30F005D93E2 /* Info.plist */,
 				D0E66ADF240EB30F005D93E2 /* Apple_Music.entitlements */,
+				D0747F45241077C300644340 /* Item.swift */,
+				D0747F47241077EA00644340 /* TestData.swift */,
 				D061BF0A240F0660003F0EDD /* Resources */,
 			);
 			path = "Apple Music";
@@ -149,8 +158,11 @@
 				D0E66AD8240EB30D005D93E2 /* ViewController.swift in Sources */,
 				D061BF02240EBE57003F0EDD /* LoginViewController.swift in Sources */,
 				D061BF04240EBE71003F0EDD /* LoginWindowController.swift in Sources */,
+				D0747F48241077EA00644340 /* TestData.swift in Sources */,
 				D0E66AE6240EB37F005D93E2 /* WindowController.swift in Sources */,
+				D0747F46241077C300644340 /* Item.swift in Sources */,
 				D0E66AD6240EB30D005D93E2 /* AppDelegate.swift in Sources */,
+				D0747F4424106D4300644340 /* PreferencesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
