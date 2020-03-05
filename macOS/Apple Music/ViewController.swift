@@ -26,13 +26,14 @@ struct Music {
     // https://beta.music.apple.com/for-you
 }
 
-/*
 struct Preset {
     static let theme = Defaults.object(forKey: "theme") as? NSVisualEffectView.Material ?? .sheet
     static let type  = Defaults.string(forKey: "type") ?? "setTheme"
     static let media = Defaults.string(forKey: "media") ?? ""
+    
+    static let imURL = Defaults.url(forKey: "mediafile")
+    static let style = Defaults.string(forKey: "style")
 }
- */
 
 
 let debug = true
@@ -40,6 +41,8 @@ var lastURL = ""
 
 class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWindowDelegate {
 
+    let hasLaunched = Defaults.bool(forKey: "hasLaunchedBefore")
+    
     // MARK: Variables
     @IBOutlet var webView: WKWebView!
     @IBOutlet var titleBar: NSTextField!
@@ -61,6 +64,12 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if debug {
+            print("url hasLaunchedBefore: \(hasLaunched)")
+            print("urlDidLoad Defaults(type: \(Preset.type), theme: \(Preset.theme), media: \(Preset.media)")
+        }
+        //Defaults.set(false, forKey: "hasLaunchedBefore")
         
         // WebView Configuration
         webView.setValue(false, forKey: "drawsBackground")
@@ -102,89 +111,26 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             topConstraint.constant = 0
         }
         
-        /*
-        let theme = Defaults.object(forKey: "theme")
-        let type  = Defaults.string(forKey: "type") ?? "setTheme"
-        let media = Defaults.string(forKey: "media") ?? ""
-        
-        if Defaults.bool(forKey: "hasLaunchedBefore") {
-            // Set Default Blur
-            switch type {
-            case "setTheme":
-                setTheme(theme: theme)
-            case "setThemeWithMedia":
-                setTheme(theme: theme, withMedia: media)
-            case "setCustomTheme":
-                setTheme(theme: theme, withMedia: media)
-            default:
-                setTheme(theme: .sheet)
-            }
-            print("urlTHEME made it this far")
-        } else {
-            blur.material = .sheet
-            Defaults.set(true, forKey: "hasLaunchedBefore")
-            print("urlTHEME setting default to true")
-        }
-        
-        print("URLTheme theme: \(theme), withMedia: \(media)")
- */
-        
-        /*
-         *
-         if Defaults.bool(forKey: "hasLaunchedBefore") {
-             // Set Default Blur
-             switch Preset.type {
-             case "setTheme":
-                 setTheme(theme: Preset.theme)
-             case "setThemeWithMedia":
-                 setTheme(theme: Preset.theme, withMedia: Preset.media)
-             case "setCustomTheme":
-                 setTheme(theme: Preset.theme, withMedia: Preset.media)
-             default:
-                 setTheme(theme: .sheet)
-             }
-             // Defaults.set(true, forKey: "hasLaunchedBefore")
-             
-         } else {
-             setTheme(theme: .sheet)
-         }
-         */
-        
     }
     
     override func viewWillAppear() {
         self.view.window?.delegate = self
+        
+        let sheet = NSVisualEffectView.Material.sheet
+        
+        if hasLaunched {
+            //setTheme(theme: Preset.theme, withMedia: Preset.media)
+            setThemeManager(theme: Preset.theme, type: Preset.type, media: Preset.media)
+        } else {
+            setTheme(theme: sheet)
+            Defaults.set(true, forKey: "hasLaunchedBefore")
+        }
+        
     }
     
     override func viewDidAppear() {
         super.viewDidAppear()
         self.view.window?.delegate = self
-        //self.view.window?.title = "Apple Music"
-        
-        let sheet = NSVisualEffectView.Material.sheet
-        
-        let theme = Defaults.object(forKey: "theme") as? NSVisualEffectView.Material ?? sheet
-        let type  = Defaults.string(forKey: "type") ?? "setTheme"
-        let media = Defaults.string(forKey: "media") ?? ""
-        
-        if Defaults.bool(forKey: "hasLaunchedBefore") {
-            // Set Default Blur
-            switch type {
-            case "setTheme":
-                setTheme(theme: theme)
-            case "setThemeWithMedia":
-                setTheme(theme: theme, withMedia: media)
-            case "setCustomTheme":
-                setTheme(theme: theme, withMedia: media)
-            default:
-                setTheme(theme: .sheet)
-            }
-            print("urlTHEME made it this far")
-        } else {
-            blur.material = .sheet
-            Defaults.set(true, forKey: "hasLaunchedBefore")
-            print("urlTHEME setting default to true")
-        }
     }
     
     
@@ -378,50 +324,102 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     @IBAction func themeCustom(_ sender: Any) { setCustomTheme(theme: .toolTip) }
     
     
+    // MARK: Theme Manager
     
-    /// Sets the active theme
-    func setTheme(theme: NSVisualEffectView.Material) {
-        blur.material = theme
-        blur.blendingMode = .behindWindow
-        //imageView.isHidden = true
-        imageView.alphaValue = 0
+    func setThemeManager(theme: NSVisualEffectView.Material, type: String, media: Any) {
         
         /*
-        Defaults.set(theme, forKey: "theme")
-        //Preset.theme = theme
-        Defaults.set("setTheme", forKey: "type")
-         */
+        if type == "setTheme" {
+            setTheme(theme: theme)
+        }
+        */
+
+        
+        // Media is an app background image (String)
+        if let image = media as? String {
+            if !(image.isEmpty) {
+                setTheme(theme: theme, withMedia: image)
+            } else {
+                // Media is just theme
+                setTheme(theme: theme)
+            }
+        }
+        // Media is a custom user-selected image (URL)
+        if let url = media as? URL {
+            let urlString = url.absoluteString.removingPercentEncoding
+            print("urlString: \(urlString)")
+            let newURL = URL(string: urlString ?? url.absoluteString)
+            setCustomTheme(theme: theme, withURL: newURL!)
+        }
     }
     
+    /// Set the active theme
+    func setTheme(theme: NSVisualEffectView.Material) {
+        imageView.alphaValue = 0
+        blur.material = theme
+        blur.blendingMode = .behindWindow
+        saveDefaults(theme: theme, type: "setTheme", media: "")
+    }
+    /// Set active theme with image String
     func setTheme(theme: NSVisualEffectView.Material, withMedia: String) {
         blur.material = theme
         blur.blendingMode = .withinWindow
-        //imageView.isHidden = false
-        imageView.alphaValue = 1
-        let image = NSImage(named: withMedia)
-        imageView.image = image
-        
-        /*
-        Defaults.set(theme, forKey: "theme")
-        Defaults.set("setThemeWithMedia", forKey: "type")
-        Defaults.set(image, forKey: "media")
-        */
+        setBackground(withMedia)
     }
-    
+    /// Set active theme with image URL
+    func setTheme(theme: NSVisualEffectView.Material, withURL: URL) {
+        blur.material = theme
+        blur.blendingMode = .withinWindow
+        setBackground(withURL)
+    }
     func setCustomTheme(theme: NSVisualEffectView.Material) {
         let imageURL = windowController.selectImageFile()
         blur.blendingMode = .withinWindow
-        imageView.alphaValue = 1
-        let image = NSImage(byReferencing: imageURL)
-        imageView.image = image
-        
-        /*
-        Defaults.set(theme, forKey: "theme")
-        Defaults.set("setCustomTheme", forKey: "type")
-        Defaults.set(image, forKey: "media")
-        */
+        setBackground(imageURL)
+    }
+    func setCustomTheme(theme: NSVisualEffectView.Material, withURL: URL) {
+        //let imageURL = withURL
+        blur.blendingMode = .withinWindow
+        setBackground(withURL)
     }
     
+    func themeToString(_ theme: NSVisualEffectView.Material) -> String {
+        let themeString = "\(blur.material.self)" //"\(blur.material)"
+        print("urlDebug: \(themeString)")
+        return themeString
+    }
+    
+    // Set background with default theme
+    func setBackground(_ media: Any) {
+        setBackground(theme: .sheet, media: media)
+    }
+    
+    func setBackground(theme: NSVisualEffectView.Material, media: Any) {
+        imageView.alphaValue = 1
+        var mediaString = ""
+        if let object = media as? String {
+            let image = NSImage(named: object)
+            imageView.image = image
+            mediaString = object
+        }
+        if let object = media as? URL {
+            let image = NSImage(byReferencing: object)
+            imageView.image = image
+            mediaString = "\(object)"
+        }
+        saveDefaults(theme: theme, type: "setThemeWithMedia", media: mediaString)
+    }
+    
+    // Save UserDefaults to restore next session
+    func saveDefaults(theme: NSVisualEffectView.Material, type: String, media: String) {
+        let style = themeToString(theme)
+        print("urlRAW: \(theme.rawValue)")
+        Defaults.set(style, forKey: "style")
+        Defaults.set(type, forKey: "type")
+        //Defaults.set(theme, forKey: "theme")      // Crash
+        Defaults.set(media, forKey: "media")
+        if debug { print("urlDefaults(type: \(type), style: \(style), media: \(media)") }
+    }
     
     // MARK: Settings
     

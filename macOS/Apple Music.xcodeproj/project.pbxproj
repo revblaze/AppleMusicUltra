@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D020542924118C4B0073121A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020542824118C4B0073121A /* Settings.swift */; };
 		D061BF02240EBE57003F0EDD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D061BF01240EBE57003F0EDD /* LoginViewController.swift */; };
 		D061BF04240EBE71003F0EDD /* LoginWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D061BF03240EBE71003F0EDD /* LoginWindowController.swift */; };
 		D061BF0B240F0660003F0EDD /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = D061BF0A240F0660003F0EDD /* Resources */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D020542824118C4B0073121A /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		D061BF01240EBE57003F0EDD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D061BF03240EBE71003F0EDD /* LoginWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWindowController.swift; sourceTree = "<group>"; };
 		D061BF0A240F0660003F0EDD /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				D061BF01240EBE57003F0EDD /* LoginViewController.swift */,
 				D061BF03240EBE71003F0EDD /* LoginWindowController.swift */,
 				D0747F4324106D4300644340 /* PreferencesViewController.swift */,
+				D020542824118C4B0073121A /* Settings.swift */,
 				D0E66AD9240EB30F005D93E2 /* Assets.xcassets */,
 				D0E66ADB240EB30F005D93E2 /* Main.storyboard */,
 				D0E66ADE240EB30F005D93E2 /* Info.plist */,
@@ -219,6 +222,7 @@
 				D0E66AD6240EB30D005D93E2 /* AppDelegate.swift in Sources */,
 				D09107172410AD8000CB39A9 /* ConfigAsset.swift in Sources */,
 				D0747F4424106D4300644340 /* PreferencesViewController.swift in Sources */,
+				D020542924118C4B0073121A /* Settings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
