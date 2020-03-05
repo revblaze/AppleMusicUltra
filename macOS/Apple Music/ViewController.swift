@@ -8,6 +8,11 @@
 
 import Cocoa
 import WebKit
+import AVKit
+import MediaPlayer
+
+// MediaPlayer Control Centre
+// https://developer.apple.com/documentation/mediaplayer/remote_command_center_events
 
 // System Variables
 let App = NSApplication.shared
@@ -70,6 +75,9 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         preferences.javaScriptCanOpenWindowsAutomatically = true
         let configuration = WKWebViewConfiguration()
         configuration.preferences = preferences
+        
+        configuration.allowsAirPlayForMediaPlayback = true
+        webView.configuration.allowsAirPlayForMediaPlayback = true
         
         // Load Apple Music Web Beta
         webView.load(Music.url)

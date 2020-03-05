@@ -13,6 +13,16 @@
 		D0747F4424106D4300644340 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0747F4324106D4300644340 /* PreferencesViewController.swift */; };
 		D0747F46241077C300644340 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0747F45241077C300644340 /* Item.swift */; };
 		D0747F48241077EA00644340 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0747F47241077EA00644340 /* TestData.swift */; };
+		D09107072410ACC200CB39A9 /* MacNowPlayableBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09107062410ACC200CB39A9 /* MacNowPlayableBehavior.swift */; };
+		D09107132410AD8000CB39A9 /* NowPlayableMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09107092410AD8000CB39A9 /* NowPlayableMetadata.swift */; };
+		D09107142410AD8000CB39A9 /* NowPlayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D091070A2410AD8000CB39A9 /* NowPlayable.swift */; };
+		D09107152410AD8000CB39A9 /* NowPlayableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D091070B2410AD8000CB39A9 /* NowPlayableError.swift */; };
+		D09107162410AD8000CB39A9 /* NowPlayableCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = D091070C2410AD8000CB39A9 /* NowPlayableCommand.swift */; };
+		D09107172410AD8000CB39A9 /* ConfigAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D091070E2410AD8000CB39A9 /* ConfigAsset.swift */; };
+		D09107182410AD8000CB39A9 /* ConfigCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = D091070F2410AD8000CB39A9 /* ConfigCommand.swift */; };
+		D09107192410AD8000CB39A9 /* ConfigCommandCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09107102410AD8000CB39A9 /* ConfigCommandCollection.swift */; };
+		D091071A2410AD8000CB39A9 /* ConfigPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09107112410AD8000CB39A9 /* ConfigPath.swift */; };
+		D091071B2410AD8000CB39A9 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09107122410AD8000CB39A9 /* ConfigModel.swift */; };
 		D0E66AD6240EB30D005D93E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E66AD5240EB30D005D93E2 /* AppDelegate.swift */; };
 		D0E66AD8240EB30D005D93E2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E66AD7240EB30D005D93E2 /* ViewController.swift */; };
 		D0E66ADA240EB30F005D93E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E66AD9240EB30F005D93E2 /* Assets.xcassets */; };
@@ -27,6 +37,16 @@
 		D0747F4324106D4300644340 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		D0747F45241077C300644340 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		D0747F47241077EA00644340 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
+		D09107062410ACC200CB39A9 /* MacNowPlayableBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacNowPlayableBehavior.swift; sourceTree = "<group>"; };
+		D09107092410AD8000CB39A9 /* NowPlayableMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayableMetadata.swift; sourceTree = "<group>"; };
+		D091070A2410AD8000CB39A9 /* NowPlayable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayable.swift; sourceTree = "<group>"; };
+		D091070B2410AD8000CB39A9 /* NowPlayableError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayableError.swift; sourceTree = "<group>"; };
+		D091070C2410AD8000CB39A9 /* NowPlayableCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayableCommand.swift; sourceTree = "<group>"; };
+		D091070E2410AD8000CB39A9 /* ConfigAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigAsset.swift; sourceTree = "<group>"; };
+		D091070F2410AD8000CB39A9 /* ConfigCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigCommand.swift; sourceTree = "<group>"; };
+		D09107102410AD8000CB39A9 /* ConfigCommandCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigCommandCollection.swift; sourceTree = "<group>"; };
+		D09107112410AD8000CB39A9 /* ConfigPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigPath.swift; sourceTree = "<group>"; };
+		D09107122410AD8000CB39A9 /* ConfigModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
 		D0E66AD2240EB30D005D93E2 /* Apple Music.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Apple Music.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E66AD5240EB30D005D93E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0E66AD7240EB30D005D93E2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +68,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D09107082410AD8000CB39A9 /* NowPlayable */ = {
+			isa = PBXGroup;
+			children = (
+				D09107092410AD8000CB39A9 /* NowPlayableMetadata.swift */,
+				D091070A2410AD8000CB39A9 /* NowPlayable.swift */,
+				D091070B2410AD8000CB39A9 /* NowPlayableError.swift */,
+				D091070C2410AD8000CB39A9 /* NowPlayableCommand.swift */,
+			);
+			path = NowPlayable;
+			sourceTree = "<group>";
+		};
+		D091070D2410AD8000CB39A9 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				D091070E2410AD8000CB39A9 /* ConfigAsset.swift */,
+				D091070F2410AD8000CB39A9 /* ConfigCommand.swift */,
+				D09107102410AD8000CB39A9 /* ConfigCommandCollection.swift */,
+				D09107112410AD8000CB39A9 /* ConfigPath.swift */,
+				D09107122410AD8000CB39A9 /* ConfigModel.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
 		D0E66AC9240EB30D005D93E2 = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +122,9 @@
 				D0E66ADF240EB30F005D93E2 /* Apple_Music.entitlements */,
 				D0747F45241077C300644340 /* Item.swift */,
 				D0747F47241077EA00644340 /* TestData.swift */,
+				D09107062410ACC200CB39A9 /* MacNowPlayableBehavior.swift */,
+				D091070D2410AD8000CB39A9 /* Configuration */,
+				D09107082410AD8000CB39A9 /* NowPlayable */,
 				D061BF0A240F0660003F0EDD /* Resources */,
 			);
 			path = "Apple Music";
@@ -155,13 +201,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D09107142410AD8000CB39A9 /* NowPlayable.swift in Sources */,
+				D091071B2410AD8000CB39A9 /* ConfigModel.swift in Sources */,
+				D09107182410AD8000CB39A9 /* ConfigCommand.swift in Sources */,
+				D09107162410AD8000CB39A9 /* NowPlayableCommand.swift in Sources */,
+				D09107152410AD8000CB39A9 /* NowPlayableError.swift in Sources */,
 				D0E66AD8240EB30D005D93E2 /* ViewController.swift in Sources */,
 				D061BF02240EBE57003F0EDD /* LoginViewController.swift in Sources */,
 				D061BF04240EBE71003F0EDD /* LoginWindowController.swift in Sources */,
+				D09107132410AD8000CB39A9 /* NowPlayableMetadata.swift in Sources */,
+				D09107072410ACC200CB39A9 /* MacNowPlayableBehavior.swift in Sources */,
+				D09107192410AD8000CB39A9 /* ConfigCommandCollection.swift in Sources */,
 				D0747F48241077EA00644340 /* TestData.swift in Sources */,
 				D0E66AE6240EB37F005D93E2 /* WindowController.swift in Sources */,
 				D0747F46241077C300644340 /* Item.swift in Sources */,
+				D091071A2410AD8000CB39A9 /* ConfigPath.swift in Sources */,
 				D0E66AD6240EB30D005D93E2 /* AppDelegate.swift in Sources */,
+				D09107172410AD8000CB39A9 /* ConfigAsset.swift in Sources */,
 				D0747F4424106D4300644340 /* PreferencesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,6 +363,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.justinbush.Apple-Music";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -327,6 +384,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.justinbush.Apple-Music";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
