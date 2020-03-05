@@ -16,7 +16,6 @@ class PreferencesViewController: NSViewController, WKUIDelegate, WKNavigationDel
     @IBOutlet var webView: WKWebView!
     @IBOutlet var blur: NSVisualEffectView!
     @IBOutlet var imageView: NSImageView!
-    @IBOutlet var roundedView: NSView!
     
     var groupImage = NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(OSType(kGenericHardDiskIcon)))
     var folderImage = NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(OSType(kGenericFolderIcon)))
