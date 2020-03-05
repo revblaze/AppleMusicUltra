@@ -22,14 +22,6 @@ class LoginViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
         
         loginWebView?.navigationDelegate = self
         loginWebView?.uiDelegate = self
-        
-        // WebView URL Observer (Detect Changes)
-        /*
-        webViewURLObserver = loginWebView?.observe(\.url, options: .new) { loginWebView, change in
-            let url = "\(String(describing: change.newValue))"
-            ViewController().urlChange(urlString: url)
-        }
- */
     }
     
     override func viewDidAppear() {

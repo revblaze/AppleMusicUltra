@@ -9,7 +9,9 @@
 import Cocoa
 
 class WindowController: NSWindowController, NSWindowDelegate {
-
+    
+    var maxScreen = false
+    
     override func windowDidLoad() {
         super.windowDidLoad()
     

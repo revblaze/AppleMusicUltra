@@ -57,6 +57,8 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     private var window: WindowController?
     let windowController: WindowController = WindowController()
     
+    var nowURL = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -101,7 +103,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         }
         
         /*
-        let theme = Defaults.object(forKey: "theme") as? NSVisualEffectView.Material ?? .sheet
+        let theme = Defaults.object(forKey: "theme")
         let type  = Defaults.string(forKey: "type") ?? "setTheme"
         let media = Defaults.string(forKey: "media") ?? ""
         
@@ -158,12 +160,37 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         super.viewDidAppear()
         self.view.window?.delegate = self
         //self.view.window?.title = "Apple Music"
+        
+        let sheet = NSVisualEffectView.Material.sheet
+        
+        let theme = Defaults.object(forKey: "theme") as? NSVisualEffectView.Material ?? sheet
+        let type  = Defaults.string(forKey: "type") ?? "setTheme"
+        let media = Defaults.string(forKey: "media") ?? ""
+        
+        if Defaults.bool(forKey: "hasLaunchedBefore") {
+            // Set Default Blur
+            switch type {
+            case "setTheme":
+                setTheme(theme: theme)
+            case "setThemeWithMedia":
+                setTheme(theme: theme, withMedia: media)
+            case "setCustomTheme":
+                setTheme(theme: theme, withMedia: media)
+            default:
+                setTheme(theme: .sheet)
+            }
+            print("urlTHEME made it this far")
+        } else {
+            blur.material = .sheet
+            Defaults.set(true, forKey: "hasLaunchedBefore")
+            print("urlTHEME setting default to true")
+        }
     }
     
     
     func windowDidResize(_ notification: Notification) {
         // This will print the window's size each time it is resized.
-        print("URL Size:", view.window!.frame.size)
+        print("urlSize:", view.window!.frame.size)
     }
     
     private func windowDidResize(notification: NSNotification) {
@@ -202,7 +229,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         
         let css = cssString!
         
-        print("url css:", css)
+        //print("url css:", css)
         let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
         webView.evaluateJavaScript(js, completionHandler: nil)
     }
@@ -272,11 +299,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         // if url = "https://beta.music.apple.com/us/browse" - User has not logged in
         // if url =
         
-        
-        if lastURL.contains("authorize.music.apple.com") {
-            print("url authorize is lastURL")
-        }
-        
         // Check for Login Success (User clicked "Continue")
         // "https://authorize.music.apple.com/?liteSessionId"
         if lastURL.contains("authorize.music.apple.com") && url.contains("beta.music.apple.com") { //url.contains(Music.url) {
@@ -300,10 +322,10 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             //loginWebView?.removeFromSuperview()
             //loginWebView = nil
             
-            
         }
         
         lastURL = url
+        nowURL = url
         print("lastURL:", lastURL)
     }
 
@@ -416,6 +438,15 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             let css = ".web-navigation__logo-container { opacity: 100; }"
             let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
             self.webView.evaluateJavaScript(js, completionHandler: nil)
+        }
+    }
+    
+    // Open current page in Safari
+    @IBAction func openInSafari(_ sender: NSMenuItem) {
+        let url = URL(string: nowURL)
+        if NSWorkspace.shared.open(url ?? URL(string: "https://beta.music.apple.com/")!) {
+            print("default browser was successfully opened")
+
         }
     }
     

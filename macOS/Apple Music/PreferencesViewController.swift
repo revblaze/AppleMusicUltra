@@ -24,6 +24,10 @@ class PreferencesViewController: NSViewController, WKUIDelegate, WKNavigationDel
     
     var data: [Item] = TestData().items
     
+    var themeMat: NSVisualEffectView.Material = .sheet
+    var themeType = "setTheme"
+    var themeMedia = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         outlineView.dataSource = self
@@ -133,6 +137,9 @@ class PreferencesViewController: NSViewController, WKUIDelegate, WKNavigationDel
         blur.blendingMode = .behindWindow
         //imageView.isHidden = true
         imageView.alphaValue = 0
+        themeMat = theme
+        themeType = "setTheme"
+        
     }
     
     func setTheme(theme: NSVisualEffectView.Material, withMedia: String) {
@@ -142,8 +149,20 @@ class PreferencesViewController: NSViewController, WKUIDelegate, WKNavigationDel
         imageView.alphaValue = 1
         let image = NSImage(named: withMedia)
         imageView.image = image
+        themeMat = theme
+        themeType = "setThemeWithMedia"
     }
     
+    @IBAction func applyTheme(_ sender: Any) {
+        switch themeType {
+        case "setTheme":
+            ViewController().setTheme(theme: themeMat)
+        case "setThemeWithMedia":
+            ViewController().setTheme(theme: themeMat, withMedia: themeMedia)
+        default:
+            ViewController().setTheme(theme: themeMat, withMedia: themeMedia)
+        }
+    }
 }
 
 

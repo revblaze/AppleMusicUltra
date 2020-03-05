@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <plugIn identifier="com.apple.WebKit2IBPlugin" version="15705"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -788,6 +789,23 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Share" id="3L1-hV-i8h">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Share" id="xEq-JU-uS8">
+                                    <items>
+                                        <menuItem title="Share..." id="QPK-00-pZS">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="KbC-8n-n8d"/>
+                                        <menuItem title="Open in Safari" id="pyg-f8-BLr">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="openInSafari:" target="Ady-hI-5gd" id="2RN-bx-hKC"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Settings" id="dox-ib-ODj">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Settings" id="AxE-GG-HBc">
@@ -989,13 +1007,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ia-AD-kdh">
+                            <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ia-AD-kdh">
                                 <rect key="frame" x="0.0" y="0.0" width="165" height="800"/>
                                 <clipView key="contentView" drawsBackground="NO" id="euu-T2-KJi">
                                     <rect key="frame" x="1" y="1" width="163" height="798"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="Ejv-qD-6fl" id="GMj-XU-oPR">
+                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="Ejv-qD-6fl" id="GMj-XU-oPR">
                                             <rect key="frame" x="0.0" y="0.0" width="163" height="798"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -1004,7 +1022,7 @@
                                             <tableColumns>
                                                 <tableColumn identifier="outlineColumn" width="160" minWidth="16" maxWidth="1000" id="Ejv-qD-6fl">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -1094,12 +1112,27 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Q7r-Lz-WiQ">
+                                <rect key="frame" x="7" y="33" width="152" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="140" id="HPU-wZ-OUI"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Apply" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LsV-N6-Gv5">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="applyTheme:" target="hiY-y8-5QN" id="ADN-Ud-4pZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Hp6-aD-01J" secondAttribute="trailing" constant="-30" id="05r-fx-GY9"/>
                             <constraint firstItem="Hp6-aD-01J" firstAttribute="top" secondItem="w4G-Iq-qpN" secondAttribute="top" id="0ts-Hx-fGH"/>
+                            <constraint firstAttribute="bottom" secondItem="Q7r-Lz-WiQ" secondAttribute="bottom" constant="40" id="DNw-f5-mnX"/>
                             <constraint firstAttribute="trailing" secondItem="w4G-Iq-qpN" secondAttribute="trailing" constant="-289" id="EgH-VT-kav"/>
                             <constraint firstItem="6ia-AD-kdh" firstAttribute="leading" secondItem="P3C-j0-c5S" secondAttribute="leading" id="KS8-Bp-W6N"/>
+                            <constraint firstItem="Q7r-Lz-WiQ" firstAttribute="centerX" secondItem="6ia-AD-kdh" secondAttribute="centerX" id="Ln4-ku-aZR"/>
                             <constraint firstAttribute="bottom" secondItem="RF9-3L-zni" secondAttribute="bottom" id="Ltu-vK-xIG"/>
                             <constraint firstItem="uqg-bu-t7i" firstAttribute="top" secondItem="w4G-Iq-qpN" secondAttribute="top" id="SLJ-MD-80b"/>
                             <constraint firstItem="w4G-Iq-qpN" firstAttribute="leading" secondItem="6ia-AD-kdh" secondAttribute="trailing" constant="30" id="UGc-Dy-6q1"/>
@@ -1127,7 +1160,7 @@
                 </viewController>
                 <customObject id="Bvc-uZ-jpA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="737" y="998"/>
+            <point key="canvasLocation" x="860" y="1012"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="0xI-HO-uPo">
