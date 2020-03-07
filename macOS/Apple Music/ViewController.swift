@@ -24,6 +24,11 @@ struct Music {
     static let url = "https://beta.music.apple.com"
     static let userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15"
     // https://beta.music.apple.com/for-you
+    //static let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+    static let build: AnyObject? = Bundle.main.infoDictionary!["CFBundleVersion"] as AnyObject?
+    static let version: AnyObject? = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as AnyObject?
+    //static let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+    static let buildNumber = "1"
 }
 
 struct Preset {
@@ -39,9 +44,10 @@ struct Preset {
 let debug = true
 var lastURL = ""
 
-class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWindowDelegate {
+class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWindowDelegate, URLSessionDelegate, NSAlertDelegate {
 
     let hasLaunched = Defaults.bool(forKey: "hasLaunchedBefore")
+    let build = Bundle.main.infoDictionary!["CFBundleVersion"]
     
     // MARK: Variables
     @IBOutlet var webView: WKWebView!
@@ -64,6 +70,11 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /*
+        for i in Style.values {
+            print("urli: \(i)")
+        }*/
         
         if debug {
             print("url hasLaunchedBefore: \(hasLaunched)")
@@ -111,6 +122,21 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             topConstraint.constant = 0
         }
         
+        /*
+        let url = URL(string:"http://update.justinbush.ca/AMUpdate.txt")!
+        let task = URLSession.shared.dataTask(with:url) { (data, response, error) in
+            if error != nil {
+                print(error!)
+            } else {
+                if let textFile = String(data: data!, encoding: .utf8) {
+                    print("url textFile: \(textFile)")
+                    self.checkUpdate(text: textFile)
+                }
+            }
+        }
+        task.resume()
+ */
+        
     }
     
     override func viewWillAppear() {
@@ -142,6 +168,39 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     private func windowDidResize(notification: NSNotification) {
         print("URL Size:", view.window!.frame.size)
     }
+    
+    // Check for new version
+    // Make sure to edit AMUpdate.txt
+    /*
+    func checkUpdate(text: String) {
+        //let build = Music.build as! String
+        //let appBuild = build!
+        print("url Build: \(build)")
+        if text.compare(build, options: .numeric) == .orderedDescending {
+            print("url NEED UPDATE ***")
+            
+            let alert = NSAlert()
+            //alert.runModal()
+            alert.alertStyle = .informational
+            alert.messageText = "Update Available"
+            alert.informativeText = "There is an update available for Apple Music Ultra."
+            alert.addButton(withTitle: "Update Now")
+            alert.addButton(withTitle: "Remind Me Later")
+            
+            let result = alert.runModal()
+            
+            switch result {
+            case NSApplication.ModalResponse.alertFirstButtonReturn:
+                print("First (and usually default) button")
+            case NSApplication.ModalResponse.alertSecondButtonReturn:
+                print("Second (frequently cancel) button")
+                
+            default:
+                print("There is no provision for further buttons")
+            }
+            
+        }
+    }*/
     
     // MARK: WKWebView
     
@@ -357,29 +416,34 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     func setTheme(theme: NSVisualEffectView.Material) {
         imageView.alphaValue = 0
         blur.material = theme
-        blur.blendingMode = .behindWindow
+        //blur.blendingMode = .behindWindow
+        transparentWindow(true)
         saveDefaults(theme: theme, type: "setTheme", media: "")
     }
     /// Set active theme with image String
     func setTheme(theme: NSVisualEffectView.Material, withMedia: String) {
         blur.material = theme
-        blur.blendingMode = .withinWindow
+        //blur.blendingMode = .withinWindow
+        transparentWindow(false)
         setBackground(withMedia)
     }
     /// Set active theme with image URL
     func setTheme(theme: NSVisualEffectView.Material, withURL: URL) {
         blur.material = theme
-        blur.blendingMode = .withinWindow
+        //blur.blendingMode = .withinWindow
+        transparentWindow(false)
         setBackground(withURL)
     }
     func setCustomTheme(theme: NSVisualEffectView.Material) {
         let imageURL = windowController.selectImageFile()
-        blur.blendingMode = .withinWindow
+        //blur.blendingMode = .withinWindow
+        transparentWindow(false)
         setBackground(imageURL)
     }
     func setCustomTheme(theme: NSVisualEffectView.Material, withURL: URL) {
         //let imageURL = withURL
-        blur.blendingMode = .withinWindow
+        //blur.blendingMode = .withinWindow
+        transparentWindow(false)
         setBackground(withURL)
     }
     
@@ -387,6 +451,14 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         let themeString = "\(blur.material.self)" //"\(blur.material)"
         print("urlDebug: \(themeString)")
         return themeString
+    }
+    
+    func transparentWindow(_ toggle: Bool) {
+        if toggle {
+            blur.blendingMode = .behindWindow
+        } else {
+            blur.blendingMode = .withinWindow
+        }
     }
     
     // Set background with default theme
