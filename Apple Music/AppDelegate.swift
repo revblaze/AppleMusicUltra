@@ -32,12 +32,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 window.makeKeyAndOrderFront(self)
             }
         }
-        /* Crash
-        if !flag {
-            mainWindow.makeKeyAndOrderFront(nil)
-            NSApp.activate(ignoringOtherApps: true)
-        }
- */
         return true
     }
 
