@@ -165,7 +165,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
                     let current = Int(self.build) ?? 0
                     print("URLUpdateBuild, Current: \(current), Latest: \(latest)")
                     if latest > current {
-                        print("url made it this far")
+                        /* BUG: Unable to release TXT file cache */
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: {
                             self.updateAlert()
                         })
