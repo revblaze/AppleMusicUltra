@@ -17,10 +17,16 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Ultra for Apple Music" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About Ultra for Apple Music" id="5kV-Vb-QxS">
+                                        <menuItem title="About Apple Music Ultra" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Check for Updates" id="vJp-XB-Ztv">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="checkForUpdate:" target="Ady-hI-5gd" id="pEp-gB-2Vc"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
@@ -816,7 +822,7 @@
                                                 <action selector="toggleLogo:" target="Ady-hI-5gd" id="lRt-d4-419"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="dOH-7y-ZWH"/>
+                                        <menuItem isSeparatorItem="YES" id="kq0-SL-Z0e"/>
                                         <menuItem title="Open Settings..." id="q23-Eb-EpA">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>

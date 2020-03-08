@@ -23,12 +23,8 @@ struct Music {
     static let app = "Apple Music Web Client"
     static let url = "https://beta.music.apple.com"
     static let userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15"
-    // https://beta.music.apple.com/for-you
-    //static let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
     static let build: AnyObject? = Bundle.main.infoDictionary!["CFBundleVersion"] as AnyObject?
     static let version: AnyObject? = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as AnyObject?
-    //static let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-    static let buildNumber = "1"
 }
 
 struct Preset {
@@ -44,10 +40,11 @@ struct Preset {
 let debug = true
 var lastURL = ""
 
+
 class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWindowDelegate, URLSessionDelegate, NSAlertDelegate {
 
     let hasLaunched = Defaults.bool(forKey: "hasLaunchedBefore")
-    let build = Bundle.main.infoDictionary!["CFBundleVersion"]
+    let build = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
     
     // MARK: Variables
     @IBOutlet var webView: WKWebView!
@@ -66,21 +63,19 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     private var window: WindowController?
     let windowController: WindowController = WindowController()
     
+    let themeController = ThemeController()
+    
     var nowURL = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        /*
-        for i in Style.values {
-            print("urli: \(i)")
-        }*/
+        //themeController
         
         if debug {
             print("url hasLaunchedBefore: \(hasLaunched)")
             print("urlDidLoad Defaults(type: \(Preset.type), theme: \(Preset.theme), media: \(Preset.media)")
+            //Defaults.set(false, forKey: "hasLaunchedBefore")
         }
-        //Defaults.set(false, forKey: "hasLaunchedBefore")
         
         // WebView Configuration
         webView.setValue(false, forKey: "drawsBackground")
@@ -122,22 +117,12 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             topConstraint.constant = 0
         }
         
-        /*
-        let url = URL(string:"http://update.justinbush.ca/AMUpdate.txt")!
-        let task = URLSession.shared.dataTask(with:url) { (data, response, error) in
-            if error != nil {
-                print(error!)
-            } else {
-                if let textFile = String(data: data!, encoding: .utf8) {
-                    print("url textFile: \(textFile)")
-                    self.checkUpdate(text: textFile)
-                }
-            }
-        }
-        task.resume()
- */
-        
+        // Get latest version number from server (wait 5-10 seconds due to init crash errors)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: {
+            self.updateCheck()
+        })
     }
+    
     
     override func viewWillAppear() {
         self.view.window?.delegate = self
@@ -159,73 +144,87 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         self.view.window?.delegate = self
     }
     
-    
     func windowDidResize(_ notification: Notification) {
         // This will print the window's size each time it is resized.
-        print("urlSize:", view.window!.frame.size)
-    }
-    
-    private func windowDidResize(notification: NSNotification) {
-        print("URL Size:", view.window!.frame.size)
+        print("urlWindowSize:", view.window!.frame.size)
     }
     
     // Check for new version
-    // Make sure to edit AMUpdate.txt
-    /*
-    func checkUpdate(text: String) {
-        //let build = Music.build as! String
-        //let appBuild = build!
-        print("url Build: \(build)")
-        if text.compare(build, options: .numeric) == .orderedDescending {
-            print("url NEED UPDATE ***")
-            
-            let alert = NSAlert()
-            //alert.runModal()
-            alert.alertStyle = .informational
-            alert.messageText = "Update Available"
-            alert.informativeText = "There is an update available for Apple Music Ultra."
-            alert.addButton(withTitle: "Update Now")
-            alert.addButton(withTitle: "Remind Me Later")
-            
-            let result = alert.runModal()
-            
-            switch result {
-            case NSApplication.ModalResponse.alertFirstButtonReturn:
-                print("First (and usually default) button")
-            case NSApplication.ModalResponse.alertSecondButtonReturn:
-                print("Second (frequently cancel) button")
-                
-            default:
-                print("There is no provision for further buttons")
+    // Make sure to edit update.devsec.ca/applemusic/version.txt
+    func updateCheck() {
+        // Get latest version number from server
+        var url = URL(string:"https://update.devsec.ca/applemusic/version.txt")!
+        url.removeAllCachedResourceValues()
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                print(error!)
+            } else {
+                if let textFile = String(data: data!, encoding: .utf8) {
+                    //self.checkUpdate(text: textFile)
+                    let latest = Int(textFile) ?? 0
+                    let current = Int(self.build) ?? 0
+                    print("URLUpdateBuild, Current: \(current), Latest: \(latest)")
+                    if latest > current {
+                        print("url made it this far")
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: {
+                            self.updateAlert()
+                        })
+                    }
+                }
             }
-            
         }
-    }*/
+        task.resume()
+    }
+    
+    // NSAlert for new update available
+    func updateAlert() {
+        let alert = NSAlert()
+        alert.messageText = "Update Available"
+        alert.informativeText = "There is an update available for Apple Music Ultra."
+        alert.alertStyle = .informational
+        alert.addButton(withTitle: "Update Now")
+        alert.addButton(withTitle: "Remind Me Later")
+        let modalResult = alert.runModal()
+        
+        switch modalResult {
+        case .alertFirstButtonReturn: // NSApplication.ModalResponse.alertFirstButtonReturn
+            print("url First button clicked")
+            let url = URL(string: "https://update.devsec.ca/applemusic/latest.zip")
+            if NSWorkspace.shared.open(url ?? URL(string: "https://update.devsec.ca/applemusic/latest.zip")!) {
+                print("default browser was successfully opened")
+
+            }
+        case .alertSecondButtonReturn:
+            print("User clicked Remind Me Later")
+        default:
+            print("Default")
+        }
+    }
+    
     
     // MARK: WKWebView
     
     func titleChange(pageTitle: String) {
-        //self.view.window?.delegate = self
-        print("url start title:", pageTitle)
         // Fix Optional URL String
-        var title = pageTitle.replacingOccurrences(of: "Optional", with: "")
-        let brackets: Set<Character> = ["(", ")"]
-        title.removeAll(where: { brackets.contains($0) })
-        print("url New Title:", title)
-        
+        // START: Optional("Apple Music")
+        var title = pageTitle.replacingOccurrences(of: "Optional", with: "")    // Remove Optional
+        let brackets: Set<Character> = ["(", ")"]                               // Now: ("Apple Music")
+        title.removeAll(where: { brackets.contains($0) })                       // Remove ( )
+        title.removeFirst()                                                     // Remove first "
+        title.removeLast()                                                      // Remove last "
+        if debug { print("URL Page Title:", title) }                            // END: Apple Music
         self.view.window?.title = title
         self.view.window?.update()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        //let css = "style.css".isValidFile()
-        
         // Add default CSS stylesheet
         let path = Bundle.main.path(forResource: "style", ofType: "css", inDirectory: "Resources")
         var cssString: String? = nil
         do {
             cssString = try String(contentsOfFile: path ?? "", encoding: .ascii)
         } catch {
+            // Error
         }
         cssString = cssString?.replacingOccurrences(of: "\n", with: "")
         cssString = cssString?.replacingOccurrences(of: "\"", with: "'")
@@ -233,8 +232,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         cssString = cssString?.replacingOccurrences(of: "\")", with: "")
         
         let css = cssString!
-        
-        //print("url css:", css)
+        // if debug { print("URL CSS:", css) }
         let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
         webView.evaluateJavaScript(js, completionHandler: nil)
     }
@@ -265,8 +263,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let url = navigationAction.request.url?.absoluteString
         //guard let isAuth = url?.contains("https://idmsa.apple.com/IDMSWebAuth/") else { return nil }
-        
-        // https://idmsa.apple.com/auth
+        // Auth URL for catch: https://idmsa.apple.com/auth
         if let isAuth = url?.contains("https://idmsa.apple.com/IDMSWebAuth/") {
             if webView === loginWebView && isAuth {
                 self.presentLoginScreen(with: loginWebView!)
@@ -302,7 +299,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         
         // First Session Launch Checks
         // if url = "https://beta.music.apple.com/us/browse" - User has not logged in
-        // if url =
         
         // Check for Login Success (User clicked "Continue")
         // "https://authorize.music.apple.com/?liteSessionId"
@@ -331,7 +327,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         
         lastURL = url
         nowURL = url
-        print("lastURL:", lastURL)
+        //print("lastURL:", lastURL)
     }
 
     override var representedObject: Any? {
@@ -447,11 +443,12 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         setBackground(withURL)
     }
     
+    /*
     func themeToString(_ theme: NSVisualEffectView.Material) -> String {
         let themeString = "\(blur.material.self)" //"\(blur.material)"
-        print("urlDebug: \(themeString)")
+        //print("urlDebug: \(themeString)")
         return themeString
-    }
+    }*/
     
     func transparentWindow(_ toggle: Bool) {
         if toggle {
@@ -484,27 +481,36 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     // Save UserDefaults to restore next session
     func saveDefaults(theme: NSVisualEffectView.Material, type: String, media: String) {
-        let style = themeToString(theme)
-        print("urlRAW: \(theme.rawValue)")
-        Defaults.set(style, forKey: "style")
+        //let style = themeToString(theme)
+        //print("urlRAW: \(theme.rawValue)")
+        //Defaults.set(style, forKey: "style")
         Defaults.set(type, forKey: "type")
         //Defaults.set(theme, forKey: "theme")      // Crash
         Defaults.set(media, forKey: "media")
-        if debug { print("urlDefaults(type: \(type), style: \(style), media: \(media)") }
+        if debug { print("urlDefaults(type: \(type), style: \("style"), media: \(media)") }
     }
     
+    
     // MARK: Settings
+    
+    // Check for Update
+    @IBAction func checkForUpdate(_ sender: NSMenuItem) {
+        updateCheck()
+    }
+    
+    // Toggle NSMenuItem state
+    @IBAction func toggleState(_ sender: NSMenuItem) {
+        sender.state = sender.state == .on ? .off : .on
+    }
     
     // Toggle Music Logo (logo is at 0px top parent onShow notHidden again)
     @IBAction func toggleLogo(_ sender: NSMenuItem) {
         sender.state = sender.state == .on ? .off : .on
         if sender.state == .on {
-            //let css = ".web-navigation__logo-container { display: none; } .dt-search-box { padding-top: 20px; }"
             let css = ".web-navigation__logo-container { opacity: 0; }"
             let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
             webView.evaluateJavaScript(js, completionHandler: nil)
         } else {
-            //let css = ".web-navigation__logo-container { display: inline; padding-top: 20px; }"
             let css = ".web-navigation__logo-container { opacity: 100; }"
             let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
             self.webView.evaluateJavaScript(js, completionHandler: nil)
@@ -553,8 +559,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         //updateForWindowedMode()
     }
     
-
-
 }
 
 
@@ -572,7 +576,7 @@ extension WKWebView {
 
 // Checks to see if input file has contents or not
 public extension String {
-func isValidFile()->String {
+func isValidFile() -> String {
     if let path = Bundle.main.path(forResource:self , ofType: nil) {
         do {
             let text = try String(contentsOfFile:path, encoding: String.Encoding.utf8)

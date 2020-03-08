@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D00AFABB24145518008CD98E /* ThemeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00AFABA24145518008CD98E /* ThemeController.swift */; };
 		D020542924118C4B0073121A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020542824118C4B0073121A /* Settings.swift */; };
 		D061BF02240EBE57003F0EDD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D061BF01240EBE57003F0EDD /* LoginViewController.swift */; };
 		D061BF04240EBE71003F0EDD /* LoginWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D061BF03240EBE71003F0EDD /* LoginWindowController.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D00AFABA24145518008CD98E /* ThemeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeController.swift; sourceTree = "<group>"; };
 		D020542824118C4B0073121A /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		D061BF01240EBE57003F0EDD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D061BF03240EBE71003F0EDD /* LoginWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWindowController.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				D061BF01240EBE57003F0EDD /* LoginViewController.swift */,
 				D061BF03240EBE71003F0EDD /* LoginWindowController.swift */,
 				D0747F4324106D4300644340 /* PreferencesViewController.swift */,
+				D00AFABA24145518008CD98E /* ThemeController.swift */,
 				D020542824118C4B0073121A /* Settings.swift */,
 				D0E66AD9240EB30F005D93E2 /* Assets.xcassets */,
 				D0E66ADB240EB30F005D93E2 /* Main.storyboard */,
@@ -207,6 +210,7 @@
 				D09107142410AD8000CB39A9 /* NowPlayable.swift in Sources */,
 				D091071B2410AD8000CB39A9 /* ConfigModel.swift in Sources */,
 				D09107182410AD8000CB39A9 /* ConfigCommand.swift in Sources */,
+				D00AFABB24145518008CD98E /* ThemeController.swift in Sources */,
 				D09107162410AD8000CB39A9 /* NowPlayableCommand.swift in Sources */,
 				D09107152410AD8000CB39A9 /* NowPlayableError.swift in Sources */,
 				D0E66AD8240EB30D005D93E2 /* ViewController.swift in Sources */,

@@ -11,18 +11,16 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    lazy var windows = NSWindow()
     var mainWindow: NSWindow!
+    lazy var windows = NSWindow()
     var viewController: ViewController!
     var windowController: WindowController!
     
     var loginViewController: LoginViewController!
     var loginWindowController: LoginWindowController!
     
-
-    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        //Defaults.set(Bool(), forKey: "hasLaunchedBefore")
+        // App setup
     }
     
     // Handles Reopening of Main Window
