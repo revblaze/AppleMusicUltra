@@ -111,6 +111,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             ViewController().titleChange(pageTitle: title)
         }
         
+        // Background image fit window
         imageView.imageScaling = .scaleAxesIndependently
         
         if debug {
@@ -146,7 +147,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     func windowDidResize(_ notification: Notification) {
         // This will print the window's size each time it is resized.
-        print("urlWindowSize:", view.window!.frame.size)
+        if debug { print("urlWindowSize:", view.window!.frame.size) }
     }
     
     // Check for new version
@@ -243,7 +244,8 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     // <button data-targetid="continue" data-pageid="WebPlayerConfirmConnection" class="button-primary signed-in" data-ember-action="" data-ember-action-286="286">Continue</button>
     // style: button.button-primary.signed-in
     
-    // WebView: 650 x 710
+    // LoginWebView: 650 x 710
+    // Creates new loginWebView instance
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         loginWebView = WKWebView(frame: view.bounds, configuration: configuration)
         loginWebView!.frame = view.bounds
@@ -264,7 +266,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         let url = navigationAction.request.url?.absoluteString
         //guard let isAuth = url?.contains("https://idmsa.apple.com/IDMSWebAuth/") else { return nil }
         // Auth URL for catch: https://idmsa.apple.com/auth
-        if let isAuth = url?.contains("https://idmsa.apple.com/IDMSWebAuth/") {
+        if let isAuth = url?.contains("idmsa.apple.com/IDMSWebAuth/") { // contains("idmsa.apple.com")
             if webView === loginWebView && isAuth {
                 self.presentLoginScreen(with: loginWebView!)
             }
@@ -275,9 +277,9 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     // Create new Window with Login Prompt
     private func presentLoginScreen(with loginWebView: WKWebView) {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        // Instantiate login window view controller from storyboard
+        // Initiate login window view controller from storyboard
         if let loginWindowVC = storyboard.instantiateController(withIdentifier: "LoginWindow") as? LoginWindowController {
-            // Keep reverence to it in mememory
+            // Keep reference to it in memory
             loginWindowController = loginWindowVC
             if let loginVC = loginWindowVC.window?.contentViewController as? LoginViewController {
                 // Set preview webview
@@ -304,30 +306,20 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         // "https://authorize.music.apple.com/?liteSessionId"
         if lastURL.contains("authorize.music.apple.com") && url.contains("beta.music.apple.com") { //url.contains(Music.url) {
             print("URL detected, close Login")
-            
-            let loginView = LoginViewController()
-            let loginWindow = LoginWindowController()
-            
-            loginWindow.close()
-            
-            loginView.dismiss(self)
-            loginWindow.dismissController(self)
-            //dismiss(loginWindowController)
-            
-            
-            //loginView.closeLoginPrompt()
-            loginWindow.closeLoginPrompt()
-            //self.view.removeFromSuperview()
-            //dismissLoginView()
-            
-            //loginWebView?.removeFromSuperview()
-            //loginWebView = nil
-            
+            // Temp workaround: close current key window
+            App.keyWindow?.performClose(self)
         }
+        
+        // Loads URL when login fail:
+        // https://buy.itunes.apple.com/commerce/account/authenticateMusicKitRequest
+        if lastURL.contains("buy.itunes.apple.com") {//&& url.contains("authorize.music.apple.com") {
+            print("User failed to login")
+        }
+        
+        print("lastURL:", lastURL)
         
         lastURL = url
         nowURL = url
-        //print("lastURL:", lastURL)
     }
 
     override var representedObject: Any? {
@@ -337,11 +329,11 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     }
     
     func forceLightMode() {
-        
+        App.appearance = NSAppearance(named: .aqua)
     }
     
     func forceDarkMode() {
-        
+        App.appearance = NSAppearance(named: .darkAqua)
     }
     
     
@@ -382,14 +374,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     // MARK: Theme Manager
     
     func setThemeManager(theme: NSVisualEffectView.Material, type: String, media: Any) {
-        
-        /*
-        if type == "setTheme" {
-            setTheme(theme: theme)
-        }
-        */
-
-        
         // Media is an app background image (String)
         if let image = media as? String {
             if !(image.isEmpty) {
@@ -414,6 +398,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         blur.material = theme
         //blur.blendingMode = .behindWindow
         transparentWindow(true)
+        colorModeCheck(style: theme)
         saveDefaults(theme: theme, type: "setTheme", media: "")
     }
     /// Set active theme with image String
@@ -463,6 +448,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         setBackground(theme: .sheet, media: media)
     }
     
+    /// Set background of theme with image and blur effect
     func setBackground(theme: NSVisualEffectView.Material, media: Any) {
         imageView.alphaValue = 1
         var mediaString = ""
@@ -490,8 +476,44 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         if debug { print("urlDefaults(type: \(type), style: \("style"), media: \(media)") }
     }
     
+    /// Check and compare style to user's System appearance -> alert user if clash
+    func colorModeCheck(style: NSVisualEffectView.Material) {
+        //let styleInts = [1, 2, 8, 9]
+        let light = [1, 8]
+        let dark  = [2, 9]
+        if light.contains(style.rawValue) {
+            //colorModeAlert("Light")
+            forceLightMode()
+        } else {
+            forceDarkMode()
+        }
+        /*
+        if dark.contains(style.rawValue) {
+            //colorModeAlert("Dark")
+            forceDarkMode()
+        }
+        */
+    }
+    
+    /// Notify user of styles specific to their System Appearance (paramaters: "Dark" and "Light)
+    func colorModeAlert(_ mode: String) {
+        let user = currentMode.rawValue
+        //let message = "The Light & Dark styles work best when your Mac is in "
+        let title   = "You're currently in \(user) Mode"
+        let message = "The \(mode) styles look best when your Mac is in \(mode) Mode. Your Mac is currently in \(user) Mode.\n\nYou can change this in System Preferences... General... Appearance"
+        if user == "Light" && mode == "Dark" {
+            showDialog(title: title, text: message)
+        }
+        if user == "Dark" && mode == "Light" {
+            showDialog(title: title, text: message)
+        }
+    }
+    
     
     // MARK: Settings
+    
+    @IBAction func forceLightMode(_ sender: Any) { forceLightMode() }
+    @IBAction func forceDarkMode(_ sender: Any) { forceDarkMode() }
     
     // Check for Update
     @IBAction func checkForUpdate(_ sender: NSMenuItem) {
@@ -537,26 +559,63 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         titleBar.isHidden = false
         topConstraint.constant = 0//22.0
     }
+
     
-    /// Dismiss Launch view with fade out animation
-    private func dismissLoginView() {
-        //startLaunchActivityAnimation()
-        guard let loginWebView = loginWebView else {
-            return
+    // MARK: Extra
+    
+    // Light / Dark Mode Check
+    enum InterfaceStyle: String {
+       case Dark, Light
+
+       init() {
+          let type = UserDefaults.standard.string(forKey: "AppleInterfaceStyle") ?? "Light"
+          self = InterfaceStyle(rawValue: type)!
         }
+    }
+
+    let currentMode = InterfaceStyle()
+    
+    /// Show dialog alert with title and descriptor text
+    func showDialog(title: String, text: String) {
+        let alert = NSAlert()
+        alert.messageText = title
+        alert.informativeText = text
+        alert.alertStyle = .informational
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
+        /*
+        let modalResult = alert.runModal()
         
-        NSAnimationContext.runAnimationGroup({ (context) in
-            NSAnimationContext.current.duration = 0.4
-            loginWebView.animator().alphaValue = 0.0
-        }, completionHandler: {
-            loginWebView.isHidden = true
-            // Remove Launch view from super view and from memory
-            loginWebView.removeFromSuperview()
-            self.loginWebView = nil
-        })
+        switch modalResult {
+        case .alertFirstButtonReturn:
+            return true
+        case .alertSecondButtonReturn:
+            return false
+        default:
+            return false
+        }
+        return false*/
+    }
+    
+    /// Show alert with title and descriptor text; returns true if user clicks "OK"
+    func showAlert(title: String, text: String) -> Bool {
+        let alert = NSAlert()
+        alert.messageText = title
+        alert.informativeText = text
+        alert.alertStyle = .informational
+        alert.addButton(withTitle: "OK")
+        alert.addButton(withTitle: "Cancel")
+        let modalResult = alert.runModal()
         
-        // Show initial titlebar on first launch
-        //updateForWindowedMode()
+        switch modalResult {
+        case .alertFirstButtonReturn:
+            return true
+        case .alertSecondButtonReturn:
+            return false
+        default:
+            return false
+        }
+        return false
     }
     
 }

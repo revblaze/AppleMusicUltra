@@ -13,12 +13,6 @@ struct TestData {
     var items: [Item]
     
     init() {
-        /*
-        items = ["Styles": ["Light", "Vibrant Light", "Dark", "Vibrant Dark", "Vibrant", "Frosty", "Default"],
-                 "Themes": ["Wave", "Spring", "Bubbles", "Dunes", "Quartz"],
-                 "Custom": ["Select Image"]]
-        */
-        
         let titles = ["Styles", "Themes"]
         let styles = ["Light", "Vibrant Light", "Dark", "Vibrant Dark", "Vibrant", "Frosty", "Default"]
         let themes = ["Wave", "Spring", "Bubbles", "Dunes", "Quartz"]
@@ -43,20 +37,11 @@ struct TestData {
         items.append(group)
         
         /*
-        items = []
-        for g in 1...3 {
-            let group = Item("Group \(g)", .Group)
-            for f in 1...3 {
-                let item = Item("Folder \(g).\(f)", .Container)
-                for n in 1...4 {
-                    let node = Item("Node \(g).\(f).\(n)", .Node)
-                    item.children.append(node)
-                }
-                group.children.append(item)
-            }
-            items.append(group)
-         }
+        items = ["Styles": ["Light", "Vibrant Light", "Dark", "Vibrant Dark", "Vibrant", "Frosty", "Default"],
+                 "Themes": ["Wave", "Spring", "Bubbles", "Dunes", "Quartz"],
+                 "Custom": ["Select Image"]]
         */
     }
+    
 }
 

@@ -26,8 +26,10 @@ class LoginViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        self.view.window?.delegate = self
-        self.view.window?.title = "Apple Music Login"
+        view.window?.delegate = self
+        view.window?.title = "Apple Music Login"
+        // Keep as key window (front)
+        view.window?.level = .floating
     }
     
     // Set login webview
@@ -40,9 +42,7 @@ class LoginViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
         newWebView.configuration.applicationNameForUserAgent = Music.userAgent
         view.addSubview(newWebView)
         self.setupConstraints(for: newWebView)
-        loginWebView = newWebView // What is the reference for?
-        
-        //let config = loginWebView?.configuration.preferences
+        loginWebView = newWebView
         
         loginWebView?.allowsLinkPreview = false
         loginWebView?.allowsMagnification = false
@@ -58,52 +58,20 @@ class LoginViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
         let configuration = WKWebViewConfiguration()
         configuration.preferences = preferences
         
-        // This one works
         webViewURLObserver = loginWebView?.observe(\.url, options: .new) { loginWebView, change in
             let url = "\(String(describing: change.newValue))"
             ViewController().urlChange(urlString: url)
         }
-        /*
-        webViewURLObserver = newWebView.observe(\.url, options: .new) { newWebView, change in
-            let url = "\(String(describing: change.newValue))"
-            ViewController().urlChange(urlString: url)
-        }*/
-        
-        
-    }
     
-    func urlChange(urlString: String) {
-        // Fix Optional URL String
-        var url = urlString.replacingOccurrences(of: "Optional", with: "")
-        let brackets: Set<Character> = ["(", ")"]
-        url.removeAll(where: { brackets.contains($0) })
+        // Detect click event of Login success: Continue button
+        // https://stackoverflow.com/a/53755764/1234120
+        let js = "varbutton = document.getElementById('continue'); button.addEventListener('click', function() { varmessageToPost = {'ButtonId':'continue'}; window.webkit.messageHandlers.buttonClicked.postMessage(messageToPost); },false);"
+        loginWebView?.evaluateJavaScript(js, completionHandler: nil)
         
-        print("Login URL:", url)
+        // CSS Tester for Login Popup
+        //let css = "footer .footer { opacity: 0 !important; }"
+        //let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
     }
-    
-    func closeLoginPrompt() {
-        print("url we made it this far")
-        
-        loginWebView = nil
-        loginWebView?.removeFromSuperview()
-        //self.view.window!.performClose(nil)
-        //self.view.window!.windowController!.close()
-        self.dismiss(self)
-        //dismiss(self)
-    }
-    
-    
-    /*
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        let title = loginWebView?.title
-        //if title != "Drag & Drop Website Builder – UWeb.io" {
-            //titleBar.stringValue = title!
-            titleBar.drawsBackground = true
-            titleBar.backgroundColor = NSColor.clear
-            view.addSubview(self.titleBar)
-        //}
-    }
- */
     
 }
 

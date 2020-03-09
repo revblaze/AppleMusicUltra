@@ -651,6 +651,13 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Light" id="SdU-f7-pdI">
                                                 <items>
+                                                    <menuItem title="Light Mode" id="rJM-oF-xj1">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="forceLightMode:" target="Ady-hI-5gd" id="z0a-st-WE5"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="GvS-mW-Tbv"/>
                                                     <menuItem title="Light" id="fxT-Od-l3r">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
@@ -670,6 +677,10 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Dark" id="NcP-jv-Lhn">
                                                 <items>
+                                                    <menuItem title="Dark Mode" id="V8k-ct-3av">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="qE9-WS-jGX"/>
                                                     <menuItem title="Dark" id="rJb-5r-Qhv">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
@@ -1028,7 +1039,7 @@
                                             <tableColumns>
                                                 <tableColumn identifier="outlineColumn" width="160" minWidth="16" maxWidth="1000" id="Ejv-qD-6fl">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
