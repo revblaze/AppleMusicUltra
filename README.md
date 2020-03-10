@@ -10,7 +10,9 @@ Ultra for Apple Music is a personalized Music client with custom themes, sett
 ## [Download Latest Stable Build](https://github.com/revblaze/AppleMusicUltra/releases/download/v0.3-alpha/Ultra_v0.3-alpha.zip)
 `Ultra-v0.3.zip (5.5MB) build 3`
 
-Left-click `Ultra for Apple Music.app > Open` to bypass Apple's App Store wall & drag-drop to /Applications if you want to keep it after trying. 🤗
+Left-click `Ultra for Apple Music.app > Open` to bypass the App Store wall & drag-drop to `/Applications` if you want to keep it after trying. 🤗
+
+Updating from an older version? Drag and drop to `/Applications` and click `Replace`.
 
 <i>This app is currently under heavy development</i>
 
