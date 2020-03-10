@@ -135,6 +135,7 @@ class PreferencesViewController: NSViewController, WKUIDelegate, WKNavigationDel
         blur.material = theme
         blur.blendingMode = .behindWindow
         //imageView.isHidden = true
+        colorModeCheck(style: theme)
         imageView.alphaValue = 0
         themeMat = theme
         themeType = "setTheme"
@@ -150,6 +151,26 @@ class PreferencesViewController: NSViewController, WKUIDelegate, WKNavigationDel
         imageView.image = image
         themeMat = theme
         themeType = "setThemeWithMedia"
+    }
+    
+    /// Forces System Appearance to Light Mode
+    func forceLightMode() {
+        App.appearance = NSAppearance(named: .aqua)
+    }
+    /// Forces System Appearance to Dark Mode
+    func forceDarkMode() {
+        App.appearance = NSAppearance(named: .darkAqua)
+    }
+    
+    /// Check and compare style to user's System appearance -> alert user if clash
+    func colorModeCheck(style: NSVisualEffectView.Material) {
+        let light = [1, 8]
+        if light.contains(style.rawValue) {
+            //colorModeAlert("Light")
+            forceLightMode()
+        } else {
+            forceDarkMode()
+        }
     }
     
     @IBAction func applyTheme(_ sender: Any) {

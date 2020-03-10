@@ -190,10 +190,9 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         switch modalResult {
         case .alertFirstButtonReturn: // NSApplication.ModalResponse.alertFirstButtonReturn
             print("url First button clicked")
-            let url = URL(string: "https://update.devsec.ca/applemusic/latest.zip")
-            if NSWorkspace.shared.open(url ?? URL(string: "https://update.devsec.ca/applemusic/latest.zip")!) {
-                print("default browser was successfully opened")
-
+            let url = URL(string: "https://github.com/revblaze/AppleMusicUltra/releases/")
+            if NSWorkspace.shared.open(url ?? URL(string: "https://github.com/revblaze/AppleMusicUltra/")!) {
+                print("User's default browser was successfully opened")
             }
         case .alertSecondButtonReturn:
             print("User clicked Remind Me Later")
@@ -328,13 +327,18 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         }
     }
     
+    /// Forces System Appearance to Light Mode
     func forceLightMode() {
         App.appearance = NSAppearance(named: .aqua)
     }
-    
+    /// Forces System Appearance to Dark Mode
     func forceDarkMode() {
         App.appearance = NSAppearance(named: .darkAqua)
     }
+    
+    // Force System Appearance Mode (Light/Dark)
+    //@IBAction func forceLight(_ sender: Any) { forceLightMode() }
+    //@IBAction func forceDark(_ sender: Any) { forceDarkMode() }
     
     
     // MARK: Themes
@@ -511,9 +515,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     
     // MARK: Settings
-    
-    @IBAction func forceLightMode(_ sender: Any) { forceLightMode() }
-    @IBAction func forceDarkMode(_ sender: Any) { forceDarkMode() }
     
     // Check for Update
     @IBAction func checkForUpdate(_ sender: NSMenuItem) {

@@ -653,9 +653,6 @@
                                                 <items>
                                                     <menuItem title="Light Mode" id="rJM-oF-xj1">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="forceLightMode:" target="Ady-hI-5gd" id="z0a-st-WE5"/>
-                                                        </connections>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="GvS-mW-Tbv"/>
                                                     <menuItem title="Light" id="fxT-Od-l3r">
@@ -1039,7 +1036,7 @@
                                             <tableColumns>
                                                 <tableColumn identifier="outlineColumn" width="160" minWidth="16" maxWidth="1000" id="Ejv-qD-6fl">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
