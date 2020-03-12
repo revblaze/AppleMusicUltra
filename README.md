@@ -37,7 +37,8 @@ Setting a custom, user-selected image is as simple as prompting the user for the
 ```
 let imageURL = selectImageFile()
 setTheme(NSVisualEffectView.Material, darkMode: Bool, media: imageURL, type: "image")
-
+```
+```
 func selectImageFile() -> URL {
     let dialog = NSOpenPanel()
     dialog.allowsMultipleSelection = false
@@ -50,13 +51,19 @@ func selectImageFile() -> URL {
 ```
 
 ## UI Appearance
-Each theme has a `darkMode: Bool` property. 
+Each theme has a `darkMode: Bool` property that sets the Music Web Player<sup>BETA</sup> Light/Dark mode.
+```
+darkMode = true    // Force Dark Mode
+darkMode = false   // Force Light Mode
+```
 
+Just wanted to give a shout out to the devs behind the Web Player for designing this beautiful web app. The design of the UI seems to conform to its containers' `AppleInterfaceStyle`. Meaning everything in the web app has a Light mode and Dark mode property and conforms to whatever the theme mode is set to.
+
+Thus, this property's main function is to toggle the Light/Dark mode of the Music Web Player<sup>BETA</sup>
 
 ## Structure <sup>for now...</sup>
-
+`let fx = NSVisualEffectView.Material`
 ```
-let fx = NSVisualEffectView.Material
 struct Style {                                 //                          rawValue
     static let preset   = fx.appearanceBased   // Default Preset               0
     // Light Mode Styles                       LIGHT
@@ -69,6 +76,9 @@ struct Style {                                 //                          rawVa
     static let vibrant  = fx.dark              // Vibrant      (Transparent)   2
 }
 ```
+
+## WKWebView
+Assignment due at midnight, brb.
 
 
 ## Requirements
