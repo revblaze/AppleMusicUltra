@@ -657,16 +657,16 @@
                                         <menuItem title="Light Mode" id="FDo-kX-QJG">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
-                                        <menuItem title="Bright" id="fRJ-Q5-tGu">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="themeBright:" target="Ady-hI-5gd" id="r3T-HU-IEE"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Frosty" id="kcE-4M-Quo">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="themeFrosty:" target="Ady-hI-5gd" id="Dhd-gV-4LE"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Bright" id="fRJ-Q5-tGu">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="themeBright:" target="Ady-hI-5gd" id="r3T-HU-IEE"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Energy" id="2h1-uA-LYJ">
@@ -1006,7 +1006,7 @@
                                             <tableColumns>
                                                 <tableColumn identifier="outlineColumn" width="160" minWidth="16" maxWidth="1000" id="Ejv-qD-6fl">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="label" size="11"/>
+                                                        <font key="font" metaFont="toolTip"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>

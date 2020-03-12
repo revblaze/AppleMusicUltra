@@ -29,8 +29,8 @@ struct Music {
 struct Style {                                                          //                          rawValue
     static let preset = NSVisualEffectView.Material.appearanceBased     // Default Preset               0
     // Light Mode                                                       LIGHT
-    static let bright   = NSVisualEffectView.Material.sheet             // Bright       (Opaque)        11
-    static let frosty   = NSVisualEffectView.Material.mediumLight       // Frosty       (Middle)        8
+    static let frosty   = NSVisualEffectView.Material.sheet             // Frosty       (Opaque)        11
+    static let bright   = NSVisualEffectView.Material.mediumLight       // Bright       (Middle)        8
     static let energy   = NSVisualEffectView.Material.light             // Vibrant      (Transparent)   1
     // Dark Mode                                                        DARK
     static let cloudy   = NSVisualEffectView.Material.ultraDark         // Cloudy       (Opaque)        9
@@ -520,7 +520,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     func setCustomTheme() {
         let imageURL = windowController.selectImageFile()
         //setTheme(User.style, darkMode: User.darkMode, media: imageURL, type: User.type)
-        setTheme(liveStyle, darkMode: liveMode, media: imageURL, type: liveType)
+        setTheme(liveStyle, darkMode: liveMode, media: imageURL, type: "image")
     }
     
     /// Set new Style to Theme (without affecting current settings)
