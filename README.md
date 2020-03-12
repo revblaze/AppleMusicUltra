@@ -22,7 +22,7 @@ Allow users to personalize their Apple Music with customization.
 
 **Basic Syntax:** `setTheme(Style, darkMode: Bool, media: Any, type: String)`
 
-### Styles
+## Styles
 ![Apple Music Ultra](Media/transparent-4.gif)
 Styles are the top-layer effects that appear over every theme type. Using `setTheme`, they can be set to overlap your object-based theme to add some vibrant effects; or alternatively, they can be set to blur your system background using the built-in function `setTransparentTheme()`.
 
@@ -30,37 +30,40 @@ Styles are the top-layer effects that appear over every theme type. Using `setTh
 
 **with Object:** `setTheme(NSVisualEffectView.Material, darkMode: Bool, media: Object, type: String)`
 
-### Custom User Themes
+## Custom Themes
 ![Apple Music Ultra](Media/custom-fade-5.gif)
+Setting a custom, user-selected image is as simple as prompting the user for the `URL` path of their `file://` and setting it as the `media` property.
+
 ```
- let imageURL = selectImageFile()
- setTheme(NSVisualEffectView.Material, darkMode: Bool, media: URL, type: "image")
- ```
- 
- ```
- func selectImageFile() -> URL {
-     let dialog = NSOpenPanel()
-     dialog.allowsMultipleSelection = false
-     dialog.allowedFileTypes = ["png", "jpg", "jpeg"]
-     
-     if (dialog.runModal() == NSApplication.ModalResponse.OK) {
-         if let result = dialog.url?.absoluteURL {
-             return result
-         }
-     }
+let imageURL = selectImageFile()
+setTheme(NSVisualEffectView.Material, darkMode: Bool, media: imageURL, type: "image")
+
+func selectImageFile() -> URL {
+    let dialog = NSOpenPanel()
+    dialog.allowsMultipleSelection = false
+    dialog.allowedFileTypes = ["png", "jpg", "jpeg"]
+    
+    if (dialog.runModal() == NSApplication.ModalResponse.OK) {
+        if let result = dialog.url?.absoluteURL { return result }
+    }
 }
 ```
 
+## UI Appearance
+Each theme has a `darkMode: Bool` property. 
+
+
 ## Structure <sup>for now...</sup>
+
 ```
 let fx = NSVisualEffectView.Material
 struct Style {                                 //                          rawValue
-    static let preset = fx.appearanceBased     // Default Preset               0
-    // Light Mode                              LIGHT
+    static let preset   = fx.appearanceBased   // Default Preset               0
+    // Light Mode Styles                       LIGHT
     static let frosty   = fx.sheet             // Frosty       (Opaque)        11
     static let bright   = fx.mediumLight       // Bright       (Middle)        8
     static let energy   = fx.light             // Vibrant      (Transparent)   1
-    // Dark Mode                               DARK
+    // Dark Mode Styles                        DARK
     static let cloudy   = fx.ultraDark         // Cloudy       (Opaque)        9
     static let dark     = fx.toolTip           // Dark         (Middle)        17
     static let vibrant  = fx.dark              // Vibrant      (Transparent)   2
