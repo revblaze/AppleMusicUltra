@@ -11,11 +11,9 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    var mainWindow: NSWindow!
     lazy var windows = NSWindow()
     var viewController: ViewController!
     var windowController: WindowController!
-    
     var loginViewController: LoginViewController!
     var loginWindowController: LoginWindowController!
     
@@ -35,6 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+        //viewController.saveBeforeClosing()
     }
 
 

@@ -74,7 +74,8 @@ struct ThemeStructure {
     var url:   String
 }
 
-let fx = NSVisualEffectView.Material.self
+//let fx = NSVisualEffectView.Material.self
+/*
 struct Style {
     static let defaultStyle = fx.sheet
     static let vibrant      = fx.toolTip
@@ -93,6 +94,7 @@ struct Style {
         "Value": [11, 17, 8, 1, 9, 2, 0, 3, 10, 22, 21],
      "Material": [".sheet", ".toolTip", ".mediumLight", ".light", ".ultraDark", ".dark", ".appearanceBased", ".titlebar", ".headerView", ".underPageBackground", ".underWindowBackground"]]
 }
+ */
 
 // blur.material.rawValue = Int
 // NSVisualEffect.Material.rawValue = Int
@@ -115,9 +117,15 @@ struct GetStyle {
      "Material": [".sheet", ".toolTip", ".mediumLight", ".light", ".ultraDark", ".dark", ".appearanceBased", ".titlebar", ".headerView", ".underPageBackground", ".underWindowBackground"]]
 }
 
-
 class ThemeController {
     
+    /*
+    func stringToFX(_ string: String) -> NSVisualEffectView.Material {
+        
+    }
+    */
+    
+    /*
     func setTheme(_ style: Style) {
         // Set theme with Style and transparent background
     }
@@ -133,6 +141,7 @@ class ThemeController {
     func setTheme(_ style: Style, withURL: URL) {
         // Set theme with Style and custom image (from URL)
     }
+    */
     
     func printTheme() {
         for i in GetStyle.values {

@@ -23,45 +23,64 @@ struct Music {
     static let app = "Apple Music Web Client"
     static let url = "https://beta.music.apple.com"
     static let userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15"
-    static let build: AnyObject? = Bundle.main.infoDictionary!["CFBundleVersion"] as AnyObject?
-    static let version: AnyObject? = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as AnyObject?
 }
 
-struct Preset {
-    static let theme = Defaults.object(forKey: "theme") as? NSVisualEffectView.Material ?? .sheet
-    static let type  = Defaults.string(forKey: "type") ?? "setTheme"
-    static let media = Defaults.string(forKey: "media") ?? ""
-    
-    static let imURL = Defaults.url(forKey: "mediafile")
-    static let style = Defaults.string(forKey: "style")
+// ie. Style.preset
+struct Style {                                                          //                          rawValue
+    static let preset = NSVisualEffectView.Material.appearanceBased     // Default Preset               0
+    // Light Mode                                                       LIGHT
+    static let bright   = NSVisualEffectView.Material.sheet             // Bright       (Opaque)        11
+    static let frosty   = NSVisualEffectView.Material.mediumLight       // Frosty       (Middle)        8
+    static let energy   = NSVisualEffectView.Material.light             // Vibrant      (Transparent)   1
+    // Dark Mode                                                        DARK
+    static let cloudy   = NSVisualEffectView.Material.ultraDark         // Cloudy       (Opaque)        9
+    static let dark     = NSVisualEffectView.Material.toolTip           // Dark         (Middle)        17
+    static let vibrant  = NSVisualEffectView.Material.dark              // Vibrant      (Transparent)   2
+}
+
+// ie. User.type
+struct User {
+    static let darkMode = Defaults.bool(forKey: "darkMode")                     // dark ? light
+    static let type     = Defaults.string(forKey: "type")   ?? "transparent"    // tansparent, image, video, dynamic, url
+    static let style    = Defaults.object(forKey: "style")  as? NSVisualEffectView.Material ?? .appearanceBased
+    static let image    = Defaults.string(forKey: "image")  ?? ""               // "wave"
+    static let video    = Defaults.string(forKey: "video")  ?? ""               // "poly"
+    static let url      = Defaults.url(forKey: "url")       ?? URL(string: "")  // "file://"
+    static let dynamic  = Defaults.string(forKey: "dynamic")                    // TBD
 }
 
 
 let debug = true
 var lastURL = ""
 
-
 class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWindowDelegate, URLSessionDelegate, NSAlertDelegate {
+    
+    var firstOpen = false
 
     let hasLaunched = Defaults.bool(forKey: "hasLaunchedBefore")
     let build = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
     
+    var liveType    = User.type
+    var liveStyle   = NSVisualEffectView.Material.sheet //User.style
+    var liveMode    = User.darkMode
+    var liveImage   = User.image
+    
     // MARK: Variables
     @IBOutlet var webView: WKWebView!
-    @IBOutlet var titleBar: NSTextField!
     @IBOutlet var blur: NSVisualEffectView!
     @IBOutlet weak var imageView: NSImageView!
     @IBOutlet var topConstraint: NSLayoutConstraint!
+    @IBOutlet var dynamicWebView: WKWebView!        // Reminder: not connected to anything
     
     // WebView URL Observer
     var webViewURLObserver: NSKeyValueObservation?
     var webViewTitleObserver: NSKeyValueObservation?
     
-    private var loginWindowController: LoginWindowController?
-    
-    private var loginWebView: WKWebView?
     private var window: WindowController?
     let windowController: WindowController = WindowController()
+    
+    private var loginWebView: WKWebView?
+    private var loginWindowController: LoginWindowController?
     
     let themeController = ThemeController()
     
@@ -69,11 +88,10 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //themeController
         
         if debug {
             print("url hasLaunchedBefore: \(hasLaunched)")
-            print("urlDidLoad Defaults(type: \(Preset.type), theme: \(Preset.theme), media: \(Preset.media)")
+            print("urlDidLoad Defaults(type: \(User.type), style: \(User.style.rawValue)")
             //Defaults.set(false, forKey: "hasLaunchedBefore")
         }
         
@@ -98,6 +116,10 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         
         // Load Apple Music Web Beta
         webView.load(Music.url)
+        
+        setLaunchTheme()
+        
+        //setupDynamicWebView()
         
         // WebView URL Observer (Detect Changes)
         webViewURLObserver = webView.observe(\.url, options: .new) { webView, change in
@@ -127,17 +149,46 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     override func viewWillAppear() {
         self.view.window?.delegate = self
+        if debug { print("urlWillAppear style: \(User.style.rawValue)") }
+    }
+    
+    override func viewWillDisappear() {
+        saveBeforeClosing()
+    }
+    
+    /// Sets the Theme at app launch
+    func setLaunchTheme() {
+        let preset = NSVisualEffectView.Material.appearanceBased
         
-        let sheet = NSVisualEffectView.Material.sheet
+        let safeURL = User.url
+        let fileManager = FileManager()
+        
+        var darkMode: Bool
+        let appearance = (currentMode.rawValue == "Dark")    // Light ? Dark
+        if appearance { darkMode = true } else { darkMode = false }
         
         if hasLaunched {
-            //setTheme(theme: Preset.theme, withMedia: Preset.media)
-            setThemeManager(theme: Preset.theme, type: Preset.type, media: Preset.media)
+            let type = User.type
+            switch type {
+            case "image":
+                setTheme(User.style, darkMode: User.darkMode, media: User.image, type: type)
+            case "video":
+                setTheme(User.style, darkMode: User.darkMode, media: User.video, type: type)
+            case "dynamic":
+                setTheme(User.style, darkMode: User.darkMode, media: User.dynamic, type: type)
+            case "url":
+                if fileManager.fileExists(atPath: safeURL!.absoluteString) {    // if File exists
+                    setTheme(User.style, darkMode: User.darkMode, media: safeURL ?? "", type: type)
+                } else {
+                    setTheme(User.style, darkMode: User.darkMode, media: "", type: "transparent")
+                }
+            default:
+                setTheme(User.style, darkMode: User.darkMode, media: "", type: type)
+            }
         } else {
-            setTheme(theme: sheet)
+            setTheme(preset, darkMode: darkMode, media: "", type: "transparent")
             Defaults.set(true, forKey: "hasLaunchedBefore")
         }
-        
     }
     
     override func viewDidAppear() {
@@ -150,12 +201,34 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         if debug { print("urlWindowSize:", view.window!.frame.size) }
     }
     
+    func setupDynamicWebView() {
+        // WebView Configuration
+        dynamicWebView.allowsLinkPreview = false
+        dynamicWebView.allowsMagnification = false
+        dynamicWebView.allowsBackForwardNavigationGestures = false
+        dynamicWebView.customUserAgent = Music.userAgent
+        dynamicWebView.configuration.applicationNameForUserAgent = Music.userAgent
+        
+        dynamicWebView.load("about:blank")      // Load about:blank until set
+        
+        // Hide until working
+        dynamicWebView.isHidden = true
+        
+        if let url = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "dynamic/gradient") {
+            let urlRequest = URLRequest(url: url)
+            dynamicWebView.load(urlRequest)
+        }
+        
+        //dynamicWebView.isHidden = true
+    }
+    
     // Check for new version
     // Make sure to edit update.devsec.ca/applemusic/version.txt
+    // BUG: Fetching TXT data from server caches number, resulting in outdated checks
     func updateCheck() {
         // Get latest version number from server
         var url = URL(string:"https://update.devsec.ca/applemusic/version.txt")!
-        url.removeAllCachedResourceValues()
+        //url.removeAllCachedResourceValues()     // Doesn't work
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if error != nil {
                 print(error!)
@@ -175,30 +248,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             }
         }
         task.resume()
-    }
-    
-    // NSAlert for new update available
-    func updateAlert() {
-        let alert = NSAlert()
-        alert.messageText = "Update Available"
-        alert.informativeText = "There is an update available for Apple Music Ultra."
-        alert.alertStyle = .informational
-        alert.addButton(withTitle: "Update Now")
-        alert.addButton(withTitle: "Remind Me Later")
-        let modalResult = alert.runModal()
-        
-        switch modalResult {
-        case .alertFirstButtonReturn: // NSApplication.ModalResponse.alertFirstButtonReturn
-            print("url First button clicked")
-            let url = URL(string: "https://github.com/revblaze/AppleMusicUltra/releases/")
-            if NSWorkspace.shared.open(url ?? URL(string: "https://github.com/revblaze/AppleMusicUltra/")!) {
-                print("User's default browser was successfully opened")
-            }
-        case .alertSecondButtonReturn:
-            print("User clicked Remind Me Later")
-        default:
-            print("Default")
-        }
     }
     
     
@@ -315,7 +364,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             print("User failed to login")
         }
         
-        print("lastURL:", lastURL)
+        if debug { print("lastURL:", lastURL)}
         
         lastURL = url
         nowURL = url
@@ -330,10 +379,12 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     /// Forces System Appearance to Light Mode
     func forceLightMode() {
         App.appearance = NSAppearance(named: .aqua)
+        Defaults.set("light", forKey: "mode")
     }
     /// Forces System Appearance to Dark Mode
     func forceDarkMode() {
         App.appearance = NSAppearance(named: .darkAqua)
+        Defaults.set("dark", forKey: "mode")
     }
     
     // Force System Appearance Mode (Light/Dark)
@@ -343,39 +394,307 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     // MARK: Themes
     
-    // Core Vibrant Themes
+    // Default / Preset Style
+    @IBAction func themeDefault(_ sender: Any) { setDefaultTheme() }
+    // Light Mode Styles
+    @IBAction func themeBright(_ sender: Any) { setTheme(Style.bright, dark: false) }
+    @IBAction func themeFrosty(_ sender: Any) { setTheme(Style.frosty, dark: false) }
+    @IBAction func themeEnergy(_ sender: Any) { setTheme(Style.energy, dark: false) }
+    // Dark Mode Styles
+    @IBAction func themeCloudy(_ sender: Any) { setTheme(Style.cloudy, dark: true) }
+    @IBAction func themeDark(_ sender: Any) { setTheme(Style.dark, dark: true) }
+    @IBAction func themeVibrant(_ sender: Any) { setTheme(Style.vibrant, dark: true) }
     
-    // Defaults
-    @IBAction func themeDefault(_ sender: Any) { setTheme(theme: .sheet) }                  // Default
-    @IBAction func themeVibrant(_ sender: Any) { setTheme(theme: .toolTip) }                // Vibrant
-    // Light (Force Light Mode via CSS)
-    @IBAction func themeLight(_ sender: Any) { setTheme(theme: .mediumLight) }              // Light
-    @IBAction func themeVibrantLight(_ sender: Any) { setTheme(theme: .light) }             // Vibrant Light
-    // Dark (Force Dark Mode via CSS)
-    @IBAction func themeDark(_ sender: Any) { setTheme(theme: .ultraDark) }                 // Dark
-    @IBAction func themeVibrantDark(_ sender: Any) { setTheme(theme: .dark) }               // Vibrant Dark
-    // Other System Themes
-    @IBAction func themeFrosty(_ sender: Any) { setTheme(theme: .appearanceBased) }         // Frosty
-    @IBAction func themeFlat(_ sender: Any) { setTheme(theme: .titlebar) }                  // Flat
-    @IBAction func themePlain(_ sender: Any) { setTheme(theme: .headerView) }               // Plain
-    @IBAction func themeOpaque(_ sender: Any) { setTheme(theme: .underPageBackground) }     // Opaque
-    @IBAction func themeTemp(_ sender: Any) { setTheme(theme: .underWindowBackground) }     // Unknown (Temp)
-    
-    // Custom Themes
-    @IBAction func themeWave(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "wave") }
-    @IBAction func themePurple(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "purple") }
-    @IBAction func themeSilk(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "silk") }
-    @IBAction func themeBubbles(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "bubbles") }
-    @IBAction func themeGoblin(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "goblin") }
-    @IBAction func themeSpring(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "spring") }
-    @IBAction func themeQuartz(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "quartz") }
-    @IBAction func themeDunes(_ sender: Any) { setTheme(theme: .toolTip, withMedia: "dunes") }
+    // Themes
+    @IBAction func themeTransparent(_ sender: Any) { setTransparentTheme() }
+    @IBAction func themeWave(_ sender: Any) { setImage("wave") }
+    @IBAction func themePurple(_ sender: Any) { setImage("purple") }
+    @IBAction func themeSilk(_ sender: Any) { setImage("silk") }
+    @IBAction func themeBubbles(_ sender: Any) { setImage("bubbles") }
+    @IBAction func themeGoblin(_ sender: Any) { setImage("goblin") }
+    @IBAction func themeSpring(_ sender: Any) { setImage("spring") }
+    @IBAction func themeQuartz(_ sender: Any) { setImage("quartz") }
+    @IBAction func themeDunes(_ sender: Any) { setImage("dunes") }
     
     // Custom User Theme
-    @IBAction func themeCustom(_ sender: Any) { setCustomTheme(theme: .toolTip) }
+    @IBAction func themeCustom(_ sender: Any) { setCustomTheme() }
     
     
     // MARK: Theme Manager
+    
+    /**
+    Receives Style parameters and sends to proper set functions while handling a lot in the middle
+    
+     - Parameters:
+        - type: `default`, `image`, `video`, `url` (type of theme to set)
+        - style: NSVisualEffect.Material object (ie. fx.sheet)
+        - media: String or URL of image
+        - mode: `Light` or `Dark`. User selected theme mode.
+    
+     # Types Explained
+     - `default:` fx, transparent window, no media
+     - `image:` fx, opaque window, image String, image view
+     - `video:` fx, opaque window, video url or file (see HTML5 animations)
+     - `url:`fx, opaque window
+     
+     # Purpose
+     - Save Presets (`UserDefaults`) for next launch
+     - Send valid elements to proper setter functions
+     A description.
+     */
+    func setMedia(type: String, style: String, media: Any, mode: String) {
+        
+    }
+
+    
+    
+    
+    
+    
+    
+    /**
+     Set Light or Dark mode and save selection to Defaults
+        - Parameters:
+        - mode: `true` (Dark Mode), `false` (Light Mode)
+     
+     */
+    func setDarkMode(_ mode: Bool) {
+        if mode {
+            App.appearance = NSAppearance(named: .darkAqua)     // Force Dark Mode UI
+            Defaults.set("dark", forKey: "mode")                // Save Defaults
+            liveMode = true                                     // Set Live Variables
+        } else {
+            App.appearance = NSAppearance(named: .aqua)         // Force Light Mode UI
+            Defaults.set("light", forKey: "mode")               // Save Defaults
+            liveMode = false                                    // Set Live Variables
+        }
+    }
+    
+    /// Toggle window between transparent and background media
+    func transparentWindow(_ toggle: Bool) {
+        if toggle { blur.blendingMode = .behindWindow }     // Set blur behind window
+        else { blur.blendingMode = .withinWindow }          // Set blur within window
+    }
+    
+    /// Set background image of theme with blur effect
+    func setBackground(_ media: Any) {
+        imageView.alphaValue = 1                        // Show background imageView
+        //var mediaString = ""
+        if let object = media as? String {              // Test media as String
+            if !object.isEmpty {                        // Check for empty String
+                let image = NSImage(named: object)
+                imageView.image = image                 // Set image as background
+            } else { imageView.alphaValue = 0 }         // Empty String, hide background
+        }
+        if let object = media as? URL {                 // Test media as URL
+            let image = NSImage(byReferencing: object)  // Set image as custom user file
+            imageView.image = image                     // Set custom image as background
+            if debug { print("URLObject: \(object)") }
+            //mediaString = "\(object)"
+        }
+    }
+    
+    /*
+    setStyle(_ style: NSVisualEffectView) {
+        setTheme(style, darkMode: User.darkMode, media: User, type: User.type)
+    }
+ */
+    
+    /// Set background image from menu bar
+    func setImage(_ image: String) {
+        liveImage = image
+        setTheme(liveStyle, darkMode: liveMode, media: image, type: "image")
+    }
+    
+    /// Sets default theme with Style `.appearanceBased` and Type `transparent`
+    func setDefaultTheme() {
+        setTheme(liveStyle, darkMode: liveMode, media: "", type: "transparent")
+    }
+    
+    /// Sets window to `transparent` without affecting other settings
+    func setTransparentTheme() {
+        setTheme(liveStyle, darkMode: liveMode, media: "", type: "transparent")
+    }
+    
+    /// Set background image from user selected file (png, jpg or jpeg)
+    func setCustomTheme() {
+        let imageURL = windowController.selectImageFile()
+        //setTheme(User.style, darkMode: User.darkMode, media: imageURL, type: User.type)
+        setTheme(liveStyle, darkMode: liveMode, media: imageURL, type: liveType)
+    }
+    
+    /// Set new Style to Theme (without affecting current settings)
+    func setTheme(_ style: NSVisualEffectView.Material, dark: Bool) {
+        //imageView.alphaValue = 0
+        //transparentWindow(true)
+        liveStyle = style
+        liveMode  = dark
+        if debug { print("url setBoolLiveStyle: \(liveStyle.rawValue)") }
+        blur.material = style
+        setDarkMode(dark)
+        //saveDefaults(style, darkMode: dark, media: true, type: liveType)
+        /*
+        Defaults.set(style, forKey: "style")                // SET STYLE    (Material)
+        Defaults.set(dark, forKey: "darkMode")              // SET MODE     (Light/Dark)
+        */
+        saveDefaults(style, darkMode: dark, type: liveType)
+        //saveBeforeClosing()
+    }
+    
+    /// Set new transparent Style (without background media)
+    func setTheme(_ style: NSVisualEffectView.Material, darkMode: Bool, withMedia: Bool) {
+        if !withMedia {     // Check if Style has Media
+            setTheme(style, darkMode: darkMode, media: "", type: "transparent")
+        }
+    }
+    
+    // let imageURL = windowController.selectImageFile()        custom image code
+    
+    func setTheme(_ style: NSVisualEffectView.Material, darkMode: Bool, media: Any, type: String) {
+        // TEMP VARIABLES
+        liveType    = type
+        liveStyle   = style
+        liveMode    = darkMode
+        
+        if debug { print("url setLiveStyle: \(liveStyle.rawValue)") }
+        
+        // STYLE SETUP
+        setDarkMode(darkMode)       // Activate Light/Dark mode
+        blur.material = style       // Activate Style
+        imageView.alphaValue = 0    // Hide background image until needed
+        
+        // Check for Transparent Window
+        if type == "transparent" {
+            //imageView.alphaValue = 0
+            transparentWindow(true)             // Activate blur fx behind window
+            saveDefaults(style, darkMode: darkMode, media: "", type: "transparent")
+        } else { transparentWindow(false) }     // Activate blur fx within window
+        
+        // Activate Theme Switch
+        switch type {
+        case "image":
+            print("urlTypeImage: \(media)")
+            setBackground(media)
+        case "video":
+            print("Video code here")
+            // setVideo("videoName")
+        case "url":
+            print("urlTypeURL: \(media)")
+            setBackground(media)
+        case "dynamic":
+            print("Dynamic code here")
+            // setDynamic("dynamicName")
+        default:
+            setBackground(media)
+        }
+        
+        saveDefaults(style, darkMode: darkMode, media: media, type: type)
+    }
+    
+    func saveDefaults(_ style: NSVisualEffectView.Material, darkMode: Bool, media: Any, type: String) {
+        // Blank Media variables: set one with value, save all to Defaults
+        var image = "", video = "", dynamic = ""
+        var url   = URL(string: "")
+        
+        // SET TYPE
+        if let object = media as? String {                                      // Check if Media is empty
+            if object.isEmpty { Defaults.set("transparent", forKey: "type") }   //  true: set transparent type
+            else { Defaults.set(type, forKey: "type")                           // false: set proper type
+                // SET MEDIA (String)
+                if type == "image" { image = object }       // SET MEDIA: image
+                else if type == "video" { video = object }  // SET MEDIA: video
+                else { dynamic = object }                   // SET MEDIA: dynamic
+            }
+        }
+        if let object = media as? URL { url = object }      // SET MEDIA: url
+        if media is Bool { image = liveImage }
+        // SAVE DEFAULTS
+        //if !firstOpen {
+        DispatchQueue.main.async {
+            //Defaults.set(style, forKey: "style")                // SET STYLE    (Material)
+            Defaults.set(darkMode, forKey: "darkMode")          // SET MODE     (Light/Dark)
+            Defaults.set(image, forKey: "image")                // SET IMAGE
+            Defaults.set(video, forKey: "video")                // SET VIDEO
+            Defaults.set(dynamic, forKey: "video")              // SET DYNAMIC
+            Defaults.set(url, forKey: "url")                    // SET URL
+        }
+        //firstOpen = true
+    }
+    
+    /// Save Defaults without media
+    func saveDefaults(_ style: NSVisualEffectView.Material, darkMode: Bool, type: String) {
+        Defaults.set(type, forKey: "type")                  // SET TYPE
+        Defaults.set(style, forKey: "style")                // SET STYLE    (Material)
+        Defaults.set(darkMode, forKey: "darkMode")          // SET MODE     (Light/Dark)
+    }
+    
+    func saveBeforeClosing() {
+        if debug { print("url CLOSING APP, style: \(liveStyle.rawValue)") }
+        DispatchQueue.main.async {
+            Defaults.set(self.liveType, forKey: "type")              // SET TYPE
+            Defaults.set(self.liveStyle, forKey: "style")            // SET STYLE    (Material)
+            Defaults.set(self.liveMode, forKey: "darkMode")          // SET MODE     (Light/Dark)
+            Defaults.synchronize()
+        }
+    }
+
+    
+    
+    
+    
+    
+    @IBAction func dynamicGradient(_ sender: Any) { setDynamic() }
+    
+    func setDynamic() {
+        imageView.alphaValue = 0
+        blur.material = .sheet
+        transparentWindow(false)
+        //blur.blendingMode = .withinWindow
+        
+        //dynamicWebView.isHidden = false
+        // Open CustomLaunchView
+        let url = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "gradient")!
+        print("url DYNAMIC: \(url)")
+        dynamicWebView.loadFileURL(url, allowingReadAccessTo: url)
+        let request = URLRequest(url: url)
+        dynamicWebView.load(request)
+        
+    }
+ 
+    
+    
+    
+    
+    /*
+    /// Set Style with transparent background
+    func setStyle(_ style: NSVisualEffectView.Material) {
+        imageView.alphaValue = 0
+        transparentWindow(true)
+        blur.material = style
+        colorModeCheck(style)
+        setDefaults(style: style, type: "none", media: "")
+    }
+    
+    func setStyle(_ style: NSVisualEffectView.Material, type: String, media: String) {
+        imageView.alphaValue = 1
+        transparentWindow(false)
+        blur.material = style
+        colorModeCheck(style)
+        setBackground(media)
+        
+    }
+    
+    // Save UserDefaults to restore next session
+    func setDefaults(style: NSVisualEffectView.Material, type: String, media: String) {
+        //let style = themeToString(theme)
+        //print("urlRAW: \(theme.rawValue)")
+        //Defaults.set(style, forKey: "style")
+        Defaults.set(type, forKey: "type")
+        //Defaults.set(theme, forKey: "theme")      // Crash
+        Defaults.set(media, forKey: "media")
+        if debug { print("urlDefaults(type: \(type), style: \("style"), media: \(media)") }
+    }
+    
     
     func setThemeManager(theme: NSVisualEffectView.Material, type: String, media: Any) {
         // Media is an app background image (String)
@@ -402,7 +721,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         blur.material = theme
         //blur.blendingMode = .behindWindow
         transparentWindow(true)
-        colorModeCheck(style: theme)
+        colorModeCheck(theme)
         saveDefaults(theme: theme, type: "setTheme", media: "")
     }
     /// Set active theme with image String
@@ -431,72 +750,18 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         transparentWindow(false)
         setBackground(withURL)
     }
-    
-    /*
-    func themeToString(_ theme: NSVisualEffectView.Material) -> String {
-        let themeString = "\(blur.material.self)" //"\(blur.material)"
-        //print("urlDebug: \(themeString)")
-        return themeString
-    }*/
-    
-    func transparentWindow(_ toggle: Bool) {
-        if toggle {
-            blur.blendingMode = .behindWindow
-        } else {
-            blur.blendingMode = .withinWindow
-        }
-    }
-    
-    // Set background with default theme
-    func setBackground(_ media: Any) {
-        setBackground(theme: .sheet, media: media)
-    }
-    
-    /// Set background of theme with image and blur effect
-    func setBackground(theme: NSVisualEffectView.Material, media: Any) {
-        imageView.alphaValue = 1
-        var mediaString = ""
-        if let object = media as? String {
-            let image = NSImage(named: object)
-            imageView.image = image
-            mediaString = object
-        }
-        if let object = media as? URL {
-            let image = NSImage(byReferencing: object)
-            imageView.image = image
-            mediaString = "\(object)"
-        }
-        saveDefaults(theme: theme, type: "setThemeWithMedia", media: mediaString)
-    }
-    
-    // Save UserDefaults to restore next session
-    func saveDefaults(theme: NSVisualEffectView.Material, type: String, media: String) {
-        //let style = themeToString(theme)
-        //print("urlRAW: \(theme.rawValue)")
-        //Defaults.set(style, forKey: "style")
-        Defaults.set(type, forKey: "type")
-        //Defaults.set(theme, forKey: "theme")      // Crash
-        Defaults.set(media, forKey: "media")
-        if debug { print("urlDefaults(type: \(type), style: \("style"), media: \(media)") }
-    }
+    */
     
     /// Check and compare style to user's System appearance -> alert user if clash
-    func colorModeCheck(style: NSVisualEffectView.Material) {
+    func colorModeCheck(_ style: NSVisualEffectView.Material) {
         //let styleInts = [1, 2, 8, 9]
         let light = [1, 8]
         let dark  = [2, 9]
         if light.contains(style.rawValue) {
-            //colorModeAlert("Light")
             forceLightMode()
         } else {
             forceDarkMode()
         }
-        /*
-        if dark.contains(style.rawValue) {
-            //colorModeAlert("Dark")
-            forceDarkMode()
-        }
-        */
     }
     
     /// Notify user of styles specific to their System Appearance (paramaters: "Dark" and "Light)
@@ -551,18 +816,18 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     // WindowController did enter fullscreen mode
     public func updateForFullscreenMode() {
-        titleBar.isHidden = true
+        //titleBar.isHidden = true
         topConstraint.constant = 0
     }
     
     // WindowController did enter window mode
     public func updateForWindowedMode() {
-        titleBar.isHidden = false
+        //titleBar.isHidden = false
         topConstraint.constant = 0//22.0
     }
 
     
-    // MARK: Extra
+    // MARK: Extra Setup
     
     // Light / Dark Mode Check
     enum InterfaceStyle: String {
@@ -576,6 +841,34 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
 
     let currentMode = InterfaceStyle()
     
+    
+    
+    // MARK: Alerts
+    
+    // NSAlert for new update available
+    func updateAlert() {
+        let alert = NSAlert()
+        alert.messageText = "Update Available"
+        alert.informativeText = "There is an update available for Apple Music Ultra."
+        alert.alertStyle = .informational
+        alert.addButton(withTitle: "Update Now")
+        alert.addButton(withTitle: "Remind Me Later")
+        let modalResult = alert.runModal()
+        
+        switch modalResult {
+        case .alertFirstButtonReturn: // NSApplication.ModalResponse.alertFirstButtonReturn
+            print("url First button clicked")
+            let url = URL(string: "https://github.com/revblaze/AppleMusicUltra/releases/")
+            if NSWorkspace.shared.open(url ?? URL(string: "https://github.com/revblaze/AppleMusicUltra/")!) {
+                print("User's default browser was successfully opened")
+            }
+        case .alertSecondButtonReturn:
+            print("User clicked Remind Me Later")
+        default:
+            print("Default")
+        }
+    }
+    
     /// Show dialog alert with title and descriptor text
     func showDialog(title: String, text: String) {
         let alert = NSAlert()
@@ -584,18 +877,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         alert.alertStyle = .informational
         alert.addButton(withTitle: "OK")
         alert.runModal()
-        /*
-        let modalResult = alert.runModal()
-        
-        switch modalResult {
-        case .alertFirstButtonReturn:
-            return true
-        case .alertSecondButtonReturn:
-            return false
-        default:
-            return false
-        }
-        return false*/
     }
     
     /// Show alert with title and descriptor text; returns true if user clicks "OK"
@@ -616,7 +897,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         default:
             return false
         }
-        return false
     }
     
 }

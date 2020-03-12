@@ -11,6 +11,7 @@ import Cocoa
 class WindowController: NSWindowController, NSWindowDelegate {
     
     var maxScreen = false
+    var viewController: ViewController!
     
     override func windowDidLoad() {
         super.windowDidLoad()
@@ -23,6 +24,10 @@ class WindowController: NSWindowController, NSWindowDelegate {
     
     func windowDidBecomeMain(_ notification: Notification) {
         // windowDidBecomeMain
+    }
+    
+    func windowWillClose(_ notification: Notification) {
+        viewController.saveBeforeClosing()
     }
     
     func selectImageFile() -> URL {

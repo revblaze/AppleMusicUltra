@@ -21,6 +21,8 @@ class PreferencesViewController: NSViewController, WKUIDelegate, WKNavigationDel
     var folderImage = NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(OSType(kGenericFolderIcon)))
     var nodeImage = NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(OSType(kGenericDocumentIcon)))
     
+    //var 
+    
     var data: [Item] = TestData().items
     
     var themeMat: NSVisualEffectView.Material = .sheet
@@ -80,8 +82,6 @@ class PreferencesViewController: NSViewController, WKUIDelegate, WKNavigationDel
     }
     
    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        //let css = "style.css".isValidFile()
-        
         // Add default CSS stylesheet
         let path = Bundle.main.path(forResource: "style", ofType: "css", inDirectory: "Resources")
         var cssString: String? = nil
@@ -166,7 +166,6 @@ class PreferencesViewController: NSViewController, WKUIDelegate, WKNavigationDel
     func colorModeCheck(style: NSVisualEffectView.Material) {
         let light = [1, 8]
         if light.contains(style.rawValue) {
-            //colorModeAlert("Light")
             forceLightMode()
         } else {
             forceDarkMode()
@@ -174,6 +173,7 @@ class PreferencesViewController: NSViewController, WKUIDelegate, WKNavigationDel
     }
     
     @IBAction func applyTheme(_ sender: Any) {
+        /*
         switch themeType {
         case "setTheme":
             ViewController().setTheme(theme: themeMat)
@@ -181,7 +181,7 @@ class PreferencesViewController: NSViewController, WKUIDelegate, WKNavigationDel
             ViewController().setTheme(theme: themeMat, withMedia: themeMedia)
         default:
             ViewController().setTheme(theme: themeMat, withMedia: themeMedia)
-        }
+        }*/
     }
 }
 

@@ -643,98 +643,58 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Styles" id="lWJ-fK-wZI">
+                            <menuItem title="Styles" id="Q8u-Bc-h9z">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Styles" id="brt-jA-uar">
+                                <menu key="submenu" title="Styles" id="MXe-hU-hej">
                                     <items>
-                                        <menuItem title="Light" id="ApD-v1-s7x">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Light" id="SdU-f7-pdI">
-                                                <items>
-                                                    <menuItem title="Light Mode" id="rJM-oF-xj1">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem isSeparatorItem="YES" id="GvS-mW-Tbv"/>
-                                                    <menuItem title="Light" id="fxT-Od-l3r">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="themeLight:" target="Ady-hI-5gd" id="fG0-lG-d0W"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Vibrant Light" id="1N3-0D-pt6">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="themeVibrantLight:" target="Ady-hI-5gd" id="Bpz-mB-Cgl"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
-                                        </menuItem>
-                                        <menuItem title="Dark" id="dZW-03-PK0">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Dark" id="NcP-jv-Lhn">
-                                                <items>
-                                                    <menuItem title="Dark Mode" id="V8k-ct-3av">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem isSeparatorItem="YES" id="qE9-WS-jGX"/>
-                                                    <menuItem title="Dark" id="rJb-5r-Qhv">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="themeDark:" target="Ady-hI-5gd" id="y5l-qg-qFn"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Vibrant Dark" id="Tze-gI-lG4">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="themeVibrantDark:" target="Ady-hI-5gd" id="VVg-za-mj1"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="hEa-oc-LE7"/>
-                                        <menuItem title="Vibrant" id="Dfa-9w-cLW">
+                                        <menuItem title="Default" id="qxT-cL-cMK">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="themeVibrant:" target="Ady-hI-5gd" id="MuE-qF-2MU"/>
+                                                <action selector="themeDefault:" target="Ady-hI-5gd" id="fRm-nJ-5Hl"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Frosty" id="etw-4d-S6H">
+                                        <menuItem isSeparatorItem="YES" id="Dzh-ET-xXZ"/>
+                                        <menuItem title="Light Mode" id="FDo-kX-QJG">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Bright" id="fRJ-Q5-tGu">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="themeFrosty:" target="Ady-hI-5gd" id="xGv-tR-nPx"/>
+                                                <action selector="themeBright:" target="Ady-hI-5gd" id="r3T-HU-IEE"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Flat" id="aoB-OH-5Y4">
+                                        <menuItem title="Frosty" id="kcE-4M-Quo">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="themeFlat:" target="Ady-hI-5gd" id="9n5-sk-E6T"/>
+                                                <action selector="themeFrosty:" target="Ady-hI-5gd" id="Dhd-gV-4LE"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Plain" id="Ebk-mH-BJL">
+                                        <menuItem title="Energy" id="2h1-uA-LYJ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="themePlain:" target="Ady-hI-5gd" id="oEI-og-0pB"/>
+                                                <action selector="themeEnergy:" target="Ady-hI-5gd" id="lgM-dv-7tw"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Opaque" id="zKh-EW-FPz">
+                                        <menuItem isSeparatorItem="YES" id="VI1-Kw-JF8"/>
+                                        <menuItem title="Dark Mode" id="lDq-x1-jfE">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Cloudy" id="FrH-ba-bAS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="themeOpaque:" target="Ady-hI-5gd" id="Bll-QR-Ic0"/>
+                                                <action selector="themeCloudy:" target="Ady-hI-5gd" id="IGW-cZ-oKx"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Temp" id="YhC-U1-5MY">
+                                        <menuItem title="Dark" id="VSZ-h6-ztx">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="themeTemp:" target="Ady-hI-5gd" id="jex-kK-pS6"/>
+                                                <action selector="themeDark:" target="Ady-hI-5gd" id="Z47-dD-eBn"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="qH0-JG-FKd"/>
-                                        <menuItem title="Default" id="WeU-ba-zjW">
+                                        <menuItem title="Vibrant" id="xMu-cu-hoT">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="themeDefault:" target="Ady-hI-5gd" id="InN-Jr-7Pw"/>
+                                                <action selector="themeVibrant:" target="Ady-hI-5gd" id="UXJ-al-6HP"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -744,53 +704,63 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Themes" id="YnT-Px-AoF">
                                     <items>
+                                        <menuItem title="Dynamic" id="uLX-l1-zzy">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Transparent" id="83E-bx-faE">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="themeTransparent:" target="Ady-hI-5gd" id="gpr-pE-Kbn"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="tDp-kh-4tw"/>
                                         <menuItem title="Wave" id="I7O-Wq-Ivc">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="themeWave:" target="Ady-hI-5gd" id="R42-AI-3dy"/>
+                                                <action selector="themeWave:" target="Ady-hI-5gd" id="4sG-J5-5cC"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Spring" id="bRd-zX-VEu">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="themeSpring:" target="Ady-hI-5gd" id="C6a-zG-7al"/>
+                                                <action selector="themeSpring:" target="Ady-hI-5gd" id="anu-YW-mfq"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Bubbles" id="HfL-DP-isl">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="themeBubbles:" target="Ady-hI-5gd" id="tyn-S0-6l5"/>
+                                                <action selector="themeBubbles:" target="Ady-hI-5gd" id="icu-Fk-etg"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Dunes" id="HRa-Qt-Ajw">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="themeDunes:" target="Ady-hI-5gd" id="gyz-yB-gqN"/>
+                                                <action selector="themeDunes:" target="Ady-hI-5gd" id="VQi-4X-lRa"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Quartz" id="vvd-wc-pdn">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="themeQuartz:" target="Ady-hI-5gd" id="JHq-5d-Q9c"/>
+                                                <action selector="themeQuartz:" target="Ady-hI-5gd" id="KT6-0N-UL5"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="psi-c9-ERe"/>
                                         <menuItem title="Silk" id="dRL-yl-mds">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="themeSilk:" target="Ady-hI-5gd" id="zEe-3q-N07"/>
+                                                <action selector="themeSilk:" target="Ady-hI-5gd" id="I1c-4Q-c17"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Goblin" id="Gg9-Vj-ie3">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="themeGoblin:" target="Ady-hI-5gd" id="NYj-NM-SCp"/>
+                                                <action selector="themeGoblin:" target="Ady-hI-5gd" id="Afg-V7-l4v"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Purple Liquid" id="S1O-iJ-oqc">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="themePurple:" target="Ady-hI-5gd" id="MMk-JA-9dh"/>
+                                                <action selector="themePurple:" target="Ady-hI-5gd" id="9Yw-xB-8zL"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="jjg-eW-rES"/>
