@@ -7,10 +7,12 @@
 
 Ultra for Apple Music is a personalized Music client with custom themes, settings and more using CSS->JavaScript injection through the beautiful object that is WKWebView.
 
-## [Download Latest Stable Build](https://www.dropbox.com/s/jejcp6kunp3qi2x/AppleMusicUltra-v0.2.zip?dl=0)
-`Dropbox: AppleMusicUltra-v0.2.zip (5.5MB) build 2`
+## [Download Latest Stable Build](https://github.com/revblaze/AppleMusicUltra/releases/download/v0.3-alpha/Ultra_v0.3-alpha.zip)
+`Ultra-v0.3.zip (5.5MB) build 3`
 
-Left-click `Ultra for Apple Music.app > Open` to bypass Apple's App Store wall & drag-drop to /Applications if you want to keep it after trying. 🤗
+Left-click `Ultra for Apple Music.app > Open` to bypass the App Store wall & drag-drop to `/Applications` if you want to keep it after trying. 🤗
+
+Updating from an older version? Drag and drop to `/Applications` and click `Replace`.
 
 <i>This app is currently under heavy development</i>
 
