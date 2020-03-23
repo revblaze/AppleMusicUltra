@@ -4,7 +4,7 @@
  A custom Apple Music client with themes, personalized settings and more.
 
 ## Themes
-![Apple Music Ultra](Media/themes-7.gif)
+![Apple Music Ultra](Media/Themes.gif)
 
 Ultra for Apple Music is a personalized Music client with custom themes, settings and more using CSS->JavaScript injection through the beautiful object that is WKWebView.
 
@@ -23,7 +23,7 @@ Allow users to personalize their Apple Music with customization.
 **Basic Syntax:** `setTheme(Style, darkMode: Bool, media: Any, type: String)`
 
 ## Styles
-![Apple Music Ultra](Media/transparent-4.gif)
+![Apple Music Ultra](Media/Styles.gif)
 Styles are the top-layer effects that appear over every theme type. Using `setTheme`, they can be set to overlap your object-based theme to add some vibrant effects; or alternatively, they can be set to blur your system background using the built-in function `setTransparentTheme()`.
 
 **Tansparent:** `setTheme(NSVisualEffectView.Material, darkMode: Bool, media: nil, type: "transparent")`
@@ -31,7 +31,7 @@ Styles are the top-layer effects that appear over every theme type. Using `setTh
 **with Object:** `setTheme(NSVisualEffectView.Material, darkMode: Bool, media: Object, type: String)`
 
 ## Custom Themes
-![Apple Music Ultra](Media/custom-fade-5.gif)
+![Apple Music Ultra](Media/Custom.gif)
 Setting a custom, user-selected image is as simple as prompting the user for the `URL` path of their `file://` and setting it as the `media` property.
 
 ```
