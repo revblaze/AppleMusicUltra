@@ -726,12 +726,6 @@
                                                 <action selector="themeSpring:" target="Ady-hI-5gd" id="anu-YW-mfq"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Bubbles" id="HfL-DP-isl">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="themeBubbles:" target="Ady-hI-5gd" id="icu-Fk-etg"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Dunes" id="HRa-Qt-Ajw">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -744,13 +738,19 @@
                                                 <action selector="themeQuartz:" target="Ady-hI-5gd" id="KT6-0N-UL5"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="psi-c9-ERe"/>
                                         <menuItem title="Silk" id="dRL-yl-mds">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="themeSilk:" target="Ady-hI-5gd" id="I1c-4Q-c17"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Bubbles" id="HfL-DP-isl">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="themeBubbles:" target="Ady-hI-5gd" id="icu-Fk-etg"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="psi-c9-ERe"/>
                                         <menuItem title="Goblin" id="Gg9-Vj-ie3">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -1006,7 +1006,7 @@
                                             <tableColumns>
                                                 <tableColumn identifier="outlineColumn" width="160" minWidth="16" maxWidth="1000" id="Ejv-qD-6fl">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="toolTip"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>

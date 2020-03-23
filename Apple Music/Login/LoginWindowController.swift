@@ -17,14 +17,11 @@ class LoginWindowController: NSWindowController, NSWindowDelegate {
         window!.backgroundColor = NSColor.white
         window!.titlebarAppearsTransparent = true
         window!.isMovableByWindowBackground  = true
-        //window!.titleVisibility = .hidden
         window!.title = "Apple Music Login"
         window!.isReleasedWhenClosed = false
     }
     
     func windowShouldClose(_ sender: NSWindow) -> Bool {
-        //self.close()
-        //self.window?.close()
         print("url windowShouldClose")
         return true
     }

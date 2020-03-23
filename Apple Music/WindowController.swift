@@ -30,6 +30,13 @@ class WindowController: NSWindowController, NSWindowDelegate {
         viewController.saveBeforeClosing()
     }
     
+    /**
+     Prompts user to select an image file for custom background image
+     
+     - Returns: `URL` path to image file
+
+     Allowed file types: `.png` `.jpg` `.jpeg`
+     */
     func selectImageFile() -> URL {
         let dialog = NSOpenPanel()
         dialog.title = "Upload Custom Background"
@@ -40,25 +47,7 @@ class WindowController: NSWindowController, NSWindowDelegate {
         dialog.allowedFileTypes = ["png", "jpg", "jpeg"]
         
         if (dialog.runModal() == NSApplication.ModalResponse.OK) {
-            if let result = dialog.url?.absoluteURL {
-                //let fileManager = FileManager.default
-                return result
-
-            }
-        /* BUG: Saves Documents directory as image (Documents image file)
-        if (dialog.runModal() == NSApplication.ModalResponse.OK) {
-            if let result = dialog.url?.absoluteURL {
-                let fileManager = FileManager.default
-                var imageURL = result
-                // get URL to the the documents directory in the sandbox
-                let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as URL
-                fileManager.secureCopyItem(at: imageURL, to: documentsURL)
-                print("imageURL:", imageURL)
-                var imagePath = URL(string: "\(documentsURL)\(imageURL.lastPathComponent)")!
-                print("imagePathURL:", imagePath)
-                return imagePath //result
-            }*/
-            
+            if let result = dialog.url?.absoluteURL { return result }
         } else {
             return URL(string: "")! // User clicked cancel
         }
@@ -67,9 +56,12 @@ class WindowController: NSWindowController, NSWindowDelegate {
 
 }
 
-
+/* TO DO:
+    - Copy custom image from user-selected path to app's Documents or Resources directory
+    - Replace stored custom image with new user-selected image
+ */
 extension FileManager {
-
+    /// Securely copies an item from one destination to another
     open func secureCopyItem(at srcURL: URL, to dstURL: URL) -> Bool {
         do {
             if FileManager.default.fileExists(atPath: dstURL.path) {

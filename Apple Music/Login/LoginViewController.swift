@@ -60,7 +60,7 @@ class LoginViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
         
         webViewURLObserver = loginWebView?.observe(\.url, options: .new) { loginWebView, change in
             let url = "\(String(describing: change.newValue))"
-            ViewController().urlChange(urlString: url)
+            ViewController().urlDidChange(urlString: url)
         }
     
         // Detect click event of Login success: Continue button

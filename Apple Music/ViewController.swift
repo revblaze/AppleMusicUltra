@@ -5,65 +5,22 @@
 //  Created by Justin Bush on 2020-03-03.
 //  Copyright © 2020 Justin Bush. All rights reserved.
 //
+// Now Playable (Apple Docs):  https://developer.apple.com/documentation/mediaplayer/becoming_a_now_playable_app
+// MediaPlayer Control Centre: https://developer.apple.com/documentation/mediaplayer/remote_command_center_events
 
 import Cocoa
 import WebKit
 import AVKit
 import MediaPlayer
 
-// MediaPlayer Control Centre
-// https://developer.apple.com/documentation/mediaplayer/remote_command_center_events
-
 // System Variables
 let App = NSApplication.shared
 let Defaults = UserDefaults.standard
-let Notification = NotificationCenter.default
 
-struct Music {
-    static let app = "Apple Music Web Client"
-    static let url = "https://beta.music.apple.com"
-    static let userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15"
-}
-
-// ie. Style.preset
-struct Style {                                                          //                          rawValue
-    static let preset = NSVisualEffectView.Material.appearanceBased     // Default Preset               0
-    // Light Mode                                                       LIGHT
-    static let frosty   = NSVisualEffectView.Material.sheet             // Frosty       (Opaque)        11
-    static let bright   = NSVisualEffectView.Material.mediumLight       // Bright       (Middle)        8
-    static let energy   = NSVisualEffectView.Material.light             // Vibrant      (Transparent)   1
-    // Dark Mode                                                        DARK
-    static let cloudy   = NSVisualEffectView.Material.ultraDark         // Cloudy       (Opaque)        9
-    static let dark     = NSVisualEffectView.Material.toolTip           // Dark         (Middle)        17
-    static let vibrant  = NSVisualEffectView.Material.dark              // Vibrant      (Transparent)   2
-}
-
-// ie. User.type
-struct User {
-    static let darkMode = Defaults.bool(forKey: "darkMode")                     // dark ? light
-    static let type     = Defaults.string(forKey: "type")   ?? "transparent"    // tansparent, image, video, dynamic, url
-    static let style    = Defaults.object(forKey: "style")  as? NSVisualEffectView.Material ?? .appearanceBased
-    static let image    = Defaults.string(forKey: "image")  ?? ""               // "wave"
-    static let video    = Defaults.string(forKey: "video")  ?? ""               // "poly"
-    static let url      = Defaults.url(forKey: "url")       ?? URL(string: "")  // "file://"
-    static let dynamic  = Defaults.string(forKey: "dynamic")                    // TBD
-}
-
-
-let debug = true
-var lastURL = ""
+let debug = true        // Prints debug messages to console and runs debugger functions
+var lastURL = ""        // Saves previous URL to memory
 
 class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWindowDelegate, URLSessionDelegate, NSAlertDelegate {
-    
-    var firstOpen = false
-
-    let hasLaunched = Defaults.bool(forKey: "hasLaunchedBefore")
-    let build = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
-    
-    var liveType    = User.type
-    var liveStyle   = NSVisualEffectView.Material.sheet //User.style
-    var liveMode    = User.darkMode
-    var liveImage   = User.image
     
     // MARK: Variables
     @IBOutlet var webView: WKWebView!
@@ -72,30 +29,43 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     @IBOutlet var topConstraint: NSLayoutConstraint!
     @IBOutlet var dynamicWebView: WKWebView!        // Reminder: not connected to anything
     
-    // WebView URL Observer
+    // Active Theme Variables
+    var liveType    = User.type
+    var liveStyle   = NSVisualEffectView.Material.sheet //User.style
+    var liveMode    = User.darkMode
+    var liveImage   = User.image
+    
+    // WebView Observers
     var webViewURLObserver: NSKeyValueObservation?
     var webViewTitleObserver: NSKeyValueObservation?
     
+    // Reference Controllers
     private var window: WindowController?
     let windowController: WindowController = WindowController()
-    
     private var loginWebView: WKWebView?
     private var loginWindowController: LoginWindowController?
-    
     let themeController = ThemeController()
     
-    var nowURL = ""
+    // Launched Before & Build Number Checks (for Updates)
+    let hasLaunched = Defaults.bool(forKey: "hasLaunchedBefore")
+    let build = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
+    
+    var nowURL = ""     // Save current URL String to memory
+    
+    
+    
+    // MARK: View Setup
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if debug {
+        if debug {      // Initial Debug Values
             print("url hasLaunchedBefore: \(hasLaunched)")
             print("urlDidLoad Defaults(type: \(User.type), style: \(User.style.rawValue)")
             //Defaults.set(false, forKey: "hasLaunchedBefore")
         }
         
-        // WebView Configuration
+        // WebView Setup
         webView.setValue(false, forKey: "drawsBackground")
         webView.navigationDelegate = self
         webView.uiDelegate = self
@@ -104,41 +74,34 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         webView.allowsBackForwardNavigationGestures = false
         webView.customUserAgent = Music.userAgent
         webView.configuration.applicationNameForUserAgent = Music.userAgent
-        
+        // WebView Configuration
         let preferences = WKPreferences()
         preferences.javaScriptEnabled = true
         preferences.javaScriptCanOpenWindowsAutomatically = true
         let configuration = WKWebViewConfiguration()
         configuration.preferences = preferences
-        
         configuration.allowsAirPlayForMediaPlayback = true
-        webView.configuration.allowsAirPlayForMediaPlayback = true
         
         // Load Apple Music Web Beta
         webView.load(Music.url)
         
+        // Set Theme from Last Session
         setLaunchTheme()
-        
-        //setupDynamicWebView()
         
         // WebView URL Observer (Detect Changes)
         webViewURLObserver = webView.observe(\.url, options: .new) { webView, change in
             let url = "\(String(describing: change.newValue))"
-            ViewController().urlChange(urlString: url)
-        }
-        
+            ViewController().urlDidChange(urlString: url) }
         // WebView Title Observer
         webViewTitleObserver = self.observe(\.webView.title, options: .new) { webView, change in
             let title = "\(String(describing: change.newValue))"
-            ViewController().titleChange(pageTitle: title)
-        }
+            ViewController().titleDidChange(pageTitle: title) }
         
-        // Background image fit window
+        // Set background image to fit window size
         imageView.imageScaling = .scaleAxesIndependently
         
-        if debug {
-            topConstraint.constant = 0
-        }
+        // Set TopConstraint (for custom TopBar)
+        if debug { topConstraint.constant = 0 }
         
         // Get latest version number from server (wait 5-10 seconds due to init crash errors)
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: {
@@ -146,15 +109,31 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         })
     }
     
-    
     override func viewWillAppear() {
         self.view.window?.delegate = self
         if debug { print("urlWillAppear style: \(User.style.rawValue)") }
     }
     
     override func viewWillDisappear() {
-        saveBeforeClosing()
+        saveBeforeClosing()     // Save active theme parameters to Defaults
     }
+    
+    
+    
+    // MARK: WebView Setup
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        // Evaluate default CSS/JS code
+        let css = cssToString(file: "style", inDir: "Code")
+        let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
+        webView.evaluateJavaScript(js, completionHandler: nil)
+        
+        if debug { print("URL CSS Code:", css) }
+    }
+    
+    
+    
+    // MARK: Launch Theme
     
     /// Sets the Theme at app launch
     func setLaunchTheme() {
@@ -191,167 +170,18 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         }
     }
     
-    override func viewDidAppear() {
-        super.viewDidAppear()
-        self.view.window?.delegate = self
-    }
-    
-    func windowDidResize(_ notification: Notification) {
-        // This will print the window's size each time it is resized.
-        if debug { print("urlWindowSize:", view.window!.frame.size) }
-    }
-    
-    func setupDynamicWebView() {
-        // WebView Configuration
-        dynamicWebView.allowsLinkPreview = false
-        dynamicWebView.allowsMagnification = false
-        dynamicWebView.allowsBackForwardNavigationGestures = false
-        dynamicWebView.customUserAgent = Music.userAgent
-        dynamicWebView.configuration.applicationNameForUserAgent = Music.userAgent
-        
-        dynamicWebView.load("about:blank")      // Load about:blank until set
-        
-        // Hide until working
-        dynamicWebView.isHidden = true
-        
-        if let url = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "dynamic/gradient") {
-            let urlRequest = URLRequest(url: url)
-            dynamicWebView.load(urlRequest)
-        }
-        
-        //dynamicWebView.isHidden = true
-    }
-    
-    // Check for new version
-    // Make sure to edit update.devsec.ca/applemusic/version.txt
-    // BUG: Fetching TXT data from server caches number, resulting in outdated checks
-    func updateCheck() {
-        // Get latest version number from server
-        var url = URL(string:"https://update.devsec.ca/applemusic/version.txt")!
-        //url.removeAllCachedResourceValues()     // Doesn't work
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if error != nil {
-                print(error!)
-            } else {
-                if let textFile = String(data: data!, encoding: .utf8) {
-                    //self.checkUpdate(text: textFile)
-                    let latest = Int(textFile) ?? 0
-                    let current = Int(self.build) ?? 0
-                    print("URLUpdateBuild, Current: \(current), Latest: \(latest)")
-                    if latest > current {
-                        /* BUG: Unable to release TXT file cache */
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: {
-                            self.updateAlert()
-                        })
-                    }
-                }
-            }
-        }
-        task.resume()
-    }
     
     
-    // MARK: WKWebView
-    
-    func titleChange(pageTitle: String) {
-        // Fix Optional URL String
-        // START: Optional("Apple Music")
-        var title = pageTitle.replacingOccurrences(of: "Optional", with: "")    // Remove Optional
-        let brackets: Set<Character> = ["(", ")"]                               // Now: ("Apple Music")
-        title.removeAll(where: { brackets.contains($0) })                       // Remove ( )
-        title.removeFirst()                                                     // Remove first "
-        title.removeLast()                                                      // Remove last "
-        if debug { print("URL Page Title:", title) }                            // END: Apple Music
-        self.view.window?.title = title
-        self.view.window?.update()
-    }
-    
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        // Add default CSS stylesheet
-        let path = Bundle.main.path(forResource: "style", ofType: "css", inDirectory: "Resources")
-        var cssString: String? = nil
-        do {
-            cssString = try String(contentsOfFile: path ?? "", encoding: .ascii)
-        } catch {
-            // Error
-        }
-        cssString = cssString?.replacingOccurrences(of: "\n", with: "")
-        cssString = cssString?.replacingOccurrences(of: "\"", with: "'")
-        cssString = cssString?.replacingOccurrences(of: "Optional(", with: "")
-        cssString = cssString?.replacingOccurrences(of: "\")", with: "")
-        
-        let css = cssString!
-        // if debug { print("URL CSS:", css) }
-        let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
-        webView.evaluateJavaScript(js, completionHandler: nil)
-    }
-    
-    
-    // TO DO:
-    // Close login popup on this button click:
-    // <button data-targetid="continue" data-pageid="WebPlayerConfirmConnection" class="button-primary signed-in" data-ember-action="" data-ember-action-286="286">Continue</button>
-    // style: button.button-primary.signed-in
-    
-    // LoginWebView: 650 x 710
-    // Creates new loginWebView instance
-    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-        loginWebView = WKWebView(frame: view.bounds, configuration: configuration)
-        loginWebView!.frame = view.bounds
-        self.setupConstraints(for: loginWebView!)
-        loginWebView!.navigationDelegate = self
-        loginWebView!.uiDelegate = self
-        view.addSubview(loginWebView!)
-        return loginWebView!
-    }
-
-    func webViewDidClose(_ webView: WKWebView) {
-        webView.removeFromSuperview()
-        loginWebView = nil
-    }
-    
-    // Website URL Changes Here
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        let url = navigationAction.request.url?.absoluteString
-        //guard let isAuth = url?.contains("https://idmsa.apple.com/IDMSWebAuth/") else { return nil }
-        // Auth URL for catch: https://idmsa.apple.com/auth
-        if let isAuth = url?.contains("idmsa.apple.com/IDMSWebAuth/") { // contains("idmsa.apple.com")
-            if webView === loginWebView && isAuth {
-                self.presentLoginScreen(with: loginWebView!)
-            }
-        }
-        decisionHandler(.allow)
-    }
-    
-    // Create new Window with Login Prompt
-    private func presentLoginScreen(with loginWebView: WKWebView) {
-        let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        // Initiate login window view controller from storyboard
-        if let loginWindowVC = storyboard.instantiateController(withIdentifier: "LoginWindow") as? LoginWindowController {
-            // Keep reference to it in memory
-            loginWindowController = loginWindowVC
-            if let loginVC = loginWindowVC.window?.contentViewController as? LoginViewController {
-                // Set preview webview
-                loginVC.setWebView(loginWebView)
-            }
-            // Present login window to user
-            loginWindowVC.showWindow(self)
-        }
-    }
+    // MARK: URL & Title Manager
     
     /// Called when the WKWebView's absolute URL value changes
-    func urlChange(urlString: String) {
-        // Fix Optional URL String
-        var url = urlString.replacingOccurrences(of: "Optional", with: "")
-        let brackets: Set<Character> = ["(", ")"]
-        url.removeAll(where: { brackets.contains($0) })
-        
-        print("URL:", url)
-        
-        // First Session Launch Checks
-        // if url = "https://beta.music.apple.com/us/browse" - User has not logged in
+    func urlDidChange(urlString: String) {
+        // Clean & Reformat URL String
+        let url = cleanURL(urlString)
+        if debug { print("URL:", url) }
         
         // Check for Login Success (User clicked "Continue")
-        // "https://authorize.music.apple.com/?liteSessionId"
+        // Web Player returns URL on success: "https://authorize.music.apple.com/?liteSessionId"
         if lastURL.contains("authorize.music.apple.com") && url.contains("beta.music.apple.com") { //url.contains(Music.url) {
             print("URL detected, close Login")
             // Temp workaround: close current key window
@@ -364,35 +194,29 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             print("User failed to login")
         }
         
-        if debug { print("lastURL:", lastURL)}
+        if debug { print("lastURL:", lastURL) }
         
-        lastURL = url
-        nowURL = url
-    }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
+        lastURL = url   // Set lastURL to current URL at end of compare function
+        nowURL = url    // Save current URL to memory
     }
     
-    /// Forces System Appearance to Light Mode
-    func forceLightMode() {
-        App.appearance = NSAppearance(named: .aqua)
-        Defaults.set("light", forKey: "mode")
+    /// Called when the WKWebView's page title value changes
+    func titleDidChange(pageTitle: String) {
+        // Clean & Reformat Title String
+        // START: Optional("Apple Music")
+        var title = pageTitle.replacingOccurrences(of: "Optional", with: "")    // Remove Optional
+        let brackets: Set<Character> = ["(", ")"]                               // Now: ("Apple Music")
+        title.removeAll(where: { brackets.contains($0) })                       // Remove ( )
+        title.removeFirst()                                                     // Remove first "
+        title.removeLast()                                                      // Remove last "
+        if debug { print("URL Page Title:", title) }                            // END: Apple Music
+        self.view.window?.title = title
+        self.view.window?.update()
     }
-    /// Forces System Appearance to Dark Mode
-    func forceDarkMode() {
-        App.appearance = NSAppearance(named: .darkAqua)
-        Defaults.set("dark", forKey: "mode")
-    }
-    
-    // Force System Appearance Mode (Light/Dark)
-    //@IBAction func forceLight(_ sender: Any) { forceLightMode() }
-    //@IBAction func forceDark(_ sender: Any) { forceDarkMode() }
     
     
-    // MARK: Themes
+    
+    // MARK: IBThemes
     
     // Default / Preset Style
     @IBAction func themeDefault(_ sender: Any) { setDefaultTheme() }
@@ -420,6 +244,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     @IBAction func themeCustom(_ sender: Any) { setCustomTheme() }
     
     
+    
     // MARK: Theme Manager
     
     /**
@@ -445,13 +270,11 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     func setMedia(type: String, style: String, media: Any, mode: String) {
         
     }
+    
+    
+    
+    // MARK: Theme Helpers
 
-    
-    
-    
-    
-    
-    
     /**
      Set Light or Dark mode and save selection to Defaults
         - Parameters:
@@ -494,11 +317,9 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         }
     }
     
-    /*
-    setStyle(_ style: NSVisualEffectView) {
-        setTheme(style, darkMode: User.darkMode, media: User, type: User.type)
-    }
- */
+    
+    
+    // MARK: Theme Setters
     
     /// Set background image from menu bar
     func setImage(_ image: String) {
@@ -532,13 +353,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         if debug { print("url setBoolLiveStyle: \(liveStyle.rawValue)") }
         blur.material = style
         setDarkMode(dark)
-        //saveDefaults(style, darkMode: dark, media: true, type: liveType)
-        /*
-        Defaults.set(style, forKey: "style")                // SET STYLE    (Material)
-        Defaults.set(dark, forKey: "darkMode")              // SET MODE     (Light/Dark)
-        */
         saveDefaults(style, darkMode: dark, type: liveType)
-        //saveBeforeClosing()
     }
     
     /// Set new transparent Style (without background media)
@@ -591,6 +406,11 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         saveDefaults(style, darkMode: darkMode, media: media, type: type)
     }
     
+    
+    
+    // MARK: Save Defaults
+    
+    /// Save theme parameters to Defaults
     func saveDefaults(_ style: NSVisualEffectView.Material, darkMode: Bool, media: Any, type: String) {
         // Blank Media variables: set one with value, save all to Defaults
         var image = "", video = "", dynamic = ""
@@ -609,7 +429,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         if let object = media as? URL { url = object }      // SET MEDIA: url
         if media is Bool { image = liveImage }
         // SAVE DEFAULTS
-        //if !firstOpen {
         DispatchQueue.main.async {
             //Defaults.set(style, forKey: "style")                // SET STYLE    (Material)
             Defaults.set(darkMode, forKey: "darkMode")          // SET MODE     (Light/Dark)
@@ -618,16 +437,16 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             Defaults.set(dynamic, forKey: "video")              // SET DYNAMIC
             Defaults.set(url, forKey: "url")                    // SET URL
         }
-        //firstOpen = true
     }
     
-    /// Save Defaults without media
+    /// Save Defaults without media parameter
     func saveDefaults(_ style: NSVisualEffectView.Material, darkMode: Bool, type: String) {
         Defaults.set(type, forKey: "type")                  // SET TYPE
         Defaults.set(style, forKey: "style")                // SET STYLE    (Material)
         Defaults.set(darkMode, forKey: "darkMode")          // SET MODE     (Light/Dark)
     }
     
+    /// Saves active theme parameters to Defaults
     func saveBeforeClosing() {
         if debug { print("url CLOSING APP, style: \(liveStyle.rawValue)") }
         DispatchQueue.main.async {
@@ -640,117 +459,18 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
 
     
     
+    // MARK: Light/Dark Mode Handler
     
-    
-    
-    @IBAction func dynamicGradient(_ sender: Any) { setDynamic() }
-    
-    func setDynamic() {
-        imageView.alphaValue = 0
-        blur.material = .sheet
-        transparentWindow(false)
-        //blur.blendingMode = .withinWindow
-        
-        //dynamicWebView.isHidden = false
-        // Open CustomLaunchView
-        let url = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "gradient")!
-        print("url DYNAMIC: \(url)")
-        dynamicWebView.loadFileURL(url, allowingReadAccessTo: url)
-        let request = URLRequest(url: url)
-        dynamicWebView.load(request)
-        
+    /// Forces System Appearance to Light Mode
+    func forceLightMode() {
+        App.appearance = NSAppearance(named: .aqua)
+        Defaults.set("light", forKey: "mode")
     }
- 
-    
-    
-    
-    
-    /*
-    /// Set Style with transparent background
-    func setStyle(_ style: NSVisualEffectView.Material) {
-        imageView.alphaValue = 0
-        transparentWindow(true)
-        blur.material = style
-        colorModeCheck(style)
-        setDefaults(style: style, type: "none", media: "")
+    /// Forces System Appearance to Dark Mode
+    func forceDarkMode() {
+        App.appearance = NSAppearance(named: .darkAqua)
+        Defaults.set("dark", forKey: "mode")
     }
-    
-    func setStyle(_ style: NSVisualEffectView.Material, type: String, media: String) {
-        imageView.alphaValue = 1
-        transparentWindow(false)
-        blur.material = style
-        colorModeCheck(style)
-        setBackground(media)
-        
-    }
-    
-    // Save UserDefaults to restore next session
-    func setDefaults(style: NSVisualEffectView.Material, type: String, media: String) {
-        //let style = themeToString(theme)
-        //print("urlRAW: \(theme.rawValue)")
-        //Defaults.set(style, forKey: "style")
-        Defaults.set(type, forKey: "type")
-        //Defaults.set(theme, forKey: "theme")      // Crash
-        Defaults.set(media, forKey: "media")
-        if debug { print("urlDefaults(type: \(type), style: \("style"), media: \(media)") }
-    }
-    
-    
-    func setThemeManager(theme: NSVisualEffectView.Material, type: String, media: Any) {
-        // Media is an app background image (String)
-        if let image = media as? String {
-            if !(image.isEmpty) {
-                setTheme(theme: theme, withMedia: image)
-            } else {
-                // Media is just theme
-                setTheme(theme: theme)
-            }
-        }
-        // Media is a custom user-selected image (URL)
-        if let url = media as? URL {
-            let urlString = url.absoluteString.removingPercentEncoding
-            print("urlString: \(urlString)")
-            let newURL = URL(string: urlString ?? url.absoluteString)
-            setCustomTheme(theme: theme, withURL: newURL!)
-        }
-    }
-    
-    /// Set the active theme
-    func setTheme(theme: NSVisualEffectView.Material) {
-        imageView.alphaValue = 0
-        blur.material = theme
-        //blur.blendingMode = .behindWindow
-        transparentWindow(true)
-        colorModeCheck(theme)
-        saveDefaults(theme: theme, type: "setTheme", media: "")
-    }
-    /// Set active theme with image String
-    func setTheme(theme: NSVisualEffectView.Material, withMedia: String) {
-        blur.material = theme
-        //blur.blendingMode = .withinWindow
-        transparentWindow(false)
-        setBackground(withMedia)
-    }
-    /// Set active theme with image URL
-    func setTheme(theme: NSVisualEffectView.Material, withURL: URL) {
-        blur.material = theme
-        //blur.blendingMode = .withinWindow
-        transparentWindow(false)
-        setBackground(withURL)
-    }
-    func setCustomTheme(theme: NSVisualEffectView.Material) {
-        let imageURL = windowController.selectImageFile()
-        //blur.blendingMode = .withinWindow
-        transparentWindow(false)
-        setBackground(imageURL)
-    }
-    func setCustomTheme(theme: NSVisualEffectView.Material, withURL: URL) {
-        //let imageURL = withURL
-        //blur.blendingMode = .withinWindow
-        transparentWindow(false)
-        setBackground(withURL)
-    }
-    */
     
     /// Check and compare style to user's System appearance -> alert user if clash
     func colorModeCheck(_ style: NSVisualEffectView.Material) {
@@ -779,7 +499,8 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     }
     
     
-    // MARK: Settings
+    
+    // MARK: Custom Settings
     
     // Check for Update
     @IBAction func checkForUpdate(_ sender: NSMenuItem) {
@@ -814,18 +535,146 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         }
     }
     
-    // WindowController did enter fullscreen mode
-    public func updateForFullscreenMode() {
-        //titleBar.isHidden = true
-        topConstraint.constant = 0
+    // Force System Appearance Mode (Light/Dark)
+    //@IBAction func forceLight(_ sender: Any) { forceLightMode() }
+    //@IBAction func forceDark(_ sender: Any) { forceDarkMode() }
+
+    
+    
+    // MARK: Helper Functions
+    
+    /// Cleans and reformats Optional URL string.
+    /// `Optional("rawURL") -> rawURL`
+    func cleanURL(_ urlString: String) -> String {
+        // START: Optional(https://beta.music.apple.com)
+        print("urlDidChange: \(urlString)")
+        var url = urlString.replacingOccurrences(of: "Optional", with: "")  // Remove Optional
+        let brackets: Set<Character> = ["(", ")"]                           // Now: (https://beta.music.apple.com)
+        url.removeAll(where: { brackets.contains($0) })                     // Remove ( ) Brackets
+        return url
     }
     
-    // WindowController did enter window mode
-    public func updateForWindowedMode() {
-        //titleBar.isHidden = false
-        topConstraint.constant = 0//22.0
+    /// Cleans and reformats Optional CSS String for use in WKWebView.
+    func cssToString(_ css: String) -> String {
+        var cssString = css
+        cssString = cssString.replacingOccurrences(of: "\n", with: "")
+        cssString = cssString.replacingOccurrences(of: "\"", with: "'")
+        cssString = cssString.replacingOccurrences(of: "Optional(", with: "")
+        cssString = cssString.replacingOccurrences(of: "\")", with: "")
+        return cssString
+    }
+    
+    /**
+    Extracts Optional contents of a CSS file, cleans it and then reformats it as a String for use in WKWebView.
+    
+     - Parameters:
+        - file: Name of the CSS file without the `.css` extension (ie. `style`)
+        - inDir: The directory where the CSS file is located (ie. `WebCode`)
+     - Returns: A non-Optional String of the CSS file
+    
+     # Usage
+        let css = cssToString(file: "style", inDir: "WebCode")
+     */
+    func cssToString(file: String, inDir: String) -> String {
+        let path = Bundle.main.path(forResource: file, ofType: "css", inDirectory: inDir)
+        var cssString: String? = nil
+        do { cssString = try String(contentsOfFile: path ?? "", encoding: .ascii) }
+        catch { print("Error: Unable to locate custom styles") }
+        // Format CSS code properly
+        cssString = cssString?.replacingOccurrences(of: "\n", with: "")
+        cssString = cssString?.replacingOccurrences(of: "\"", with: "'")
+        cssString = cssString?.replacingOccurrences(of: "Optional(", with: "")
+        cssString = cssString?.replacingOccurrences(of: "\")", with: "")
+        return cssString ?? ""
+    }
+    
+    
+    
+    // MARK: Login Popup Manager
+    
+    // TO DO
+    // Close login popup on this button click:
+    // <button data-targetid="continue" data-pageid="WebPlayerConfirmConnection" class="button-primary signed-in" data-ember-action="" data-ember-action-286="286">Continue</button>
+    // style: button.button-primary.signed-in
+    
+    // Catch Apple auth request and present Login window
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let url = navigationAction.request.url?.absoluteString
+        // Auth URL for catch: https://idmsa.apple.com/auth
+        if let isAuth = url?.contains("idmsa.apple.com/IDMSWebAuth/") { // contains("idmsa.apple.com")
+            if webView === loginWebView && isAuth {
+                self.presentLoginScreen(with: loginWebView!)
+            }
+        }
+        decisionHandler(.allow)
+    }
+    
+    // Create new Window with Login Prompt
+    private func presentLoginScreen(with loginWebView: WKWebView) {
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        // Initiate login window view controller from storyboard
+        if let loginWindowVC = storyboard.instantiateController(withIdentifier: "LoginWindow") as? LoginWindowController {
+            // Keep reference to it in memory
+            loginWindowController = loginWindowVC
+            if let loginVC = loginWindowVC.window?.contentViewController as? LoginViewController {
+                // Set preview webview
+                loginVC.setWebView(loginWebView)
+            }
+            // Present login window to user
+            loginWindowVC.showWindow(self)
+        }
+    }
+    
+    // LoginWebView: 650 x 710
+    // Creates new loginWebView instance
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        loginWebView = WKWebView(frame: view.bounds, configuration: configuration)
+        loginWebView!.frame = view.bounds
+        self.setupConstraints(for: loginWebView!)
+        loginWebView!.navigationDelegate = self
+        loginWebView!.uiDelegate = self
+        view.addSubview(loginWebView!)
+        return loginWebView!
     }
 
+    func webViewDidClose(_ webView: WKWebView) {
+        webView.removeFromSuperview()
+        loginWebView = nil
+    }
+    
+    
+    
+    // MARK: Update Check
+    
+    // Check for new version
+    // Make sure to edit update.devsec.ca/applemusic/version.txt
+    // BUG: Fetching TXT data from server caches number, resulting in outdated checks
+    func updateCheck() {
+        // Get latest version number from server
+        var url = URL(string:"https://update.devsec.ca/applemusic/version.txt")!
+        //url.removeAllCachedResourceValues()     // Doesn't work
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                print(error!)
+            } else {
+                if let textFile = String(data: data!, encoding: .utf8) {
+                    //self.checkUpdate(text: textFile)
+                    let latest = Int(textFile) ?? 0
+                    let current = Int(self.build) ?? 0
+                    print("URLUpdateBuild, Current: \(current), Latest: \(latest)")
+                    if latest > current {
+                        /* BUG: Unable to release TXT file cache */
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: {
+                            self.updateAlert()
+                        })
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    
     
     // MARK: Extra Setup
     
@@ -838,8 +687,26 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
           self = InterfaceStyle(rawValue: type)!
         }
     }
-
-    let currentMode = InterfaceStyle()
+    let currentMode = InterfaceStyle()      // currentMode = "Dark" ? "Light"
+    
+    // WindowController did enter fullscreen mode
+    public func updateForFullscreenMode() {
+        //titleBar.isHidden = true
+        topConstraint.constant = 0
+    }
+    
+    // WindowController did enter window mode
+    public func updateForWindowedMode() {
+        //titleBar.isHidden = false
+        topConstraint.constant = 0//22.0
+    }
+    
+    
+    override var representedObject: Any? {
+        didSet {
+        // Update the view, if already loaded.
+        }
+    }
     
     
     
@@ -899,7 +766,17 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         }
     }
     
+    
+    
+    // MARK: Debug
+    
+    // Print new window dimensions when resized
+    func windowDidResize(_ notification: Notification) {
+        if debug { print("urlWindowSize:", view.window!.frame.size) }
+    }
+    
 }
+
 
 
 // MARK: Extensions
@@ -914,20 +791,7 @@ extension WKWebView {
     }
 }
 
-// Checks to see if input file has contents or not
-public extension String {
-func isValidFile() -> String {
-    if let path = Bundle.main.path(forResource:self , ofType: nil) {
-        do {
-            let text = try String(contentsOfFile:path, encoding: String.Encoding.utf8)
-            return text
-            } catch { print("Failed to read text from bundle file \(self)") }
-    } else { print("Failed to load file from bundle \(self)") }
-    return ""
-}
-}
-
-/// MARK: NSViewController extantion for constraints
+/// NSViewController extension for constraints
 extension NSViewController {
     /// Setup constraints for webview, it should be clip to bounds of the screen
     func setupConstraints(for webview: WKWebView) {
