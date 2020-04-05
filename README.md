@@ -4,7 +4,7 @@
  A custom Apple Music client with themes, personalized settings and more.
 
 ## [Download Latest Stable Build](https://github.com/revblaze/AppleMusicUltra/releases/download/v0.6-alpha/Themes-b2.zip)
-`Ultra-v0.6a.zip (8.5MB) build 6` (April 4, 2020)
+`Themes-b2.zip (8.9MB) Preview 2, alpha 6` (April 5, 2020)
 
 Left-click `Ultra for Apple Music.app > Open` to bypass the App Store wall & drag-drop to `/Applications` if you want to keep it after trying. 🤗
 
