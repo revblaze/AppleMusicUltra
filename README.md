@@ -3,11 +3,6 @@
 # Ultra for Apple Music
  A custom Apple Music client with themes, personalized settings and more.
 
-## Themes
-![Apple Music Ultra](Media/Themes.gif)
-
-Ultra for Apple Music is a personalized Music client with custom themes, settings and more using CSS->JavaScript injection through the beautiful object that is WKWebView.
-
 ## [Download Latest Stable Build](https://github.com/revblaze/AppleMusicUltra/releases/download/v0.6-alpha/Ultra-v0.6a.zip)
 `Ultra-v0.6a.zip (8.5MB) build 6` (April 4, 2020)
 
@@ -19,6 +14,11 @@ Updating from an older version? Drag and drop to `/Applications` and click `Repl
 
 # Customization
 Allow users to personalize their Apple Music with customization.
+
+## Themes
+![Apple Music Ultra](Media/Themes.gif)
+
+Ultra for Apple Music is a personalized Music client with custom themes, settings and more using CSS->JavaScript injection through the beautiful object that is WKWebView.
 
 **Basic Syntax:** `setTheme(Style, darkMode: Bool, media: Any, type: String)`
 
