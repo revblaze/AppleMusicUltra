@@ -13,6 +13,7 @@
 		  <div class="row"> 
 
   		  <div class="hover cards">
+                <card><a onclick="setClear()"><img src="images/themes/transparent.png"></a></card>
                 <card><a onclick="setCustom()"><img src="images/themes/custom.png"></a></card>
     			<card><a onclick="setWave()"><img src="images/themes/wave.png"></a></card>
     			<card><a onclick="setSpring()"><img src="images/themes/spring.png"></a></card>
@@ -31,6 +32,7 @@
     <script>
         function closeWindow(){ window.webkit.messageHandlers.jsHandler.postMessage("close"); }
 
+        function setClear()  { window.webkit.messageHandlers.jsHandler.postMessage("clear"); }
         function setCustom()  { window.webkit.messageHandlers.jsHandler.postMessage("custom"); }
         
         function setDefault() { window.webkit.messageHandlers.jsHandler.postMessage("preset"); }

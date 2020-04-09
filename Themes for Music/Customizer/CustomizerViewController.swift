@@ -41,8 +41,10 @@ class CustomizerViewController: NSViewController, WKUIDelegate, WKNavigationDele
     }
     
     override func viewDidAppear() {
-        if delegate != nil { print("Delegate is GOOD") }
-        else { print("Delegate = nil")}
+        if debug {
+            if delegate != nil { print("Customizable delegate is set to ViewController") }
+            else { print("Error: Customizable delegate = nil")}
+        }
     }
     
     // MARK: Customizer Setup

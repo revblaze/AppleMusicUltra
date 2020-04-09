@@ -31,7 +31,7 @@ var nowURL  = ""            // Saves current URL to memory
 var lastURL = ""            // Saves previous URL to memory
 var initLaunch = true       // Determines if app just launched
 
-let debug = false           // Activates debugger functions on true
+let debug = true           // Activates debugger functions on true
 
 class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWindowDelegate, Customizable { //, WKScriptMessageHandler {
     
@@ -122,7 +122,8 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     override func viewWillDisappear() {
         saveDefaults()              // Save Active.values to Defaults
         saveDefaultSettings()       // Save UI Settings to Defaults
-        print(self.view.window!.frame.size)
+        if debug { print("Saved User Session") }
+        if debug { print("Window Size: \(view.window!.frame.size)") }
     }
     
     
@@ -181,6 +182,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     /// Slide-out Customizer menu with animation and slightly fade main player `webView`
     func showCustomizer() {
         customizerView.isHidden = false
+        customizerButton.image = NSImage(named: "NSStopProgressFreestandingTemplate")
         NSAnimationContext.runAnimationGroup({ (context) -> Void in
             context.duration = 0.2 //length of the animation time in seconds
             customizerConstraint.animator().constant = 280
@@ -191,6 +193,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     }
     /// Slide-back/hide Customizer menu with animation and fade-in main player `webView` from slightly translucent state
     func hideCustomizer() {
+        customizerButton.image = NSImage(named: "NSSmartBadgeTemplate")
         NSAnimationContext.runAnimationGroup({ (context) -> Void in
             context.duration = 0.2 //length of the animation time in seconds
             customizerConstraint.animator().constant = 0
@@ -220,7 +223,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     // MARK: Manage URL
     
     @IBAction func runJSCode(_ sender: Any) {
-        print("LoginWindow is open: \(loginWindowIsOpen())")
+        if debug { print("LoginWindow is open: \(loginWindowIsOpen())") }
     }
     
     func updateLoginStatus() {
@@ -263,9 +266,11 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
                 if key == 0 { signedIn = true; User.isSignedIn = true }
                 else if key == 1 { signedIn = false; User.isSignedIn = false }
             }
-            
-            print("signedIn: \(signedIn)\nloginWindowState: \(loginWindowState)")
-            print("login isKeyWindow: \(isKeyWindow)")
+            if debug {
+                print("signedIn: \(signedIn)")
+                print("loginWindowState: \(loginWindowState)")
+                print("login isKeyWindow: \(isKeyWindow)")
+            }
             
             if signedIn && loginWindowState {
                 if isKeyWindow {
@@ -531,7 +536,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     /// Sets global variable `artwork` to input image string
     func setArtwork(_ image: String) {
         artwork = image
-        print("setArtwork: \(artwork)")
+        if debug { print("setArtwork: \(artwork)") }
     }
     
     // <audio id="apple-music-player" preload="metadata" title="Get Free (feat. Amber Coffman) - Major Lazer - Get Free - Single" src="blob:https://beta.music.apple.com/12e4f769-3bb7-3b4f-ad49-7b1bcf635f1c"></audio>
@@ -600,8 +605,10 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         loadDefaults()
         setStyle(Active.style)
         if Active.clear { setTransparent() }
-        if Active.image.contains("file://") { Active.image = "" }
-        setImage(Active.image)
+        else {
+            if Active.image.contains("file://") { Active.image = "" }
+            setImage(Active.image)
+        }
     }
     
     /// Sets app Style and NSAppearance (Light/Dark - based on Style)
@@ -836,16 +843,17 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         let title = "Confirm Sign Out"
         let text = "Are you sure that you want to sign out of Apple Music?"
         if showAlert(title: title, text: text, withAction: true) {
-            print("\(consoleDiv)\nAttempting to clear cookies...")
+            print("\(consoleDiv)\nAttempting to clear cookies & cache...")
             HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
             print("[WebCacheCleaner] All cookies deleted")
             
             WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
                 records.forEach { record in
                     WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
-                    print("[WebCacheCleaner] Record \(record) deleted")
+                    if debug { print("[WebCacheCleaner] Record \(record) deleted") }
                 }
             }
+            print("Successfully cleared cookies & cache.")
             webView.load(Music.url)
             return true
         }
@@ -1066,10 +1074,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     
     
-    // MARK: CUSTOMIZER HERE
-    
-    
-    
     // MARK: Extra Setup
 
     // Handle segues
@@ -1132,7 +1136,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     // Print new window dimensions when resized
     func windowDidResize(_ notification: Notification) {
-        print("WindowDidResize:", view.window!.frame.size)
+        if debug { print("WindowDidResize:", view.window!.frame.size) }
     }
     
     var lastConsoleEntry = ""

@@ -34,7 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if hideLogo { toggleLogoMenu.state = .on }
         else { toggleLogoMenu.state = .off }
         
-        print("signedIn: \(signedIn)")
+        if debug { print("User is signed in: \(signedIn)") }
         
         if signedIn { toggleLoginMenu.title = "Sign Out" }
         else { toggleLoginMenu.title = "Sign In" }
