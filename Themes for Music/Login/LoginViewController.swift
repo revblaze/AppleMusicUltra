@@ -1,8 +1,8 @@
 //
-//  LoginController.swift
-//  Apple Music
+//  LoginViewController.swift
+//  Themes for Music
 //
-//  Created by Justin Bush on 2020-03-03.
+//  Created by Justin Bush on 2020-03-21.
 //  Copyright © 2020 Justin Bush. All rights reserved.
 //
 
@@ -10,26 +10,25 @@ import Cocoa
 import WebKit
 
 class LoginViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWindowDelegate {
-    
+
+    // Variables
     var loginWebView: WKWebView?
-    @IBOutlet var titleBar: NSTextField!
     
     // WebView URL Observer
     var webViewURLObserver: NSKeyValueObservation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loginWebView?.navigationDelegate = self
         loginWebView?.uiDelegate = self
+        loginWebView?.navigationDelegate = self
     }
     
+    /* TEST COMMENTING THIS OUT */
     override func viewDidAppear() {
         super.viewDidAppear()
         view.window?.delegate = self
         view.window?.title = "Apple Music Login"
-        // Keep as key window (front)
-        view.window?.level = .floating
+        view.window?.level = .floating              // Keep as key window (front)
     }
     
     // Set login webview
@@ -60,18 +59,55 @@ class LoginViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
         
         webViewURLObserver = loginWebView?.observe(\.url, options: .new) { loginWebView, change in
             let url = "\(String(describing: change.newValue))"
-            ViewController().urlDidChange(urlString: url)
-        }
-    
-        // Detect click event of Login success: Continue button
-        // https://stackoverflow.com/a/53755764/1234120
-        let js = "varbutton = document.getElementById('continue'); button.addEventListener('click', function() { varmessageToPost = {'ButtonId':'continue'}; window.webkit.messageHandlers.buttonClicked.postMessage(messageToPost); },false);"
-        loginWebView?.evaluateJavaScript(js, completionHandler: nil)
-        
-        // CSS Tester for Login Popup
-        //let css = "footer .footer { opacity: 0 !important; }"
-        //let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
+            ViewController().urlDidChange(urlString: url) }
     }
     
 }
 
+
+
+/// MARK: NSViewController extantion for constraints
+extension NSViewController {
+    /// Setup constraints for webview, it should be clip to bounds of the screen
+    func setupConstraints(for webview: WKWebView) {
+        
+        webview.translatesAutoresizingMaskIntoConstraints = false
+        // Add constraints to main ViewController view
+        if let superView = webview.superview {
+            // Top
+            superView.addConstraints([NSLayoutConstraint(item: webview,
+                                                         attribute: .top,
+                                                         relatedBy: .equal,
+                                                         toItem: superView,
+                                                         attribute: .top,
+                                                         multiplier: 1.0,
+                                                         constant: 0.0)])
+            // Bottom
+            superView.addConstraints([NSLayoutConstraint(item: webview,
+                                                         attribute: .bottom,
+                                                         relatedBy: .equal,
+                                                         toItem: superView,
+                                                         attribute: .bottom,
+                                                         multiplier: 1.0,
+                                                         constant: 0.0)])
+            // Left
+            superView.addConstraints([NSLayoutConstraint(item: webview,
+                                                         attribute: .left,
+                                                         relatedBy: .equal,
+                                                         toItem: superView,
+                                                         attribute: .left,
+                                                         multiplier: 1.0,
+                                                         constant: 0.0)])
+            // Right
+            superView.addConstraints([NSLayoutConstraint(item: webview,
+                                                         attribute: .right,
+                                                         relatedBy: .equal,
+                                                         toItem: superView,
+                                                         attribute: .right,
+                                                         multiplier: 1.0,
+                                                         constant: 0.0)])
+            
+        }
+    }
+    
+}

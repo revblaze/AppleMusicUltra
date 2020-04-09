@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  Apple Music
+//  Themes for Music
 //
-//  Created by Justin Bush on 2020-03-03.
+//  Created by Justin Bush on 2020-03-21.
 //  Copyright © 2020 Justin Bush. All rights reserved.
 //
 
@@ -11,32 +11,65 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-        // Variables
-        lazy var windows = NSWindow()
-        var viewController: ViewController!
-        var windowController: WindowController!
-        var loginViewController: LoginViewController!
-        var loginWindowController: LoginWindowController!
+    // Variables
+    lazy var windows = NSWindow()
+    var viewController: ViewController!
+    var windowController: WindowController!
+    var loginViewController: LoginViewController!
+    var loginWindowController: LoginWindowController!
+    
+    @IBOutlet weak var debugMenu: NSMenuItem!
+    @IBOutlet weak var toggleLogoMenu: NSMenuItem!
+    @IBOutlet weak var toggleLoginMenu: NSMenuItem!
 
-        func applicationDidFinishLaunching(_ aNotification: Notification) {
-            // Insert code here to initialize your application
-        }
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        /*
+        Defaults.reset()                    // WARNING: RESETS DEFAULTS
+        Defaults.synchronize()*/
+        let hasLaunched = Defaults.bool(forKey: hasLaunchedKey)
+        if !hasLaunched { clearDefaults(); Defaults.set(true, forKey: hasLaunchedKey) }
+        if !debug { debugMenu.isHidden = true }
         
-        // Handles Reopening of Main Window
-        func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-            if !flag {
-                for window in sender.windows {
-                    window.makeKeyAndOrderFront(self)
-                }
-            }
-            return true
-        }
-
-        func applicationWillTerminate(_ aNotification: Notification) {
-            // Insert code here to tear down your application
-        }
+        // Hide Logo
+        if hideLogo { toggleLogoMenu.state = .on }
+        else { toggleLogoMenu.state = .off }
         
-        // MARK: Defaults
-        let hasLaunched = Defaults.bool(forKey: "hasLaunchedBefore")
-
+        print("signedIn: \(signedIn)")
+        
+        if signedIn { toggleLoginMenu.title = "Sign Out" }
+        else { toggleLoginMenu.title = "Sign In" }
+        
     }
+    
+    // Handles Reopening of Main Window
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        if !flag {
+            for window in sender.windows {
+                print(sender.windows)
+                window.makeKeyAndOrderFront(self)
+            }
+        }
+        return true
+    }
+
+    func applicationWillTerminate(_ aNotification: Notification) {
+        // Insert code here to tear down your application
+    }
+    
+    // MARK: Defaults
+    let hasLaunchedKey = "hasLaunchedBefore1"
+    let signedIn = Defaults.bool(forKey: "signedIn")
+    let hideLogo = Defaults.bool(forKey: "hideLogo")
+
+    
+    /// WARNING: Clears all active UserDefaults: `hideLogo`, `ActiveTheme`
+    func clearDefaults() {
+        Defaults.removeObject(forKey: "signedIn")
+        Defaults.removeObject(forKey: "hideLogo")
+        Defaults.removeObject(forKey: "ActiveTheme")
+        Defaults.removeObject(forKey: "mode")
+        Defaults.removeObject(forKey: "firstLaunch")
+    }
+    
+}
+
