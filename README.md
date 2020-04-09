@@ -1,6 +1,6 @@
 ![Apple Music Ultra](Media/Cover.jpg)
 
-# Ultra for Apple Music
+# Themes for Apple Music
 A custom Apple Music client with themes, personalized settings and more.
 
 ## [Download Latest Stable Build](https://github.com/revblaze/AppleMusicUltra/releases/download/v0.8-alpha/Themes-b4.zip)
@@ -10,15 +10,17 @@ Drag & drop to `/Applications` if you want to keep it after trying. 🤗
 
 Updating from an older version? Drag and drop to `/Applications` and click `Replace`.
 
-<i>This app is currently under heavy development</i>
+<i>This app is currently under heavy development.</i>
 
 # Customization
 Allow users to personalize their Apple Music with customization.
 
+**Note:** I recently merged the private beta code with the master branch. The new code (April 9, 2020) includes major structural changes, additional features, bug fixes and a UI overhaul. Due to this, the below documentation is not up-to-date and will need to be rewritten. It's currently exam season here, so I may not have time to do this for a little while. Thank you for your patience!
+
 ## Themes
 ![Apple Music Ultra](Media/Themes.gif)
 
-Ultra for Apple Music is a personalized Music client with custom themes, settings and more using CSS->JavaScript injection through the beautiful object that is WKWebView.
+Ultra for Apple Music is a personalized Music client with custom themes, settings and more using JavaScript injection through the beautiful object that is WKWebView.
 
 **Basic Syntax:** `setTheme(Style, darkMode: Bool, media: Any, type: String)`
 
