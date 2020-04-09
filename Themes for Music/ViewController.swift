@@ -89,13 +89,13 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         setLaunchTheme()
         
         // WebView URL Observer (Detect Changes)
-        webViewURLObserver = webView.observe(\.url, options: .new) { webView, change in
+        webViewURLObserver = webView.observe(\.url, options: .new) { [weak self] webView, change in
             let url = "\(String(describing: change.newValue))"
-            ViewController().urlDidChange(urlString: url) }
+            self?.urlDidChange(urlString: url) }
         // WebView Title Observer
-        webViewTitleObserver = self.observe(\.webView.title, options: .new) { webView, change in
+        webViewTitleObserver = self.observe(\.webView.title, options: .new) { [weak self] webView, change in
             let title = "\(String(describing: change.newValue))"
-            ViewController().titleDidChange(pageTitle: title) }
+            self?.titleDidChange(pageTitle: title) }
         
         // Set background image to fit window size
         imageView.imageScaling = .scaleAxesIndependently
