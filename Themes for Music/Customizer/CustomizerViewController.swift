@@ -15,6 +15,7 @@ protocol Customizable: class {
     func setCustomTheme()
     func setImage(_ image: String)
     func setStyle(_ style: Styles)
+    func setPresetStyle(_ style: Styles)
     
     func cleanURL(_ urlString: String) -> String
     func compareModes(_ style: Styles) -> Bool
@@ -130,3 +131,4 @@ class CustomizerViewController: NSViewController, WKUIDelegate, WKNavigationDele
     }
     
 }
+

@@ -68,15 +68,16 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     // UI Settings
     var logoIsHidden = false                                    // Toggle Hide/Show Logo
-    var launchBefore = false
+    
+    
     
     // MARK: View Setup
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //clearDefaults()
-        launchLoader.isHidden = false
-        launchLoader.startAnimation(true)
+        //clearDefaults()                                       // WARNING: Clears UserDefaults
+        launchLoader.isHidden = false                           // Show Launch Loader
+        launchLoader.startAnimation(true)                       // Animate Launch Loader
         // Music Player WebView Setup
         webView.navigationDelegate = self
         webView.uiDelegate = self
@@ -126,80 +127,15 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         if debug { print("Window Size: \(view.window!.frame.size)") }
     }
     
-    
-    
-    // MARK: Customizer
-
-    /// Show/hide Customizer popover menu based on if it's open already (⌘K)
-    @IBAction func showCustomizerMenu(_ sender: Any) {
-        if !customizerView.isHidden { hideCustomizer() } else { showCustomizer() } }
-    /// Hide Customizer popover menu
-    @IBAction func hideCustomizerMenu(_ sender: Any) { hideCustomizer() }
-    
-    /**
-    Hides/shows Customizer slide-over menu with animation.
-    
-     - Parameters:
-        - show: `Bool` to show or hide the Customizer menu
-        - time: `Double` that specifies animation time
-        - alpha: Directly interacts with `webVew.alphaValue`
-    
-     # Usage
-        // Show:
-        initCustomizer(true, time: 0.3, alpha: 0.6)
-        // Hide:
-        initCustomizer(false, time: 0.2, alpha: 1.0)
-     */
-    func initCustomizer(_ show: Bool, time: Double, alpha: Double) {
-        var constraint = 0
-        if show { constraint = 280 }
-        // Animate Customizer Side Menu (Duration: 0.3 secs)
-        let customTimeFunction = CAMediaTimingFunction(controlPoints: 5/6, 0.2, 2/6, 0.9)
-        NSAnimationContext.runAnimationGroup({(_ context: NSAnimationContext) -> Void in
-            context.timingFunction = customTimeFunction
-            context.duration = time
-            rightConstraint.animator().constant = CGFloat(constraint)
-            webView.animator().alphaValue = CGFloat(alpha)
-            customizerView.animator().isHidden = !show
-        }, completionHandler: {() -> Void in
-        })
-    }
-    
-    /// Fade-in WebView with animation on Launch
+    /// Fade-in WebView with animation on launch
     func fadePlayerAtLaunch() {
         launchLoader.isHidden = true
         NSAnimationContext.runAnimationGroup({ (context) -> Void in
             context.duration = 2
-            //launchLoader.animator().isHidden = true
             webView.animator().alphaValue = 1
             customizerButton.animator().isHidden = false
         }, completionHandler: { () -> Void in
-            //self.launchLoader.animator().isHidden = true
             self.launchLoader.stopAnimation(self)
-        })
-    }
-    
-    /// Slide-out Customizer menu with animation and slightly fade main player `webView`
-    func showCustomizer() {
-        customizerView.isHidden = false
-        customizerButton.image = NSImage(named: "NSStopProgressFreestandingTemplate")
-        NSAnimationContext.runAnimationGroup({ (context) -> Void in
-            context.duration = 0.2 //length of the animation time in seconds
-            customizerConstraint.animator().constant = 280
-            webView.animator().alphaValue = webAlphaFade
-        }, completionHandler: { () -> Void in
-            //print("CustomizerWebView (width, height):", self.customizerWebView.frame.size)
-        })
-    }
-    /// Slide-back/hide Customizer menu with animation and fade-in main player `webView` from slightly translucent state
-    func hideCustomizer() {
-        customizerButton.image = NSImage(named: "NSSmartBadgeTemplate")
-        NSAnimationContext.runAnimationGroup({ (context) -> Void in
-            context.duration = 0.2 //length of the animation time in seconds
-            customizerConstraint.animator().constant = 0
-            webView.animator().alphaValue = 1
-        }, completionHandler: { () -> Void in
-            self.customizerView.isHidden = true
         })
     }
     
@@ -212,86 +148,25 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         let css = cssToString(file: "style", inDir: "WebCode")
         let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
         webView.evaluateJavaScript(js, completionHandler: nil)
-        //if debug { print("URL CSS Code:", css) }
-        
+        // if debug { print("URL CSS Code:", css) }
         // UI Settings: UserDefaults
         if Defaults.bool(forKey: "hideLogo") { logoIsHidden = true; toggleLogoMenu(true) }
+        else { logoIsHidden = false; toggleLogoMenu(false) }
     }
-    
-    
-    
-    // MARK: Manage URL
-    
+    /// Debug menu: run custom JS code to test
     @IBAction func runJSCode(_ sender: Any) {
         if debug { print("LoginWindow is open: \(loginWindowIsOpen())") }
     }
-    
-    func updateLoginStatus() {
-        _ = loginWindowIsOpen()
-        webView?.evaluateJavaScript(Script.loginButton) { (key, err) in
-            if let key = key as? Int {
-                if key == 0 {User.isSignedIn = true }
-                else if key == 1 { User.isSignedIn = false }
-            }
-            
-            if User.isSignedIn { print("User Status: Signed in") }
-            else { print("User Status: Signed out") }
-            
-            if let err = err {
-                print(err.localizedDescription)
-                //self.userIsSignedIn = true
-            } else {
-                // No error
-            }
-        }
-    }
-    @IBAction func updateLoginStatus(_ sender: Any) {
-        updateLoginStatus()
-    }
-    
-    func loginWindowIsOpen() -> Bool {
-        let loginWindowState = loginWindowController?.window?.occlusionState.contains(.visible) ?? false
-        if loginWindowState { print("Login Window: Open") }
-        else { print("Login Window: Closed or Hidden") }
-        return loginWindowState
-    }
-    
-    /// Checks to see if the user is logged in and sets `User.isSignedIn`; closes `LoginWindow` if `true`
-    func checkLoginAndCloseWindow() {
-        var signedIn = true
-        let isKeyWindow = loginWindowController?.window?.isKeyWindow ?? false
-        let loginWindowState = loginWindowController?.window?.occlusionState.contains(.visible) ?? false
-        webView?.evaluateJavaScript(Script.loginButton) { (key, err) in
-            if let key = key as? Int {
-                if key == 0 { signedIn = true; User.isSignedIn = true }
-                else if key == 1 { signedIn = false; User.isSignedIn = false }
-            }
-            if debug {
-                print("signedIn: \(signedIn)")
-                print("loginWindowState: \(loginWindowState)")
-                print("login isKeyWindow: \(isKeyWindow)")
-            }
-            
-            if signedIn && loginWindowState {
-                if isKeyWindow {
-                    App.keyWindow?.performClose(self)
-                }
-            }
-            
-            if let err = err {
-                print(err.localizedDescription) }
-            else { /* No error */ }
-        }
-    }
-    
-    
     func showBufferIssueMessage() {
         let title = "Issues with Buffering First Song"
         let text = "Due to the fact that Apple Music's Library is public, they make a validation check upon requesting the first song (every new session). This just means that the first song to play, when you load up the app, will buffer for a few seconds as Apple attempts to verify that you're a valid subscriber. Once they've done their checks, the app will continue to stream music fluently. I'm looking into possible fixes, hang tight! \n\nUse ⌘K to show/hide the popover Customizer or use the Customize menu drop down in the menu bar."
         self.showDialog(title: title, text: text)
     }
     
-    // MARK: URL didChange
+    
+    
+    // MARK: URL Manager
+    // Used for managing Login, Error handling and setting UserDefaults
     
     /// Called when the WKWebView's absolute `URL` value changes
     func urlDidChange(urlString: String) {
@@ -300,109 +175,44 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         nowURL = url                            // Update nowURL to new URL
         
         // Fades-in Main Player WebView on Launch
-        if initLaunch {// && (url.contains("for-you")||url.contains("browser")) {
-            // LAST TO CALL
+        if initLaunch {
             fadePlayerAtLaunch()
-            /* Auto open Customizer 4 seconds after launch
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4.0, execute: {
-                self.showCustomizer()
-            })
-            */
             initLaunch = false
         }
         
         // Check if User is signed in: if true, keep LoginWindow closed
         checkLoginAndCloseWindow()
         
+        // Set firstLaunch
         if !User.firstLaunch && User.isSignedIn {
             showBufferIssueMessage()
             User.firstLaunch = true
             Defaults.set(true, forKey: "firstLaunch")
         }
         
-        /*
-        updateLoginStatus()
-        // If LoginWindow is open and User is signed in, close LoginWindow
-        if loginWindowIsOpen() && User.isSignedIn {
-            App.keyWindow?.performClose(self)
-        }
-        */
-        
-        // NOT SIGNED IN: https://beta.music.apple.com -> https://beta.music.apple.com/us/browse
-        // SIGNED IN: https://beta.music.apple.com -> https://beta.music.apple.com/ca/browse
-        // Maybe load Login-only page and see where it redirects in both states?
-        
-        // LOGIN AUTH CHECKS
-        //let loginURLAuth = "https://buy.itunes.apple.com/commerce/account/authenticateMusicKitRequest"  // ==
-        //let loginURLToken = "https://idmsa.apple.com/IDMSWebAuth/auth?oauth_token="                     // contains
-        // loginURL -> "" -> "about:blank" -> "" ->loginURLAuth -> loginURLToken
-        // if nowURL.contains("browse") { (Optional ???)
-        // if loginURL.contains(loginAuthToken) && lastLoginURL == loginURLAuth {
-        //     print("Login window loaded") }
-        
-        /*
-        let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
-        webView.evaluateJavaScript(js, completionHandler: nil) */
-        
-        // LOGIN POSSIBLE:
-        // Error output on every new page load AND click
-        // global var pageLoad = false
-        // in urlDidChange:
-        // var pageLoad = true
-        // if pageLoad { [Error output means button pressed]; pageLoad = false }
-        /*
-        if url.contains("browse") {
-            webView?.evaluateJavaScript("document.getElementsByClassName('web-navigation__auth-button').onclick();") { (key, err) in
-                if let err = err {
-                    print(err.localizedDescription)
-                } else {
-                    print("JS: You tapped the Sign In button!")
-                }}
-        }*/
-        
         // Save User CountryCode to Defaults
-        // if User.isSignedIn {
         let removeBaseURL = url.replacingOccurrences(of: "https://beta.music.apple.com/", with: "")
         var countryCode = removeBaseURL.replacingOccurrences(of: "/for-you", with: "")
         countryCode = countryCode.replacingOccurrences(of: "/browse", with: "")
         countryCode = countryCode.replacingOccurrences(of: "/radio", with: "")      // Remove /radio
         if countryCode.count == 2 {             // Check that country code is length 2
             if debug { print("Country Code: \(countryCode)") }
-            Defaults.set(countryCode, forKey: "CountyCode")
-        }
-        /*
-        if userSignedIn && !launchBefore {
-            showCustomizer()
-            launchBefore = true
-        }*/
-        
-        // First Session Launch Checks
-        // if url = "https://beta.music.apple.com/us/browse" - User has not logged in
-        
-        // Check for Login Success (User clicked "Continue")
-        // "https://authorize.music.apple.com/?liteSessionId"
-        
-        // DEBUG: Compare current URL to last URL
-        // if debug { print("LIVE URL:\n    url = \(url)\n    lastURL = \(lastURL)") }
-        
-        
-        // TODO: implement following regex pattern for country code
-        // NOTE: this handles country codes 1-2 chars long. For just 2: {2}
-        // /music\.apple\.com\/([a-zA-Z]{1,2})\/
-        if let countryCode = url.range(of: #"/music\.apple\.com\/([a-zA-Z]{1,2})\/"#, options: .regularExpression) {
-            print("CCRegEx: \(countryCode)")
+            User.co = countryCode
+            if User.isSignedIn && (User.co == Defaults.string(forKey: "CountryCode")) {
+                Defaults.set(countryCode, forKey: "CountyCode")
+            }
         }
         
         // Web Player URL Flag Markers
         let authURL = "authorize.music.apple.com"
         let mainURL = "beta.music.apple.com"
-        
         // Close Apple Music Login Pop-up Window
         if lastURL.contains(authURL) && url.contains(mainURL) {
-            print("User logged in successfully, close LoginWindowController")
+            if debug { print("User logged in successfully, close LoginWindowController") }
             updateLoginStatus()  // Upon login, URL will refresh webView, triggering checkLoginAndCloseWindow()
         }
         
+        // UNSUPPORTED HANDLERS
         // Web Player does not yet support this radio station, view in Music app:
         // if music.apple.com/XX/station/ <-> beta.music.apple.com/XX/radio
         if (lastURL.contains("station") && url.contains("radio")) || lastURL.contains("radio") && url.contains("station") {
@@ -411,24 +221,16 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             showDialog(title: "Radio Station not yet supported", text: message)
             
         }
-        
         // ERROR HANDLERS
         // Upon error, URL: https://beta.music.apple.com/.../error
         if url.contains("error") {
             print("Apple Music Web Player: Encountered error")
             let message = "An error occured while connecting to Apple Music. Please try again."
             showDialog(title: "Connection Error", text: message)
-            /*
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
-                //self.webView.load(Music.url)
-                self.reloadWebView()
-            })
-            */
         }
-        
+        // Web Player Error Flags
         let errorFailedToVerify = "ERROR_FAILED_TO_VERIFY"
         let errorInvalidSession = "ERROR_INVALID_SESSION"
-        
         // Error while logging in: "ERROR_FAILED_TO_VERIFY"
         // https://authorize.music.apple.com/?liteSessionId=GksrbAU1akPunlvLk5vzo0&error=ERROR_FAILED_TO_VERIFY_JWT&pod=49
         if url.contains(errorFailedToVerify) {
@@ -439,24 +241,20 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         if url.contains(errorInvalidSession) {
             print("Error: \(errorInvalidSession)")
         }
-        
         // Loads URL when login fail:
         let authKit = "https://buy.itunes.apple.com/commerce/account/authenticateMusicKitRequest"
         //if lastURL.contains("buy.itunes.apple.com") {//&& url.contains("authorize.music.apple.com") {
         if lastURL.contains(authKit) {
-            print("Auth Notice: User failed to login?")
+            print("Auth Notice: User failed to login")
         }
         
         lastURL = url           // Change lastURL at end of compare function
     }
     
-    func reloadWebView() {
-        webView.reload()
-    }
     
     
-    
-    // MARK: Title & JS Eval
+    // MARK: Title Manager
+    // Mostly used for grabbing Apple Music metadata to share (under development) and back button management
     
     /// Called when the WKWebView's absolute page `Title` value changes
     func titleDidChange(pageTitle: String) {
@@ -464,22 +262,22 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         if title.contains("on Apple Music") { title.removeLast(15) }    // Remove "on Apple Music" suffix
         if debug { print("Title: \(title)") }                           // Debug: Print title on change
         
-        if webView.canGoBack { backButton.isHidden = false }
-        
-        if nowURL.contains("playlist") {
-            getArtwork()
+        if webView.canGoBack { backButton.isHidden = false }            // Show back button if appropriate
+        // Trigger Metadata Fetch & Send to NowPlaying
+        if nowURL.contains("playlist") {                                // Get Metadata: Playlist
+            getArtwork()                                                // Get playlist artwork
             backButton.isHidden = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
                 self.player.updatePlaylist(name: title, url: nowURL, img: artwork)
             })
-        } else if nowURL.contains("album") {
-            getArtwork()
+        } else if nowURL.contains("album") {                            // Get Metadata: Album
+            getArtwork()                                                // Get album artwork
             backButton.isHidden = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
                 self.player.updateAlbum(name: title, url: nowURL, img: artwork)
             })
-        } else if nowURL.contains("artist") {
-            getArtistArtwork()
+        } else if nowURL.contains("artist") {                           // Get Metadata: Artist
+            getArtistArtwork()                                          // Get artist header image
             backButton.isHidden = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
                 self.player.updateArtist(name: title, url: nowURL, img: artwork)
@@ -490,10 +288,14 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     }
     
     
+    
+    // MARK: Metadata Manager
+    
     func updateNowPlaying(_ type: String, name: String, url: String, img: String) {
         
     }
     
+    // DEBUG: Triggers getArtwork() from Debug menu
     @IBAction func getAlbumArtwork(_ sender: Any) { getArtwork() }
     /// Grabs playlist or album artwork (largest sized image from list of optimized artwork) and sends to `setArtwork()`
     func getArtwork() {
@@ -538,7 +340,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         artwork = image
         if debug { print("setArtwork: \(artwork)") }
     }
-    
     // <audio id="apple-music-player" preload="metadata" title="Get Free (feat. Amber Coffman) - Major Lazer - Get Free - Single" src="blob:https://beta.music.apple.com/12e4f769-3bb7-3b4f-ad49-7b1bcf635f1c"></audio>
     func getNowPlaying() {
         let jsCode = "document.getElementsByTagName('audio')[0].title"
@@ -557,19 +358,9 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     }
     
     
-    func runJS(_ code: String) -> String {
-        return ""
-    }
-
-    func getHTML() {//} -> String {
-        // Print all HTML:
-        //let jsCode = "document.documentElement.outerHTML.toString()"
-        
-    }
     
-    
-    
-    // MARK: IB Styles & Themes
+    // MARK: IB Themes & Styles
+    // TO DO: Move to MenuManager.swift and retain active menu
     
     // STYLES
     @IBAction func stylePreset(_ sender: Any) { setPresetStyle(Styles.preset) }
@@ -592,15 +383,13 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     @IBAction func themeGoblin(_ sender: Any) { setImage("goblin") }
     @IBAction func themePurple(_ sender: Any) { setImage("purple") }
     
-    
-    
     // Custom User Theme
     @IBAction func themeCustom(_ sender: Any) { setCustomTheme() }
     
     
     
-    // MARK: Setters: Styles & Themes
-    
+    // MARK: Setters: Themes & Styles
+    /// Sets theme at launch and uses settings from previous session if user has launched before
     func setLaunchTheme() {
         loadDefaults()
         setStyle(Active.style)
@@ -610,7 +399,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             setImage(Active.image)
         }
     }
-    
     /// Sets app Style and NSAppearance (Light/Dark - based on Style)
     func setStyle(_ style: Styles) {
         fadeOnStyleSelect(style)
@@ -641,21 +429,18 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     
     
-    // MARK: Theme Helpers
-    
+    // MARK: Helpers: Themes & Styles
     /// Set background to transparent System
     func setTransparent() {
         imageView.alphaValue = 0
         transparentWindow(true)
         Active.clear = true
     }
-    
     /// Toggle window between transparent and background media
     func transparentWindow(_ toggle: Bool) {
         if toggle { blur.blendingMode = .behindWindow }     // Set blur behind window
         else { blur.blendingMode = .withinWindow }          // Set blur within window
     }
-    
     /// Set background image of theme with blur effect
     func setBackground(_ media: Any) {
         imageView.alphaValue = 1                            // Show background imageView
@@ -672,7 +457,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             if debug { print("URLObject: \(object)") }
         }
     }
-    
     /**
      Set Light or Dark mode and save selection to Defaults
         - Parameters:
@@ -690,7 +474,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             Active.mode = false                                 // Set Live Variables
         }
     }
-    
     /// Fades in-and-out Music Player WebView when switching Style modes (`new Style.isDark != Active.style.isDark`)
     func fadeOnStyleSelect(_ style: Styles) {
         var alphaSwitch = CGFloat(1.0)
@@ -705,6 +488,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             })
         }
     }
+    /// Changes logo style (light/dark) on NSAppearance mode change - also briefly "flashes" the webView with animation
     func changeLogoStyle(_ style: Styles) {
         var css: String
         if style.isDark { css = cssToString(file: "dark", inDir: "WebCode") }
@@ -714,8 +498,10 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     }
     
     
-    // MARK: Set Live Variables
     
+    // MARK: Set Live Variables
+    // Sets live Theme & Style to Active struct
+    // Active properties are saved to UserDefaults on app closure
     /**
     Sets `Active` Style values for attributes: `.style` and `.mode`
      - parameters:
@@ -745,14 +531,12 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     // MARK: Save Defaults
     
-    // DEBUG: Save/Load UserDefaults from MenuBar
+    // DEBUG: Save/Load UserDefaults from Debug menu
     @IBAction func saveThemeDefaults(_ sender: Any) { saveDefaults() }
     @IBAction func readThemeDefaults(_ sender: Any) { loadDefaults() }
-    
     /// Saves current `Active` (live) values to Defaults:
     /// `Active.[style, clear, mode, image]`
     func saveDefaults() {
-        //if User.hasSignedIn { Defaults.set(true, forKey: "hasSignedIn") }
         let themeArray = Theme.toArray(Active.style, clear: Active.clear, mode: Active.mode, image: Active.image)
         Defaults.set(themeArray, forKey: "ActiveTheme")
         Defaults.synchronize()
@@ -771,16 +555,16 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         }
         print(consoleDiv)
     }
-    
-    
-    
-    // MARK: Custom Funcs & Settings
-    /// Save custom settings to defaults
+    /// Save User attributes and custom settings to Defaults
     func saveDefaultSettings() {
         Defaults.set(logoIsHidden, forKey: "hideLogo")
         Defaults.set(User.isSignedIn, forKey: "signedIn")
         Defaults.synchronize()
     }
+    
+    
+    
+    // MARK: Custom Settings
     
     @IBAction func toggleCustomizerButton(_ sender: NSButton) {
         if !customizerView.isHidden { hideCustomizer()
@@ -797,7 +581,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             print("Opened URL in Safari: \(nowURL)") }
     }
     
-    // TOGGLE LOGO
+    // CUSTOM: Hide/Show Logo
     @IBAction func toggleLogo(_ sender: NSMenuItem) {
         sender.state = sender.state == .on ? .off : .on
         if sender.state == .on { toggleLogoMenu(true) }
@@ -813,14 +597,8 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         webView.evaluateJavaScript(js, completionHandler: nil)
     }
     
-    // TOGGLE LOGIN
+    // SYSTEM: Login User from Menu
     @IBAction func toggleLogin(_ sender: NSMenuItem) {
-        /*
-        if User.isSignedIn { sender.title = "Sign Out"
-            if toggleLoginMenu(false)
-        }
-        else { sender.title = "Sign In" } */
-        
         if sender.title == "Sign In" {
             if toggleLoginMenu(true) { sender.title = "Sign Out" }
         } else if sender.title == "Sign Out" {
@@ -838,6 +616,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         }
         return true
     }
+    /// Clear WebView cookies & cache (forcing user logout), then reloads base Music URL in WebView
     func clearCacheAndLogout() -> Bool {
         //WebCacheCleaner()
         let title = "Confirm Sign Out"
@@ -862,6 +641,102 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     @IBAction func goBack(_ sender: Any) { webView.goBack() }
     @IBOutlet weak var backButton: NSButton!
+    
+    
+    
+    // MARK: Manage Customizer
+    
+    /// Show/hide Customizer popover menu based on if it's open already (⌘K)
+    @IBAction func showCustomizerMenu(_ sender: Any) {
+        if !customizerView.isHidden { hideCustomizer() } else { showCustomizer() } }
+    /// Hide Customizer popover menu
+    @IBAction func hideCustomizerMenu(_ sender: Any) { hideCustomizer() }
+    /// Slide-out Customizer menu with animation and slightly fade main player `webView`
+    func showCustomizer() {
+        customizerView.isHidden = false
+        customizerButton.image = NSImage(named: "NSStopProgressFreestandingTemplate")
+        NSAnimationContext.runAnimationGroup({ (context) -> Void in
+            context.duration = 0.2 //length of the animation time in seconds
+            customizerConstraint.animator().constant = 280
+            webView.animator().alphaValue = webAlphaFade
+        }, completionHandler: { () -> Void in
+            //print("CustomizerWebView (width, height):", self.customizerWebView.frame.size)
+        })
+    }
+    /// Slide-back/hide Customizer menu with animation and fade-in main player `webView` from slightly translucent state
+    func hideCustomizer() {
+        customizerButton.image = NSImage(named: "NSSmartBadgeTemplate")
+        NSAnimationContext.runAnimationGroup({ (context) -> Void in
+            context.duration = 0.2 //length of the animation time in seconds
+            customizerConstraint.animator().constant = 0
+            webView.animator().alphaValue = 1
+        }, completionHandler: { () -> Void in
+            self.customizerView.isHidden = true
+        })
+    }
+    
+    
+    
+    // MARK: Account Status Manager
+    
+    /// Checks and updates user login status, updating `User.isSignedIn` when applicable
+    func updateLoginStatus() {
+        _ = loginWindowIsOpen()
+        webView?.evaluateJavaScript(Script.loginButton) { (key, err) in
+            if let key = key as? Int {
+                if key == 0 { User.isSignedIn = true }
+                else if key == 1 { User.isSignedIn = false }
+            }
+            
+            if User.isSignedIn { print("User Status: Signed in") }
+            else { print("User Status: Signed out") }
+            
+            if let err = err {
+                print(err.localizedDescription)
+                //self.userIsSignedIn = true
+            } else {
+                // No error
+            }
+        }
+    }
+    // DEBUG: Updates user login status via Debug menu
+    @IBAction func updateLoginStatus(_ sender: Any) {
+        updateLoginStatus()
+    }
+    /// Checks if LoginWindow is currently open
+    func loginWindowIsOpen() -> Bool {
+        let loginWindowState = loginWindowController?.window?.occlusionState.contains(.visible) ?? false
+        if loginWindowState { print("Login Window: Open") }
+        else { print("Login Window: Closed or Hidden") }
+        return loginWindowState
+    }
+    /// Checks to see if the user is logged in and sets `User.isSignedIn`; closes `LoginWindow` if `true`
+    func checkLoginAndCloseWindow() {
+        var signedIn = true
+        let isKeyWindow = loginWindowController?.window?.isKeyWindow ?? false
+        let loginWindowState = loginWindowController?.window?.occlusionState.contains(.visible) ?? false
+        webView?.evaluateJavaScript(Script.loginButton) { (key, err) in
+            if let key = key as? Int {
+                if key == 0 { signedIn = true; User.isSignedIn = true }
+                else if key == 1 { signedIn = false; User.isSignedIn = false }
+            }
+            if debug {
+                print("signedIn: \(signedIn)")
+                print("loginWindowState: \(loginWindowState)")
+                print("login isKeyWindow: \(isKeyWindow)")
+            }
+            
+            if signedIn && loginWindowState {
+                if isKeyWindow {
+                    App.keyWindow?.performClose(self)
+                }
+            }
+            
+            if let err = err {
+                print(err.localizedDescription) }
+            else { /* No error */ }
+        }
+    }
     
     
     
@@ -952,15 +827,17 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     func loginURLDidChange(urlString: String) {
         updateLoginStatus()
         //checkLoginAndCloseWindow()
-        //let url = cleanURL(urlString)           // Fix Optional URL String
-        //if debug { print("Login URL:", url) }         // Debug: Print new URL
-        //nowURL = url                            // Update nowURL to new URL
+        //let url = cleanURL(urlString)             // Fix Optional URL String
+        //if debug { print("Login URL:", url) }     // Debug: Print new URL
+        //nowURL = url                              // Update nowURL to new URL
     }
-
+    // Release loginWebView on closure
+    /*
     func webViewDidClose(_ webView: WKWebView) {
         webView.removeFromSuperview()
         loginWebView = nil
     }
+    */
     
     
     
@@ -1036,7 +913,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         cssString = cssString?.replacingOccurrences(of: "\")", with: "")
         return cssString ?? ""
     }
-    
     /// Show dialog alert with title and descriptor text
     func showDialog(title: String, text: String) {
         let alert = NSAlert()
@@ -1046,6 +922,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         alert.addButton(withTitle: "OK")
         alert.runModal()
     }
+    /// Show alert and return values of `true` or `false` based on user selection
     func showAlert(title: String, text: String, withAction: Bool) -> Bool {
         let alert = NSAlert()
         alert.messageText = title
@@ -1131,7 +1008,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     
     
-    
     // MARK: Debug
     
     // Print new window dimensions when resized
@@ -1166,8 +1042,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         //getNowPlaying()
         getArtistArtwork()
     }
-    
-    
 
 }
 

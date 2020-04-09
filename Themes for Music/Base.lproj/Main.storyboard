@@ -732,14 +732,14 @@
                                                     <menuItem title="Transparent" id="toc-AG-SOX">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
-                                                            <action selector="themeTransparent:" target="Ady-hI-5gd" id="ObA-dZ-TLF"/>
+                                                            <action selector="themeTransparent:" target="Ady-hI-5gd" id="iMg-Hp-RKk"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="Fgp-F4-qj2"/>
                                                     <menuItem title="Wave" id="akj-KX-ZR2">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
-                                                            <action selector="themeWave:" target="Ady-hI-5gd" id="cP0-zQ-lNW"/>
+                                                            <action selector="themeWave:" target="Ady-hI-5gd" id="yIE-5D-qdU"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Spring" id="FkF-ts-VJg">
