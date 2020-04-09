@@ -885,20 +885,6 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Settings" id="VFg-zh-foU">
                                     <items>
-                                        <menuItem title="Account" id="pyD-FE-Wap">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Account" id="3f1-ox-rVD">
-                                                <items>
-                                                    <menuItem title="Sign In" id="gfX-SP-wbY">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="toggleLogin:" target="Ady-hI-5gd" id="bde-3c-uZD"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="b3v-2y-QxW"/>
                                         <menuItem title="Hide Logo" id="ksL-3r-QJa">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -912,6 +898,10 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Account" id="lKr-Fl-1jY">
                                     <items>
+                                        <menuItem title="My Account" enabled="NO" id="fgq-Me-X87">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="XDq-dJ-4Mg"/>
                                         <menuItem title="Sign In" id="nkv-hb-4gd">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -1086,6 +1076,16 @@
                                     <segue destination="ZRc-6z-C1m" kind="embed" identifier="presentCustomizer" id="Jfz-aS-hH4"/>
                                 </connections>
                             </containerView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5zj-uS-fVD">
+                                <rect key="frame" x="494" y="12" width="14" height="14"/>
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSSmartBadgeTemplate" imagePosition="overlaps" alignment="center" alternateImage="NSStopProgressFreestandingTemplate" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="qOU-Dh-p2z">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="toggleCustomizerButton:" target="XfG-lQ-9wD" id="ddG-BA-8Y1"/>
+                                </connections>
+                            </button>
                             <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s5A-fX-vXB">
                                 <rect key="frame" x="270" y="512" width="24" height="23"/>
                                 <constraints>
@@ -1099,19 +1099,27 @@
                                     <action selector="goBack:" target="XfG-lQ-9wD" id="ckc-Jq-8Dk"/>
                                 </connections>
                             </button>
+                            <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="kAY-WS-pwG">
+                                <rect key="frame" x="384" y="284" width="32" height="32"/>
+                            </progressIndicator>
                         </subviews>
                         <constraints>
                             <constraint firstItem="s5A-fX-vXB" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="270" id="8fw-1A-MNn"/>
                             <constraint firstItem="i3M-lK-yxp" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="C0W-wU-l5F"/>
                             <constraint firstItem="Z1B-PB-Ziq" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="FNn-Ie-BLd"/>
                             <constraint firstItem="i3M-lK-yxp" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="MeF-jK-mdW"/>
+                            <constraint firstItem="kAY-WS-pwG" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="Tai-Qb-mkF"/>
                             <constraint firstAttribute="trailing" secondItem="Z1B-PB-Ziq" secondAttribute="leading" constant="280" id="a66-jR-EmU"/>
                             <constraint firstAttribute="trailing" secondItem="2kd-LO-plW" secondAttribute="trailing" id="b2F-TS-ujg"/>
+                            <constraint firstAttribute="bottom" secondItem="5zj-uS-fVD" secondAttribute="bottom" constant="12" id="c3Q-l5-ItK"/>
+                            <constraint firstItem="5zj-uS-fVD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" priority="500" constant="50" id="emB-Rm-scq"/>
+                            <constraint firstItem="Z1B-PB-Ziq" firstAttribute="leading" secondItem="5zj-uS-fVD" secondAttribute="trailing" constant="12" id="iYS-yK-o0F"/>
                             <constraint firstItem="s5A-fX-vXB" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="65" id="oop-lM-hQZ"/>
                             <constraint firstAttribute="trailing" secondItem="i3M-lK-yxp" secondAttribute="trailing" id="rPU-1F-WTg"/>
                             <constraint firstItem="2kd-LO-plW" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="sD5-Zl-PyU"/>
                             <constraint firstAttribute="bottom" secondItem="Z1B-PB-Ziq" secondAttribute="bottom" id="sDR-Ox-ExI"/>
                             <constraint firstAttribute="trailing" secondItem="Z1B-PB-Ziq" secondAttribute="trailing" id="sGh-iQ-vRM"/>
+                            <constraint firstItem="kAY-WS-pwG" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="tGY-Sn-KLz"/>
                             <constraint firstAttribute="bottom" secondItem="i3M-lK-yxp" secondAttribute="bottom" id="vJ2-O6-tqm"/>
                             <constraint firstItem="2kd-LO-plW" firstAttribute="leading" relation="lessThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="80" id="ziw-YJ-roF"/>
                         </constraints>
@@ -1119,9 +1127,11 @@
                     <connections>
                         <outlet property="backButton" destination="s5A-fX-vXB" id="5ap-ex-GuL"/>
                         <outlet property="blur" destination="i3M-lK-yxp" id="quw-Cs-FhN"/>
+                        <outlet property="customizerButton" destination="5zj-uS-fVD" id="X8f-Jf-GbW"/>
                         <outlet property="customizerConstraint" destination="a66-jR-EmU" id="5IA-qn-wLV"/>
                         <outlet property="customizerView" destination="Z1B-PB-Ziq" id="yM5-Ko-nvD"/>
                         <outlet property="imageView" destination="0Bv-Ax-4EW" id="goh-2S-AQQ"/>
+                        <outlet property="launchLoader" destination="kAY-WS-pwG" id="4rH-Gm-lNe"/>
                         <outlet property="rightConstraint" destination="mjR-Od-ibp" id="rOf-pM-IyM"/>
                         <outlet property="webView" destination="gKV-nA-AfL" id="vqR-L9-Pue"/>
                     </connections>
@@ -1214,6 +1224,8 @@
     </scenes>
     <resources>
         <image name="NSGoBackTemplate" width="9" height="12"/>
+        <image name="NSSmartBadgeTemplate" width="14" height="14"/>
+        <image name="NSStopProgressFreestandingTemplate" width="14" height="14"/>
         <image name="NSStopProgressTemplate" width="11" height="11"/>
     </resources>
 </document>

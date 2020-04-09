@@ -40,9 +40,11 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     @IBOutlet var blur: NSVisualEffectView!                     // Main Background Blur Effect
     @IBOutlet weak var imageView: NSImageView!                  // Main Background Image Object
     @IBOutlet var rightConstraint: NSLayoutConstraint!          // WebView+Customizer Constraint
+    @IBOutlet var launchLoader: NSProgressIndicator!            // Progress Indicator on Launch
     // Customizer Objects
     @IBOutlet weak var customizerView: NSView!                  // Customizer Container View
-    @IBOutlet var customizerConstraint: NSLayoutConstraint!     // Customizer -> Super Constraint1
+    @IBOutlet weak var customizerButton: NSButton!              // Bottom Right Customizer Button
+    @IBOutlet var customizerConstraint: NSLayoutConstraint!     // Customizer -> Super Constraint
     
     // Window Objects
     let windowController = WindowController()                   // Window Controller
@@ -73,7 +75,8 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     override func viewDidLoad() {
         super.viewDidLoad()
         //clearDefaults()
-        
+        launchLoader.isHidden = false
+        launchLoader.startAnimation(true)
         // Music Player WebView Setup
         webView.navigationDelegate = self
         webView.uiDelegate = self
@@ -98,6 +101,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         blur.material = .appearanceBased                        // Set Default Blur Effects
         imageView.imageScaling = .scaleAxesIndependently        // Scale Background Image to Fit
         backButton.isHidden = true                              // Hide Back Button by Default
+        customizerButton.isHidden = true                        // Hide Customizer Button Until Loaded
         customizerConstraint.constant = 0                       // Set Customizer Blur View Leading to 0
         customizerView.isHidden = true
         
@@ -162,10 +166,15 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     /// Fade-in WebView with animation on Launch
     func fadePlayerAtLaunch() {
+        launchLoader.isHidden = true
         NSAnimationContext.runAnimationGroup({ (context) -> Void in
             context.duration = 2
+            //launchLoader.animator().isHidden = true
             webView.animator().alphaValue = 1
+            customizerButton.animator().isHidden = false
         }, completionHandler: { () -> Void in
+            //self.launchLoader.animator().isHidden = true
+            self.launchLoader.stopAnimation(self)
         })
     }
     
@@ -174,7 +183,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         customizerView.isHidden = false
         NSAnimationContext.runAnimationGroup({ (context) -> Void in
             context.duration = 0.2 //length of the animation time in seconds
-            //rightConstraint.animator().constant = 280
             customizerConstraint.animator().constant = 280
             webView.animator().alphaValue = webAlphaFade
         }, completionHandler: { () -> Void in
@@ -210,17 +218,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     
     // MARK: Manage URL
-    
-    @IBAction func clickLoginButton(_ sender: Any) {
-        // if User.isSignedIn { show Sign In } else { show Sign Out }
-        webView.evaluateJavaScript("document.querySelector('.web-navigation__auth-button').click();"){ (value, error) in
-
-            if let err = error {
-                print(err)
-            }
-
-        }
-    }
     
     @IBAction func runJSCode(_ sender: Any) {
         print("LoginWindow is open: \(loginWindowIsOpen())")
@@ -771,11 +768,19 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     
     // MARK: Custom Funcs & Settings
-    
+    /// Save custom settings to defaults
     func saveDefaultSettings() {
         Defaults.set(logoIsHidden, forKey: "hideLogo")
         Defaults.set(User.isSignedIn, forKey: "signedIn")
         Defaults.synchronize()
+    }
+    
+    @IBAction func toggleCustomizerButton(_ sender: NSButton) {
+        if !customizerView.isHidden { hideCustomizer()
+            sender.image = NSImage(named: "NSSmartBadgeTemplate")
+        } else { showCustomizer()
+            sender.image = NSImage(named: "NSStopProgressFreestandingTemplate")
+        }
     }
     
     /// Open current page in Safari
@@ -800,25 +805,51 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
         webView.evaluateJavaScript(js, completionHandler: nil)
     }
+    
     // TOGGLE LOGIN
     @IBAction func toggleLogin(_ sender: NSMenuItem) {
-        if sender.title == "Sign In" { sender.title = "Sign Out"
-            toggleLoginMenu(true) }
-        else if sender.title == "Sign Out" { sender.title = "Sign In"
-            toggleLoginMenu(false)
+        /*
+        if User.isSignedIn { sender.title = "Sign Out"
+            if toggleLoginMenu(false)
+        }
+        else { sender.title = "Sign In" } */
+        
+        if sender.title == "Sign In" {
+            if toggleLoginMenu(true) { sender.title = "Sign Out" }
+        } else if sender.title == "Sign Out" {
+            if toggleLoginMenu(false) { sender.title = "Sign In" }
         }
     }
-    func toggleLoginMenu(_ isSignedIn: Bool) {
-        var js = ""
-        if isSignedIn { js = Script.loginUser }
-        else { js = Script.logoutUser }     // Maybe just empty cache, logins and reload?
-        webView.evaluateJavaScript(js){ (value, error) in
-
-            if let err = error {
-                print(err)
+    func toggleLoginMenu(_ isSignedOut: Bool) -> Bool {
+        if isSignedOut {
+            webView.evaluateJavaScript(Script.loginUser){ (value, error) in
+                if let err = error { print(err) }
             }
-
+            return true
+        } else {
+            if !clearCacheAndLogout() { return false }
         }
+        return true
+    }
+    func clearCacheAndLogout() -> Bool {
+        //WebCacheCleaner()
+        let title = "Confirm Sign Out"
+        let text = "Are you sure that you want to sign out of Apple Music?"
+        if showAlert(title: title, text: text, withAction: true) {
+            print("\(consoleDiv)\nAttempting to clear cookies...")
+            HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+            print("[WebCacheCleaner] All cookies deleted")
+            
+            WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+                records.forEach { record in
+                    WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+                    print("[WebCacheCleaner] Record \(record) deleted")
+                }
+            }
+            webView.load(Music.url)
+            return true
+        }
+        return false    // User clicked cancel
     }
     
     @IBAction func goBack(_ sender: Any) { webView.goBack() }
@@ -882,6 +913,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         <div class="buttons-container">
           <button data-targetid="continue" data-pageid="WebPlayerConfirmConnection" class="button-primary signed-in" data-ember-action="" data-ember-action-287="287">Continue</button>
         </div> */
+        /*
         loginWebView!.evaluateJavaScript("document.getElementsByClassName('button-primary signed-in').onclick();") { (key, err) in
             if let key = key {
                 print("loginKey: \(key)")
@@ -890,9 +922,9 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             print("JS Error Continue: \(err.localizedDescription)")
         } else {
             print("JS: You clicked Continue!")
-        }}
+        }}*/
         view.addSubview(loginWebView!)
-        _ = loginWindowIsOpen()
+        updateLoginStatus()
         return loginWebView!
     }
     
@@ -921,29 +953,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         webView.removeFromSuperview()
         loginWebView = nil
     }
-    
-    
-    
-    // MARK: Setup Observers
-    
-    /// Observes the active `url` value of the WKWebView (`webView` || `customizerWebView`)
-    /*
-    func observeWebViewURL(_ webView: WKWebView) {
-        // WebView URL Observer (Detect Changes)
-        switch webView {
-        case webView:
-            webViewURLObserver = webView.observe(\.url, options: .new) { [weak self] webView, change in
-                let url = "\(String(describing: change.newValue))"
-                self?.urlDidChange(urlString: url); print("Observe webViewURL") }
-        case customizerWebView:
-            customizerURLObserver = customizerWebView.observe(\.url, options: .new) { [weak self] webView, change in
-                let url = "\(String(describing: change.newValue))"
-                self?.customizerURLDidChange(urlString: url) }
-        default:
-            observeWebViewURL(webView)
-        }
-    }
- */
     
     
     
@@ -1028,6 +1037,23 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         alert.alertStyle = .informational
         alert.addButton(withTitle: "OK")
         alert.runModal()
+    }
+    func showAlert(title: String, text: String, withAction: Bool) -> Bool {
+        let alert = NSAlert()
+        alert.messageText = title
+        alert.informativeText = text
+        alert.addButton(withTitle: "OK")
+        alert.addButton(withTitle: "Cancel")
+        let modalResult = alert.runModal()
+        
+        switch modalResult {
+        case .alertFirstButtonReturn: // NSApplication.ModalResponse.alertFirstButtonReturn
+            return true
+        case .alertSecondButtonReturn:
+            return false
+        default:
+            return false
+        }
     }
     
     /*
