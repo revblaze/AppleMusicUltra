@@ -300,9 +300,8 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     /// Grabs playlist or album artwork (largest sized image from list of optimized artwork) and sends to `setArtwork()`
     func getArtwork() {
         // Confirmed working: [x] Playlists, [x] Album, [ ] Song, [ ] Artist
-        // Get playlist and album artwork
-        let jsCode = "document.getElementsByClassName('product-lockup__artwork')[0].getElementsByClassName('media-artwork-v2__image')[0].srcset"    // Grab artwork image set
-        webView.evaluateJavaScript(jsCode) { (result, error) in
+        // Get playlist or album artwork image set
+        webView.evaluateJavaScript(Script.albumArtwork) { (result, error) in
             if let urls = result as? String {
                 let cleanURLs = self.cleanOptional(urls)
                 let urlArray = cleanURLs.extractURLs()
@@ -324,8 +323,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     /// Grabs the artist header image and sends to `setArtwork()`
     func getArtistArtwork() {
         // Get artist header image
-        let jsCode = "document.getElementsByClassName('artist-header')[0].style.getPropertyValue('--background-image')"
-        webView.evaluateJavaScript(jsCode) { (result, error) in
+        webView.evaluateJavaScript(Script.artistHeader) { (result, error) in
             if let header = result as? String {
                 var imageURL = header.replacingOccurrences(of: "url(", with: "")
                 imageURL.removeLast()
@@ -342,8 +340,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     }
     // <audio id="apple-music-player" preload="metadata" title="Get Free (feat. Amber Coffman) - Major Lazer - Get Free - Single" src="blob:https://beta.music.apple.com/12e4f769-3bb7-3b4f-ad49-7b1bcf635f1c"></audio>
     func getNowPlaying() {
-        let jsCode = "document.getElementsByTagName('audio')[0].title"
-        webView.evaluateJavaScript(jsCode) { (result, error) in
+        webView.evaluateJavaScript(Script.nowPlaying) { (result, error) in
             if let title = result as? String {
                 metadata = self.formatMetadata(title)
             }
