@@ -14,12 +14,14 @@ protocol Customizable: class {
     func setTransparent()
     func setCustomTheme()
     func setImage(_ image: String)
-    func setStyle(_ style: Styles)
-    func setPresetStyle(_ style: Styles)
+    func setStyle(_ style: Style)
+    func setPresetStyle(_ style: Style)
     
     func cleanURL(_ urlString: String) -> String
-    func compareModes(_ style: Styles) -> Bool
+    func compareModes(_ style: Style) -> Bool
 }
+
+var debugLegacy = false
 
 class CustomizerViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler {
 
@@ -71,7 +73,8 @@ class CustomizerViewController: NSViewController, WKUIDelegate, WKNavigationDele
         // Receive JS calls from Customizer for setting Styles & Themes
         customizerWebView.configuration.userContentController.add(self, name: "jsHandler")
         // Load Customizer: Theme & Style Manager
-        customizerWebView.loadFile("themes", path: "WebCustomizer")
+        initWebCustomizer()
+        //customizerWebView.loadFile("themes", path: "WebCustomizer")
         // Customizer Segment Control
         customizerControl.selectedSegment = 0           // Customizer Default: Themes (First Tab)
         customizerBlur.material = .menu                 // Set Customizer Blur Effect
@@ -86,6 +89,17 @@ class CustomizerViewController: NSViewController, WKUIDelegate, WKNavigationDele
         customizerURLObserver = customizerWebView.observe(\.url, options: .new) { [weak self] webView, change in
         let url = "\(String(describing: change.newValue))"
         self?.customizerURLDidChange(urlString: url) }
+    }
+    
+    func initWebCustomizer() {
+        var path = "WebCustomizer"
+        if debugLegacy { path = "WebCustomizer/Legacy" }
+        else {
+            if #available(OSX 10.14, *) { path = "WebCustomizer" }
+            else { path = "WebCustomizer/Legacy" }
+        }
+        customizerWebView.loadFile("themes", path: path)
+            
     }
     
     /// Called when the WKWebView's absolute URL value changes
@@ -104,12 +118,12 @@ class CustomizerViewController: NSViewController, WKUIDelegate, WKNavigationDele
                 else if jsCall == "custom" { delegate?.setCustomTheme() }     // Prompt user for custom image
                 else if jsCall.contains(".style") {                 // Style JS syntax "name.style"
                     jsCall.removeLast(6)                            // Remove ".style" from jsCall
-                    let style = Style.toMaterial(jsCall)            // Get matching style value
+                    let style = StyleHelper.toMaterial(jsCall)      // Get matching style value
                     delegate?.setStyle(style)                                 // Set Style as active
                     /* TODO: Reload WebView on Style.isDark change without interrupting music */
                     if delegate?.compareModes(style) ?? false {                        // Check: new Style.mode == current Style.mode
                         // webView.reloadFromOrigin() -> stops WebView from playing (CSS workaround for album artwork?)
-                        if debug { print("Comparing Style Modes:")
+                        if debug { print("Comparing Style Modes")
                             //print("  style.isDark = \(style.isDark)  vs.  Active.style.isDark = \(darkModeIsActive())")
                         }
                     }
@@ -127,7 +141,11 @@ class CustomizerViewController: NSViewController, WKUIDelegate, WKNavigationDele
         case 2: print("dynamic")    // Tab 3: Dynamic ? Video
         default:print("url x") }
         // Load selected page in CustomizerWebView
-        customizerWebView.loadFile(page, path: "WebCustomizer")
+        if debugLegacy { customizerWebView.loadFile(page, path: "WebCustomizer/Legacy") }
+        else {
+            if #available(OSX 10.14, *) { customizerWebView.loadFile(page, path: "WebCustomizer") }
+            else { customizerWebView.loadFile(page, path: "WebCustomizer/Legacy") }
+        }
     }
     
 }

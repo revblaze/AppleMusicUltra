@@ -31,7 +31,7 @@ var nowURL  = ""            // Saves current URL to memory
 var lastURL = ""            // Saves previous URL to memory
 var initLaunch = true       // Determines if app just launched
 
-let debug = true           // Activates debugger functions on true
+let debug = false           // Activates debugger functions on true
 
 class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWindowDelegate, Customizable { //, WKScriptMessageHandler {
     
@@ -360,13 +360,13 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     // TO DO: Move to MenuManager.swift and retain active menu
     
     // STYLES
-    @IBAction func stylePreset(_ sender: Any) { setPresetStyle(Styles.preset) }
-    @IBAction func styleFrosty(_ sender: Any) { setStyle(Styles.frosty) }
-    @IBAction func styleBright(_ sender: Any) { setStyle(Styles.bright) }
-    @IBAction func styleEnergy(_ sender: Any) { setStyle(Styles.energy) }
-    @IBAction func styleCloudy(_ sender: Any) { setStyle(Styles.cloudy) }
-    @IBAction func styleShadow(_ sender: Any) { setStyle(Styles.shadow) }
-    @IBAction func styleVibing(_ sender: Any) { setStyle(Styles.vibing) }
+    @IBAction func stylePreset(_ sender: Any) { setPresetStyle(Style.preset) }
+    @IBAction func styleFrosty(_ sender: Any) { setStyle(Style.frosty) }
+    @IBAction func styleBright(_ sender: Any) { setStyle(Style.bright) }
+    @IBAction func styleEnergy(_ sender: Any) { setStyle(Style.energy) }
+    @IBAction func styleCloudy(_ sender: Any) { setStyle(Style.cloudy) }
+    @IBAction func styleShadow(_ sender: Any) { setStyle(Style.shadow) }
+    @IBAction func styleVibing(_ sender: Any) { setStyle(Style.vibing) }
     
     // THEMES
     @IBAction func themeTransparent(_ sender: Any) { setTransparent() }
@@ -397,14 +397,14 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         }
     }
     /// Sets app Style and NSAppearance (Light/Dark - based on Style)
-    func setStyle(_ style: Styles) {
+    func setStyle(_ style: Style) {
         fadeOnStyleSelect(style)
         blur.material = style.fx
         setDarkMode(style.isDark)
         setLiveStyle(style, isDark: style.isDark)
     }
     /// Sets default preset Style (`.appearanceBased`) with system NSAppearance mode
-    func setPresetStyle(_ style: Styles) {
+    func setPresetStyle(_ style: Style) {
         blur.material = style.fx
         setDarkMode(darkModeIsActive())
         setLiveStyle(style, isDark: darkModeIsActive())
@@ -461,18 +461,20 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
      
      */
     func setDarkMode(_ mode: Bool) {
-        if mode {
-            App.appearance = NSAppearance(named: .darkAqua)     // Force Dark Mode UI
-            Defaults.set("dark", forKey: "mode")                // Save Defaults
-            Active.mode = true                                  // Set Live Variables
-        } else {
-            App.appearance = NSAppearance(named: .aqua)         // Force Light Mode UI
-            Defaults.set("light", forKey: "mode")               // Save Defaults
-            Active.mode = false                                 // Set Live Variables
-        }
+        if #available(OSX 10.14, *) {
+            if mode {
+                App.appearance = NSAppearance(named: .darkAqua)     // Force Dark Mode UI
+                Defaults.set("dark", forKey: "mode")                // Save Defaults
+                Active.mode = true                                  // Set Live Variables
+            } else {
+                App.appearance = NSAppearance(named: .aqua)         // Force Light Mode UI
+                Defaults.set("light", forKey: "mode")               // Save Defaults
+                Active.mode = false                                 // Set Live Variables
+            }
+        } else { print("System running macOS 10.13 or earlier, Dark Mode is disabled") }
     }
     /// Fades in-and-out Music Player WebView when switching Style modes (`new Style.isDark != Active.style.isDark`)
-    func fadeOnStyleSelect(_ style: Styles) {
+    func fadeOnStyleSelect(_ style: Style) {
         var alphaSwitch = CGFloat(1.0)
         if !customizerView.isHidden { alphaSwitch = webAlphaFade }
         if style.isDark != Active.style.isDark {
@@ -486,7 +488,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         }
     }
     /// Changes logo style (light/dark) on NSAppearance mode change - also briefly "flashes" the webView with animation
-    func changeLogoStyle(_ style: Styles) {
+    func changeLogoStyle(_ style: Style) {
         var css: String
         if style.isDark { css = cssToString(file: "dark", inDir: "WebCode") }
         else { css = cssToString(file: "light", inDir: "WebCode") }
@@ -502,10 +504,10 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     /**
     Sets `Active` Style values for attributes: `.style` and `.mode`
      - parameters:
-        - style: `Styles` object to set as `Active`
+        - style: `Style` object to set as `Active`
         - isDark: `Bool` value for corresponding `Dark ? Light` Style modes
     */
-    func setLiveStyle(_ style: Styles, isDark: Bool) {
+    func setLiveStyle(_ style: Style, isDark: Bool) {
         Active.style = style
         Active.mode = isDark
         let activeMessage = "Set Active: Style\n  style: \(style.name)\n   dark: \(style.isDark)"
@@ -992,7 +994,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         - style: Style to compare with `Active.style`
      - returns: `true: same; false: different`
      */
-    func compareModes(_ style: Styles) -> Bool {
+    func compareModes(_ style: Style) -> Bool {
         if style.isDark == Active.style.isDark { return true }
         else { return false }
     }

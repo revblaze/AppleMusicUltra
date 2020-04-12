@@ -10,7 +10,7 @@ import AppKit
 import Foundation
 
 struct Active {
-    static var style = Styles.vibing    // OLD: Styles.preset
+    static var style = Style.vibing     // OLD: Style.preset
     static var clear = false            // OLD: true
     static var mode  = true             // OLD: true
     static var image = "wave"           // OLD: ""
@@ -22,7 +22,7 @@ struct Theme {
     Converts Theme properties to `[String]` array for saving with `UserDefaults`.
     
      - Parameters:
-        - style: The active Style type (ie. `Styles.preset`)
+        - style: The active Style type (ie. `Style.preset`)
         - clear: The window's transparancy effects: `true` transparent; `false` will show background window objects (ie. `imageView`)
         - mode: Dark Mode: `true`, Light Mode: `false`
         - image: The String of the image for the blur background (empty String for no image)
@@ -30,7 +30,7 @@ struct Theme {
      - Returns: String array of all Theme properties `[style, clear, mode, image] -> ["preset", "true", "false", ""]`
     
      # Usage
-        let array = toArray(Styles.preset, true, false, "")
+        let array = toArray(Style.preset, true, false, "")
         array = ["preset", "true", "false", ""]
      
         let style = array[0]
@@ -38,7 +38,7 @@ struct Theme {
         let mode = array[2]
         let image = array[3]
      */
-    static func toArray(_ style: Styles, clear: Bool, mode: Bool, image: String) -> [String] {
+    static func toArray(_ style: Style, clear: Bool, mode: Bool, image: String) -> [String] {
         let styleString = style.name
         var clearTheme = "true"
         var themeIsDark = "true"
@@ -68,8 +68,8 @@ struct Theme {
         let clear = array[1]
         let mode = array[2]
         let image = array[3]
-        // Style -> Styles.value
-        Active.style = Style.toMaterial(style)
+        // Style -> Style.value
+        Active.style = StyleHelper.toMaterial(style)
         // Clear: isTransparent =  true ? false
         if clear == "true" { Active.clear = true }
         else { Active.clear = false }
