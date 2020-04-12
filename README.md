@@ -1,6 +1,3 @@
-## Legacy Branch
-Compatible with macOS 10.12+
-
 ![Apple Music Ultra](Media/Cover.jpg)
 
 # Themes for Apple Music
@@ -58,7 +55,7 @@ func selectImageFile() -> URL {
 }
 ```
 
-## UI Appearance
+## Appearance
 Each theme has a `darkMode: Bool` property that sets the Music Web Player<sup>BETA</sup> Light/Dark mode.
 ```
 darkMode = true    // Force Dark Mode
@@ -87,6 +84,13 @@ struct Style {                                 //                          rawVa
 
 ## WKWebView
 Assignment due at midnight, brb.
+
+# Branches
+
+ - **alpha:** The original Ultra for Apple Music build
+     - Prior to restructuring the Themes & Style code and adding the new Customizer from private repository
+ - **beta:** *(retired)* The nightly builds for the current master that will replace the alpha build as master
+ - **legacy:** Ultra for Apple Music with support for macOS 10.13 and below
 
 
 ## Requirements
