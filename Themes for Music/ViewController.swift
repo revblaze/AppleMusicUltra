@@ -31,7 +31,7 @@ var nowURL  = ""            // Saves current URL to memory
 var lastURL = ""            // Saves previous URL to memory
 var initLaunch = true       // Determines if app just launched
 
-let debug = false           // Activates debugger functions on true
+let debug = true           // Activates debugger functions on true
 
 class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWindowDelegate, Customizable { //, WKScriptMessageHandler {
     
@@ -156,7 +156,21 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     /// Debug menu: run custom JS code to test
     @IBAction func runJSCode(_ sender: Any) {
         if debug { print("LoginWindow is open: \(loginWindowIsOpen())") }
+        
     }
+    
+    @IBAction func forceLightMode(_ sender: Any) {
+        let css = cssToString(file: "light-mode", inDir: "WebCode/Legacy")
+        let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
+        webView.evaluateJavaScript(js, completionHandler: nil)
+    }
+    
+    @IBAction func forceDarkMode(_ sender: Any) {
+        let css = cssToString(file: "dark-mode", inDir: "WebCode/Legacy")
+        let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
+        webView.evaluateJavaScript(js, completionHandler: nil)
+    }
+    
     func showBufferIssueMessage() {
         let title = "Issues with Buffering First Song"
         let text = "Due to the fact that Apple Music's Library is public, they make a validation check upon requesting the first song (every new session). This just means that the first song to play, when you load up the app, will buffer for a few seconds as Apple attempts to verify that you're a valid subscriber. Once they've done their checks, the app will continue to stream music fluently. I'm looking into possible fixes, hang tight! \n\nUse ⌘K to show/hide the popover Customizer or use the Customize menu drop down in the menu bar."
@@ -471,7 +485,31 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
                 Defaults.set("light", forKey: "mode")               // Save Defaults
                 Active.mode = false                                 // Set Live Variables
             }
-        } else { print("System running macOS 10.13 or earlier, Dark Mode is disabled") }
+        } else {
+            setDarkModeLegacy(mode)                                 // Force Light/Dark Mode via CSS
+        }
+        
+    }
+    /**
+    Legacy (macOS 10.13 and lower): Set Light or Dark mode and save selection to Defaults
+       - Parameters:
+       - mode: `true` (Dark Mode), `false` (Light Mode)
+    
+    */
+    func setDarkModeLegacy(_ mode: Bool) {
+        var cssFile = ""
+        if mode {
+            cssFile = "dark-mode"                                   // Force Dark Mode CSS
+            Defaults.set("dark", forKey: "mode")                    // Save Defaults
+            Active.mode = true                                      // Set Live Variables
+        } else {
+            cssFile = "light-mode"                                  // Force Light Mode CSS
+            Defaults.set("light", forKey: "mode")                   // Save Defaults
+            Active.mode = false                                     // Set Live Variables
+        }
+        let css = cssToString(file: cssFile, inDir: "WebCode/Legacy")
+        let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
+        webView.evaluateJavaScript(js, completionHandler: nil)
     }
     /// Fades in-and-out Music Player WebView when switching Style modes (`new Style.isDark != Active.style.isDark`)
     func fadeOnStyleSelect(_ style: Style) {

@@ -698,6 +698,25 @@
                                                 <action selector="getAlbumArtwork:" target="Ady-hI-5gd" id="cuV-yV-Qbj"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="JavaScript" id="4m8-od-fgO">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="JavaScript" id="PcX-uO-Kue">
+                                                <items>
+                                                    <menuItem title="Force Light Mode" id="Gbm-BZ-RjT">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="forceLightMode:" target="Ady-hI-5gd" id="ixT-NU-w6g"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Force Dark Mode" id="phA-co-tYS">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="forceDarkMode:" target="Ady-hI-5gd" id="4BN-NY-Il3"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Gvx-ne-y5O"/>
                                         <menuItem title="Check Login Status" id="bs9-eE-5rz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
