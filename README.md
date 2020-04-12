@@ -1,3 +1,6 @@
+## Legacy Branch
+Compatible with macOS 10.12+
+
 ![Apple Music Ultra](Media/Cover.jpg)
 
 # Themes for Apple Music
