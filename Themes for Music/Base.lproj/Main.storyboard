@@ -1056,9 +1056,9 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Settings" id="VFg-zh-foU">
                                     <items>
-                                        <menuItem title="Performance ᴮᴱᵀᴬ" id="K50-gV-Wzy">
+                                        <menuItem title=" Performance ᴮᴱᵀᴬ" image="MenuPerformance" id="K50-gV-Wzy">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Performance ᴮᴱᵀᴬ" id="CS0-x3-5Ic">
+                                            <menu key="submenu" title=" Performance ᴮᴱᵀᴬ" id="CS0-x3-5Ic">
                                                 <items>
                                                     <menuItem title="About Perfomance ᴮᴱᵀᴬ" id="eRN-0T-HQQ">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
@@ -1088,9 +1088,9 @@
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="AjJ-Oq-Kwk"/>
-                                        <menuItem title="UI Editor ᴮᴱᵀᴬ" id="beQ-rh-fpV">
+                                        <menuItem title=" UI Editor ᴮᴱᵀᴬ" image="MenuEditor" id="beQ-rh-fpV">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="UI Editor ᴮᴱᵀᴬ" id="noz-IL-8Zd">
+                                            <menu key="submenu" title=" UI Editor ᴮᴱᵀᴬ" id="noz-IL-8Zd">
                                                 <items>
                                                     <menuItem title="Hide Logo" id="7O5-79-lpV">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
@@ -1595,6 +1595,7 @@
         <image name="MenuCustomizer" width="22" height="22"/>
         <image name="MenuDefault" width="22" height="22"/>
         <image name="MenuDunesFill" width="22" height="22"/>
+        <image name="MenuEditor" width="22" height="22"/>
         <image name="MenuEnergy" width="22" height="22"/>
         <image name="MenuExtra" width="22" height="22"/>
         <image name="MenuFrosty" width="22" height="22"/>
@@ -1608,6 +1609,7 @@
         <image name="MenuNext" width="22" height="22"/>
         <image name="MenuOvercast" width="22" height="22"/>
         <image name="MenuPauseFlat" width="22" height="22"/>
+        <image name="MenuPerformance" width="22" height="22"/>
         <image name="MenuPlay" width="22" height="22"/>
         <image name="MenuPlaylist" width="22" height="22"/>
         <image name="MenuQuartz" width="22" height="22"/>
