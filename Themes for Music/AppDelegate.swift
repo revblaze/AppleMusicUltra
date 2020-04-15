@@ -23,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var toggleLoginMenu: NSMenuItem!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        //removeDefaults()
         /*
         Defaults.reset()                    // WARNING: RESETS DEFAULTS
         Defaults.synchronize()*/
@@ -69,6 +70,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Defaults.removeObject(forKey: "ActiveTheme")
         Defaults.removeObject(forKey: "mode")
         Defaults.removeObject(forKey: "firstLaunch")
+    }
+    func removeDefaults() {
+        let defaults = UserDefaults.standard
+        let dictionary = defaults.dictionaryRepresentation()
+        
+        dictionary.keys.forEach { key in
+            defaults.removeObject(forKey: key)
+        }
     }
     
 }

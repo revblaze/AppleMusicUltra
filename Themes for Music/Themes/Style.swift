@@ -33,13 +33,9 @@ enum Style {       // NAME         TYPE                     rawValue           M
         case .vibing: return .dark
         // macOS 10.12+ Compatibility
         case .frosty: if #available(OSX 10.14, *) { return .sheet }
-        else { return .mediumLight }
+            else { return .mediumLight }
         case .shadow: if #available(OSX 10.14, *) { return .toolTip }
-        else { return .dark }
-        /*
-        case .frosty: return StyleHelper.legacyStyle(self)
-        case .shadow: return StyleHelper.legacyStyle(self)
-        */
+            else { return .dark }
         }
     }
     
@@ -95,6 +91,7 @@ struct StyleHelper {                                                    // NAME 
     
     
     // Deprecated Styles (macOS 10.12+)
+    // BUG: Crash upon calling
     static func legacyStyle(_ style: Style) -> NSVisualEffectView.Material {
         if #available(OSX 10.14, *) { return style.fx }
         else {

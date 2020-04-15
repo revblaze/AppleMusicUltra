@@ -23,6 +23,7 @@ struct User {
     static var co = Defaults.string(forKey: "CountryCode")
     static var isSignedIn = Defaults.bool(forKey: "signedIn")
     static var firstLaunch = Defaults.bool(forKey: "firstLaunch")
+    static var neverShowAgain = Defaults.bool(forKey: "NeverAgain")
 }
 
 var metadata = ["", "", ""] // Saves requested metadata to memory
@@ -31,7 +32,7 @@ var nowURL  = ""            // Saves current URL to memory
 var lastURL = ""            // Saves previous URL to memory
 var initLaunch = true       // Determines if app just launched
 
-let debug = true           // Activates debugger functions on true
+let debug = false           // Activates debugger functions on true
 
 class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWindowDelegate, Customizable { //, WKScriptMessageHandler {
     
@@ -52,6 +53,8 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     // Login Controller Objects
     private var loginWebView: WKWebView?                        // Login WebView
     private var loginWindowController: LoginWindowController?   // Login Popup Window
+    
+    var introWindowController: WalkthroughWindowController?
     
     // WebView Observers
     var webViewTitleObserver: NSKeyValueObservation?            // Observer for Web Player Title
@@ -118,6 +121,27 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     override func viewWillAppear() {
         setLaunchTheme()            // Load Theme & Style from Last Session
+    }
+    
+    override func viewDidAppear() {
+        // Show User Walkthrough with "Never Show Again" option
+        if !User.neverShowAgain {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+                // Show Welcome/Intro/Walkthrough View
+                let storyboard = NSStoryboard(name: "Main", bundle: nil)
+                if let introWC = storyboard.instantiateController(withIdentifier: "IntroWindow") as? WalkthroughWindowController {
+                    // Keep reference to it in memory
+                    self.introWindowController = introWC
+                    /*
+                    if let introVC = introWC.window?.contentViewController as? WalkthroughViewController {
+                        // Do something?
+                    }
+ */
+                    // Present Walkthrough window to user
+                    introWC.showWindow(self)
+                }
+            })
+        }
     }
     
     override func viewWillDisappear() {
@@ -1181,5 +1205,10 @@ extension ViewController: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         print("WKScriptMessage: \(message.body)")
     }
+}
+
+extension NSStoryboardSegue.Identifier {
+    static let walkthroughVC = NSStoryboardSegue.Identifier("WalkthroughVC")
+    static let openIntroWindow = NSStoryboardSegue.Identifier("OpenIntroWindow")
 }
 

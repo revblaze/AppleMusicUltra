@@ -724,6 +724,12 @@
                                                 <action selector="checkLoginStatus:" target="Ady-hI-5gd" id="Mrt-yt-oUv"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Show Walkthrough" id="xW0-xw-73Y">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <segue destination="UzK-6U-q8X" kind="show" id="aGN-Rt-hBW"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="ZCC-92-9zJ"/>
                                         <menuItem title="Run JS Code" id="TBS-7I-ZSk">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -971,6 +977,13 @@
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="b2V-mD-hzX"/>
+                                        <menuItem title="Open Walkthrough" id="yrV-LM-zKH">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <segue destination="UzK-6U-q8X" kind="show" identifier="OpenIntroWindow" id="N8P-hm-vmW"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -1159,6 +1172,138 @@
             </objects>
             <point key="canvasLocation" x="74" y="540"/>
         </scene>
+        <!--Window Controller-->
+        <scene sceneID="GiB-Hy-bPb">
+            <objects>
+                <windowController storyboardIdentifier="IntroWindow" id="UzK-6U-q8X" customClass="WalkthroughWindowController" customModule="Themes_for_Music" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" tabbingIdentifier="WalkthroughWindow" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="pB7-P7-tbc">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" texturedBackground="YES"/>
+                        <rect key="contentRect" x="245" y="310" width="920" height="575"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1050"/>
+                        <value key="minSize" type="size" width="920" height="575"/>
+                        <value key="maxSize" type="size" width="920" height="575"/>
+                        <connections>
+                            <outlet property="delegate" destination="UzK-6U-q8X" id="el8-bA-NqA"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="n8p-O5-fj0" kind="relationship" relationship="window.shadowedContentViewController" id="et5-q8-khZ"/>
+                    </connections>
+                </windowController>
+                <customObject id="BQv-MR-r93" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-866" y="1272"/>
+        </scene>
+        <!--Walkthrough View Controller-->
+        <scene sceneID="MEL-st-y0i">
+            <objects>
+                <viewController storyboardIdentifier="introViewController" id="n8p-O5-fj0" customClass="WalkthroughViewController" customModule="Themes_for_Music" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="47i-Ob-rAd">
+                        <rect key="frame" x="0.0" y="0.0" width="920" height="575"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="d1b-3p-dwb">
+                                <rect key="frame" x="0.0" y="0.0" width="920" height="575"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="nxH-Et-zFm"/>
+                            </imageView>
+                            <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="wWD-19-JXW">
+                                <rect key="frame" x="0.0" y="0.0" width="920" height="575"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Page3" id="J8R-k9-ZMT"/>
+                            </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u36-22-eJU">
+                                <rect key="frame" x="335" y="533" width="250" height="35"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Themes for Music" id="w52-Rg-wQV">
+                                    <font key="font" metaFont="systemSemibold" size="30"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="e9c-uO-XRx">
+                                <rect key="frame" x="838" y="529" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="N4N-d4-3d2"/>
+                                    <constraint firstAttribute="height" constant="40" id="b4e-5H-VTJ"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ArrowNext" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="htd-3h-pYV">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="nextPage:" target="n8p-O5-fj0" id="MHP-i5-GWG"/>
+                                </connections>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="J3o-Yt-SxU">
+                                <rect key="frame" x="42" y="529" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="JJa-v6-amt"/>
+                                    <constraint firstAttribute="width" constant="40" id="y9s-7N-Oqk"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ArrowBack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ngp-To-OcQ">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="backPage:" target="n8p-O5-fj0" id="8Dh-xC-UlH"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AzE-UI-5na">
+                                <rect key="frame" x="396" y="48" width="129" height="18"/>
+                                <buttonCell key="cell" type="check" title="Don't Show Again" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Px5-8k-JDc">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="neverShowAgainCheckbox:" target="n8p-O5-fj0" id="iMm-Cl-Z1M"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f4C-o2-v9m">
+                                <rect key="frame" x="404" y="77" width="113" height="32"/>
+                                <buttonCell key="cell" type="push" title="Go to Music" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EnQ-Ql-UWX">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="goToMusic:" target="n8p-O5-fj0" id="zco-Cb-MfB"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="wWD-19-JXW" firstAttribute="top" secondItem="47i-Ob-rAd" secondAttribute="top" id="0aO-ZT-t03"/>
+                            <constraint firstItem="u36-22-eJU" firstAttribute="top" secondItem="47i-Ob-rAd" secondAttribute="top" constant="7" id="1sJ-32-S02"/>
+                            <constraint firstItem="wWD-19-JXW" firstAttribute="leading" secondItem="47i-Ob-rAd" secondAttribute="leading" id="7JT-r1-wGz"/>
+                            <constraint firstItem="d1b-3p-dwb" firstAttribute="leading" secondItem="47i-Ob-rAd" secondAttribute="leading" id="7xa-Tp-w8u"/>
+                            <constraint firstAttribute="trailing" secondItem="wWD-19-JXW" secondAttribute="trailing" id="8SV-gh-m6u"/>
+                            <constraint firstItem="J3o-Yt-SxU" firstAttribute="leading" secondItem="47i-Ob-rAd" secondAttribute="leading" constant="42" id="8fm-CO-EAW"/>
+                            <constraint firstItem="d1b-3p-dwb" firstAttribute="top" secondItem="47i-Ob-rAd" secondAttribute="top" id="BxB-F4-5p9"/>
+                            <constraint firstItem="f4C-o2-v9m" firstAttribute="centerX" secondItem="47i-Ob-rAd" secondAttribute="centerX" id="CLb-Mx-1zx"/>
+                            <constraint firstAttribute="bottom" secondItem="d1b-3p-dwb" secondAttribute="bottom" id="QNT-tk-SnJ"/>
+                            <constraint firstAttribute="bottom" secondItem="wWD-19-JXW" secondAttribute="bottom" id="Vux-lZ-ywn"/>
+                            <constraint firstItem="e9c-uO-XRx" firstAttribute="top" secondItem="47i-Ob-rAd" secondAttribute="top" constant="6" id="WbE-Zt-Wpz"/>
+                            <constraint firstItem="AzE-UI-5na" firstAttribute="top" secondItem="f4C-o2-v9m" secondAttribute="bottom" constant="20" id="ZRQ-qr-b8G"/>
+                            <constraint firstItem="J3o-Yt-SxU" firstAttribute="top" secondItem="47i-Ob-rAd" secondAttribute="top" constant="6" id="fWh-xF-mt8"/>
+                            <constraint firstItem="AzE-UI-5na" firstAttribute="centerX" secondItem="47i-Ob-rAd" secondAttribute="centerX" id="hhk-6P-M3G"/>
+                            <constraint firstAttribute="trailing" secondItem="d1b-3p-dwb" secondAttribute="trailing" id="idT-1W-Qly"/>
+                            <constraint firstAttribute="trailing" secondItem="e9c-uO-XRx" secondAttribute="trailing" constant="42" id="jm6-Qu-F4b"/>
+                            <constraint firstAttribute="bottom" secondItem="AzE-UI-5na" secondAttribute="bottom" constant="50" id="p2P-iV-aFg"/>
+                            <constraint firstItem="u36-22-eJU" firstAttribute="centerX" secondItem="47i-Ob-rAd" secondAttribute="centerX" id="xdq-UD-O3a"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backButtonConstraint" destination="fWh-xF-mt8" id="8V9-5I-B7A"/>
+                        <outlet property="backPageButton" destination="J3o-Yt-SxU" id="2mx-zw-7hP"/>
+                        <outlet property="doneButton" destination="f4C-o2-v9m" id="qOE-dp-hwh"/>
+                        <outlet property="imageView" destination="wWD-19-JXW" id="XlY-IC-6My"/>
+                        <outlet property="imageViewBlur" destination="d1b-3p-dwb" id="aHT-lx-ulF"/>
+                        <outlet property="neverShowAgain" destination="AzE-UI-5na" id="Mhu-SF-niu"/>
+                        <outlet property="nextButtonConstraint" destination="WbE-Zt-Wpz" id="Dji-hY-xDO"/>
+                        <outlet property="nextPageButton" destination="e9c-uO-XRx" id="PXo-ak-IvW"/>
+                        <outlet property="titleConstraint" destination="1sJ-32-S02" id="fAo-xG-RUi"/>
+                    </connections>
+                </viewController>
+                <customObject id="BJu-Zh-ms5" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="147" y="1272"/>
+        </scene>
         <!--Customizer View Controller-->
         <scene sceneID="POT-97-ELL">
             <objects>
@@ -1241,10 +1386,16 @@
             <point key="canvasLocation" x="685" y="540"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="N8P-hm-vmW"/>
+    </inferredMetricsTieBreakers>
     <resources>
+        <image name="ArrowBack" width="60" height="60"/>
+        <image name="ArrowNext" width="60" height="60"/>
         <image name="NSGoBackTemplate" width="9" height="12"/>
         <image name="NSSmartBadgeTemplate" width="14" height="14"/>
         <image name="NSStopProgressFreestandingTemplate" width="14" height="14"/>
         <image name="NSStopProgressTemplate" width="11" height="11"/>
+        <image name="Page3" width="1600" height="1000"/>
     </resources>
 </document>
