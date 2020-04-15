@@ -34,13 +34,18 @@ class WindowController: NSWindowController, NSWindowDelegate {
         dialog.showsHiddenFiles = false
         dialog.allowedFileTypes = ["png", "jpg", "jpeg"]
         
+        if dialog.runModal() == NSApplication.ModalResponse.cancel {
+            //return nil
+            return URL(string: "file://.cancel")!
+        }
+        
         if (dialog.runModal() == NSApplication.ModalResponse.OK) {
             if let result = dialog.url?.absoluteURL {
                 //let fileManager = FileManager.default
                 return result }
-        } else { return URL(string: "")! } // User clicked cancel
-        
-        return URL(string: "")!
+        } /*else { return URL(string: "") ?? "" } // User clicked cancel
+        */
+        return URL(string: "file://.cancel")!
     }
 
 }

@@ -10,7 +10,7 @@ import AppKit
 import Foundation
 
 struct Active {
-    static var style = Style.vibing     // OLD: Style.preset
+    static var style = Style.shadow     // OLD: Style.preset
     static var clear = false            // OLD: true
     static var mode  = true             // OLD: true
     static var image = "wave"           // OLD: ""

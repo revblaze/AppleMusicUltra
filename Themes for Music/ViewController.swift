@@ -362,7 +362,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         webView.evaluateJavaScript(Script.artistHeader) { (result, error) in
             if let header = result as? String {
                 var imageURL = header.replacingOccurrences(of: "url(", with: "")
-                imageURL.removeLast()
+                if !imageURL.isEmpty { imageURL.removeLast() }
                 let image = imageURL.replacingOccurrences(of: "\\", with: "")
                 print("Header Image: \(image)")
                 self.setArtwork(image)
@@ -455,9 +455,13 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     /// Set background image from user selected file (png, jpg or jpeg)
     func setCustomTheme() {
         let imageURL = windowController.selectImageFile()
-        setBackground(imageURL)
-        let imagePath = imageURL.absoluteString
-        setLiveTheme(imagePath, clear: false)
+        //let image = String(imageURL.absoluteString)
+        //if !image.isEmpty && image.isBlank() {
+        if imageURL.absoluteString == "file//.cancel" {
+            setBackground(imageURL)
+            let imagePath = imageURL.absoluteString
+            setLiveTheme(imagePath, clear: false)
+        }
     }
     
     

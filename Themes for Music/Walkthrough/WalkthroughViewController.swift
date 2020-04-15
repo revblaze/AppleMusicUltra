@@ -108,7 +108,6 @@ class WalkthroughViewController: NSViewController {
                 imageViewBlur.animator().alphaValue = 1.0
             }, completionHandler: { () -> Void in })
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
-                print("showPageAnimation after queue: \(pageNumber)")
                 //self.presentPage(2)               // WORKS
                 //self.showPageAnimation(2, preparePage: false)
                 NSAnimationContext.runAnimationGroup({ (context) -> Void in
@@ -151,7 +150,6 @@ class WalkthroughViewController: NSViewController {
     
     @IBAction func nextPage(_ sender: Any) {
         let newPage = currentPage + 1
-        print("NEXT newPage: \(newPage)")
         if newPage <= 3 {
             currentPage += 1
             showPage(newPage)
@@ -160,7 +158,6 @@ class WalkthroughViewController: NSViewController {
     
     @IBAction func backPage(_ sender: Any) {
         let newPage = currentPage - 1
-        print("BACK newPage: \(newPage)")
         if newPage >= 1 {
             currentPage -= 1
             showPage(newPage)
@@ -221,9 +218,8 @@ class WalkthroughViewController: NSViewController {
     
     
     func printPageToConsole(_ pageNumber: Int) {
-        if debug {
-            print("Walkthrough Page: \(pageNumber)")
-        }
+        if debug { print("Walkthrough Page: \(pageNumber)")
+}
     }
         
         
