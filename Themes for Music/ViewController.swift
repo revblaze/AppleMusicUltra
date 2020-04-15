@@ -236,7 +236,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         if countryCode.count == 2 {             // Check that country code is length 2
             if debug { print("Country Code: \(countryCode)") }
             User.co = countryCode
-            if User.isSignedIn && (User.co == Defaults.string(forKey: "CountryCode")) {
+            if User.isSignedIn && (User.co != Defaults.string(forKey: "CountryCode")) {
                 Defaults.set(countryCode, forKey: "CountyCode")
             }
         }
@@ -300,29 +300,27 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         if title.contains("on Apple Music") { title.removeLast(15) }    // Remove "on Apple Music" suffix
         if debug { print("Title: \(title)") }                           // Debug: Print title on change
         
-        if webView.canGoBack { backButton.isHidden = false }            // Show back button if appropriate
         // Trigger Metadata Fetch & Send to NowPlaying
         if nowURL.contains("playlist") {                                // Get Metadata: Playlist
             getArtwork()                                                // Get playlist artwork
-            backButton.isHidden = false
+            backButton.isHidden = false                                 // Show back button
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
                 self.player.updatePlaylist(name: title, url: nowURL, img: artwork)
             })
         } else if nowURL.contains("album") {                            // Get Metadata: Album
             getArtwork()                                                // Get album artwork
-            backButton.isHidden = false
+            backButton.isHidden = false                                 // Show back button
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
                 self.player.updateAlbum(name: title, url: nowURL, img: artwork)
             })
         } else if nowURL.contains("artist") {                           // Get Metadata: Artist
             getArtistArtwork()                                          // Get artist header image
-            backButton.isHidden = false
+            backButton.isHidden = false                                 // Show back button
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
                 self.player.updateArtist(name: title, url: nowURL, img: artwork)
-            })
-        } else {
-            backButton.isHidden = true
-        }
+            }) }
+        else if webView.canGoBack { backButton.isHidden = false }       // Show back button if appropriate
+        else { backButton.isHidden = true }                             // Hide back button, WebView can't go back
     }
     
     
@@ -353,7 +351,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
                 self.setArtwork(artwork)
                 
                 if (error != nil) {
-                    print("Error: \(String(describing: error))")
+                    if debug { print("Error: \(String(describing: error))") }
                 }
             }
         }
@@ -786,15 +784,10 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
                 print("loginWindowState: \(loginWindowState)")
                 print("login isKeyWindow: \(isKeyWindow)")
             }
-            
             if signedIn && loginWindowState {
-                if isKeyWindow {
-                    App.keyWindow?.performClose(self)
-                }
+                if isKeyWindow { App.keyWindow?.performClose(self) }
             }
-            
-            if let err = err {
-                print(err.localizedDescription) }
+            if let err = err { print(err.localizedDescription) }
             else { /* No error */ }
         }
     }
@@ -816,7 +809,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         }
         decisionHandler(.allow)
     }
-    
     // Create new Window with Login Prompt
     private func presentLoginScreen(with loginWebView: WKWebView) {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
@@ -832,7 +824,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             loginWindowVC.showWindow(self)
         }
     }
-    
     // LoginWebView: 650 x 710
     // Creates new loginWebView instance
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
@@ -852,21 +843,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         loginWebViewURLObserver = loginWebView!.observe(\.url, options: .new) { [weak self] loginWebView, change in
         let url = "\(String(describing: change.newValue))"
         self?.loginURLDidChange(urlString: url); }
-        
-        /*
-        <div class="buttons-container">
-          <button data-targetid="continue" data-pageid="WebPlayerConfirmConnection" class="button-primary signed-in" data-ember-action="" data-ember-action-287="287">Continue</button>
-        </div> */
-        /*
-        loginWebView!.evaluateJavaScript("document.getElementsByClassName('button-primary signed-in').onclick();") { (key, err) in
-            if let key = key {
-                print("loginKey: \(key)")
-            }
-        if let err = err {
-            print("JS Error Continue: \(err.localizedDescription)")
-        } else {
-            print("JS: You clicked Continue!")
-        }}*/
         view.addSubview(loginWebView!)
         updateLoginStatus()
         return loginWebView!
@@ -940,7 +916,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         print("Now Playing:\n    song: \(song)\n  artist: \(artist)\n   album: \(album)")
         return [song, artist, album]
     }
-    
     /// Cleans and reformats Optional CSS String for use in WKWebView.
     func cssToString(_ css: String) -> String {
         var cssString = css
@@ -950,7 +925,6 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         cssString = cssString.replacingOccurrences(of: "\")", with: "")
         return cssString
     }
-    
     /**
     Extracts Optional contents of a CSS file, cleans it and then reformats it as a String for use in WKWebView.
     
@@ -1001,7 +975,8 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             return false
         }
     }
-    
+    // TODO: Just make a custom share sheet, segues to custom ViewControllers look sick...
+    //       You can control popover/sheet view size, appearance, etc.
     /*
     func showShareSheet(_ sender: Any, text: String, url: String) {
         let rawURL = URL(string: url)
@@ -1028,8 +1003,8 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         didSet {
         // Update the view, if already loaded.
         }
-    }
     
+    }
     // LIGHT / DARK MODE CHECK
     // currentMode == .Dark ?? .Light
     enum InterfaceStyle: String {
@@ -1207,6 +1182,7 @@ extension ViewController: WKScriptMessageHandler {
     }
 }
 
+// TODO: USE OR DELETE
 extension NSStoryboardSegue.Identifier {
     static let walkthroughVC = NSStoryboardSegue.Identifier("WalkthroughVC")
     static let openIntroWindow = NSStoryboardSegue.Identifier("OpenIntroWindow")
