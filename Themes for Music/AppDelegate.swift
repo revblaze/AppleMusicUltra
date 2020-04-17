@@ -23,10 +23,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var toggleLoginMenu: NSMenuItem!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        //removeDefaults()
-        /*
-        Defaults.reset()                    // WARNING: RESETS DEFAULTS
-        Defaults.synchronize()*/
+        //removeDefaults()                      // WARNING: RESETS DEFAULTS
+        //Defaults.reset()                      // WARNING: RESETS DEFAULTS
+        //Defaults.synchronize()
+        
         let hasLaunched = Defaults.bool(forKey: hasLaunchedKey)
         if !hasLaunched { clearDefaults(); Defaults.set(true, forKey: hasLaunchedKey) }
         if !debug { debugMenu.isHidden = true }
@@ -61,8 +61,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let hasLaunchedKey = "hasLaunchedBefore1"
     let signedIn = Defaults.bool(forKey: "signedIn")
     let hideLogo = Defaults.bool(forKey: "hideLogo")
+    let firstLaunch = Defaults.bool(forKey: "firstLaunch")
 
-    
     /// WARNING: Clears all active UserDefaults: `hideLogo`, `ActiveTheme`
     func clearDefaults() {
         Defaults.removeObject(forKey: "signedIn")
@@ -78,6 +78,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         dictionary.keys.forEach { key in
             defaults.removeObject(forKey: key)
         }
+    }
+    @IBAction func clearUserDefaults(_ sender: Any) {
+        clearDefaults()
+        removeDefaults()
     }
     
 }

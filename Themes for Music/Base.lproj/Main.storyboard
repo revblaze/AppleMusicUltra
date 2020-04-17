@@ -339,7 +339,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Format" id="jxT-CU-nIS">
+                            <menuItem title="Format" hidden="YES" id="jxT-CU-nIS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Format" id="GEO-Iw-cKr">
                                     <items>
@@ -647,20 +647,40 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Debug" id="n5o-Od-66m">
                                     <items>
-                                        <menuItem title="Defaults" id="ZzL-s7-eyI">
+                                        <menuItem title="Initializer" id="ZzL-s7-eyI">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Defaults" id="EGE-jY-h1b">
+                                            <menu key="submenu" title="Initializer" id="kKm-p4-n8J">
                                                 <items>
-                                                    <menuItem title="Save Defaults" id="Gg9-6O-Gmf">
+                                                    <menuItem title="Clear All UserDefaults" id="XpN-MC-Feb">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
-                                                            <action selector="saveThemeDefaults:" target="Ady-hI-5gd" id="bio-Xf-nUi"/>
+                                                            <action selector="clearUserDefaults:" target="Ady-hI-5gd" id="Mxm-Vx-c5e"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Read Defaults" id="ja3-E3-rkd">
+                                                    <menuItem title="Clear WebKit Cache &amp; Storage" id="p2t-gx-3Nf">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
-                                                            <action selector="readThemeDefaults:" target="Ady-hI-5gd" id="dAF-IX-lVd"/>
+                                                            <action selector="clearWKCache:" target="Ady-hI-5gd" id="94M-UW-dee"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="RVq-by-IIb"/>
+                                        <menuItem title="Defaults" id="E4z-md-1eG">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Defaults" id="0SH-5P-QA1">
+                                                <items>
+                                                    <menuItem title="Save Defaults" id="sD4-KZ-M6V">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="saveThemeDefaults:" target="Ady-hI-5gd" id="Q2A-Qz-aCt"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Read Defaults" id="HQI-Ep-0cF">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="readThemeDefaults:" target="Ady-hI-5gd" id="7dT-46-iiy"/>
                                                         </connections>
                                                     </menuItem>
                                                 </items>
@@ -686,6 +706,20 @@
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="2qf-f3-3kv"/>
+                                        <menuItem title="Music Controls" id="Qb0-ZT-v0N">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Music Controls" id="IXX-mT-RXZ">
+                                                <items>
+                                                    <menuItem title="Print Music Status" id="2qh-PC-Y4o">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="getMusicStatus:" target="Ady-hI-5gd" id="dAQ-0Y-hud"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="gj9-Kj-uw3"/>
                                         <menuItem title="Parser" id="TjT-ZD-9M0">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Parser" id="xdT-8r-17O">
@@ -762,47 +796,78 @@
                                     <items>
                                         <menuItem title=" Play" image="MenuPlay" id="Ijz-bk-PYm">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="playMusic:" target="Ady-hI-5gd" id="vwC-bB-3vV"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title=" Pause" image="MenuPauseFlat" id="bIi-sj-Pl2">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="pauseMusic:" target="Ady-hI-5gd" id="su0-pI-sSp"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="v8n-TR-1wZ"/>
+                                        <menuItem title=" Shuffle" image="MenuShuffle" id="7Pa-hN-tVw">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleShuffle:" target="Ady-hI-5gd" id="YKq-U8-lPB"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title=" Repeat" image="MenuRepeat" id="tE5-Mh-iVZ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title=" Repeat" id="z5m-Wq-eXM">
+                                            <connections>
+                                                <action selector="toggleRepeat:" target="Ady-hI-5gd" id="vZt-Cp-5Cu"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title=" Repeat" image="MenuRepeat" hidden="YES" id="vPO-7d-EYf">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title=" Repeat" id="Nzz-CD-GaW">
                                                 <items>
-                                                    <menuItem title="Repeat Off" state="on" id="Yb2-jt-34C">
+                                                    <menuItem title="Repeat OFF" state="on" id="xmb-wv-laG">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                     </menuItem>
-                                                    <menuItem isSeparatorItem="YES" id="yVR-Hu-SVB"/>
-                                                    <menuItem title="Repeat One" id="eU7-DW-Od3">
+                                                    <menuItem isSeparatorItem="YES" id="ElK-Ii-a3v"/>
+                                                    <menuItem title="Repeat One" id="FHD-2a-rSa">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                     </menuItem>
-                                                    <menuItem title="Repeat Lineup" id="h5M-SG-SM0">
+                                                    <menuItem title="Repeat Lineup" id="22H-v4-hhQ">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                     </menuItem>
                                                 </items>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title=" Shuffle" image="MenuShuffle" id="7Pa-hN-tVw">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="1Ye-xz-jpc"/>
                                         <menuItem title=" Rewind" image="MenuRewind" id="Xdf-Dt-5Xd">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="goRewindSong:" target="Ady-hI-5gd" id="PGN-cr-cTq"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title=" Play Last" image="MenuLast" id="n9y-T7-kg5">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="goBackSong:" target="Ady-hI-5gd" id="xl8-Tq-thf"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title=" Play Next" image="MenuNext" id="7SJ-Mc-ZUL">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="goNextSong:" target="Ady-hI-5gd" id="jTe-1e-lub"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="1FJ-E7-KsN"/>
+                                        <menuItem title=" Up Next ᴮᴱᵀᴬ" image="MenuUpNext" id="sDH-zr-K1I">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleUpNext:" target="Ady-hI-5gd" id="7Jx-oI-h77"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="7KK-qh-v6K"/>
                                         <menuItem title=" Volume" image="MenuVolume" id="XUV-As-dPI">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title=" Volume" id="2UU-lE-VL1">
                                                 <items>
-                                                    <menuItem title="Volume" id="6Mo-te-LAx">
+                                                    <menuItem title="Volume ᴮᴱᵀᴬ" id="6Mo-te-LAx">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                     </menuItem>
                                                     <menuItem title="(Slider Here)" id="68V-tQ-WO1">
@@ -823,11 +888,14 @@
                                         </menuItem>
                                         <menuItem title=" Mute" image="MenuMute" id="kdh-Ik-Jp8">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="goMuteSong:" target="Ady-hI-5gd" id="DjU-Ly-sH7"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="bEs-n1-oea"/>
-                                        <menuItem title=" AirPlay" image="MenuAirPlay" id="BbI-v6-7ge">
+                                        <menuItem title=" AirPlay ᴮᴱᵀᴬ" image="MenuAirPlay" id="BbI-v6-7ge">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title=" AirPlay" id="Cmj-bM-OkL">
+                                            <menu key="submenu" title=" AirPlay ᴮᴱᵀᴬ" id="Cmj-bM-OkL">
                                                 <items>
                                                     <menuItem title="Speaker" id="adb-FB-ukw">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
@@ -1108,6 +1176,13 @@
                                                     </menuItem>
                                                 </items>
                                             </menu>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="a1k-nL-dZH"/>
+                                        <menuItem title="Reset All Settings" image="MenuRewind" id="Amd-l1-Bav">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="resetAllSettings:" target="Ady-hI-5gd" id="qg8-hA-Qzz"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -1625,6 +1700,7 @@
         <image name="MenuStyles" width="22" height="22"/>
         <image name="MenuThemes" width="22" height="22"/>
         <image name="MenuTransparent" width="22" height="22"/>
+        <image name="MenuUpNext" width="22" height="22"/>
         <image name="MenuVibrant" width="22" height="22"/>
         <image name="MenuVibrantDash" width="22" height="22"/>
         <image name="MenuVideo" width="22" height="22"/>

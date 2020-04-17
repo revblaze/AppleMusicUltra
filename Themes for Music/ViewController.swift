@@ -15,8 +15,9 @@ let Defaults = UserDefaults.standard
 
 struct Music {
     static let app = "Themes for Music"
-    static let url = "https://beta.music.apple.com"
+    static let url = "https://music.apple.com"
     static let userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15"
+    static var isPlaying = false
 }
 
 struct User {
@@ -24,6 +25,7 @@ struct User {
     static var isSignedIn = Defaults.bool(forKey: "signedIn")
     static var firstLaunch = Defaults.bool(forKey: "firstLaunch")
     static var neverShowAgain = Defaults.bool(forKey: "NeverAgain")
+    static var lastSessionURL = Defaults.string(forKey: "LastSessionURL")
 }
 
 var metadata = ["", "", ""] // Saves requested metadata to memory
@@ -32,9 +34,9 @@ var nowURL  = ""            // Saves current URL to memory
 var lastURL = ""            // Saves previous URL to memory
 var initLaunch = true       // Determines if app just launched
 
-let debug = false           // Activates debugger functions on true
+let debug = true           // Activates debugger functions on true
 
-class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWindowDelegate, Customizable { //, WKScriptMessageHandler {
+class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler, NSWindowDelegate, Customizable {
     
     // MARK: Objects & Variables
     @IBOutlet var webView: WKWebView!                           // Main Music Web Player
@@ -71,6 +73,8 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     // UI Settings
     var logoIsHidden = false                                    // Toggle Hide/Show Logo
+    var appWillResetSettings = false                            // Reset Settings Flag
+    var openUpNextBeta = false
     
     
     
@@ -97,6 +101,8 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         let configuration = WKWebViewConfiguration()            // WebKit Configuration
         configuration.preferences = preferences
         configuration.allowsAirPlayForMediaPlayback = true      // Enable WebKit AirPlay
+        let webController = WKUserContentController()
+        webView.configuration.userContentController = webController
         // Load Apple Music Web Player
         webView.load(Music.url)
         webView.alphaValue = 0
@@ -145,10 +151,14 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     }
     
     override func viewWillDisappear() {
-        saveDefaults()              // Save Active.values to Defaults
-        saveDefaultSettings()       // Save UI Settings to Defaults
-        if debug { print("Saved User Session") }
-        if debug { print("Window Size: \(view.window!.frame.size)") }
+        if !appWillResetSettings {
+            saveDefaults()              // Save Active.values to Defaults
+            saveDefaultSettings()       // Save UI Settings to Defaults
+            if debug { print("Saved User Session") }
+            if debug { print("Window Size: \(view.window!.frame.size)") }
+        } else {
+            print("User successfully reset application settings.\nApplication restored to default state.")
+        }
     }
     
     /// Fade-in WebView with animation on launch
@@ -169,10 +179,16 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         // Evaluate default CSS/JS code
+        if debug { print("webView didFinish") }
         let css = cssToString(file: "style", inDir: "WebCode")
         let js = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"
         webView.evaluateJavaScript(js, completionHandler: nil)
         // if debug { print("URL CSS Code:", css) }
+        // Fades-in Main Player WebView on Launch
+        if initLaunch {
+            fadePlayerAtLaunch()
+            initLaunch = false
+        }
         // UI Settings: UserDefaults
         if Defaults.bool(forKey: "hideLogo") { logoIsHidden = true; toggleLogoMenu(true) }
         else { logoIsHidden = false; toggleLogoMenu(false) }
@@ -197,7 +213,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     func showBufferIssueMessage() {
         let title = "Issues with Buffering First Song"
-        let text = "Due to the fact that Apple Music's Library is public, they make a validation check upon requesting the first song (every new session). This just means that the first song to play, when you load up the app, will buffer for a few seconds as Apple attempts to verify that you're a valid subscriber. Once they've done their checks, the app will continue to stream music fluently. I'm looking into possible fixes, hang tight! \n\nUse ⌘K to show/hide the popover Customizer or use the Customize menu drop down in the menu bar."
+        let text = "Due to the fact that Apple Music's Library is public, they make a validation check upon requesting the first song (every new session). This just means that the first song to play, when you load up the app, will buffer for a few seconds as Apple attempts to verify that you're a valid subscriber. Once they've done their checks, the app will continue to stream music fluently. I'm looking into possible fixes, hang tight! \n\nUse ⌘K to toggle the popover Customizer or select the Customize menu in the top bar."
         self.showDialog(title: title, text: text)
     }
     
@@ -213,23 +229,32 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         nowURL = url                            // Update nowURL to new URL
         
         // Fades-in Main Player WebView on Launch
+        /* Move to titleDidchange
         if initLaunch {
             fadePlayerAtLaunch()
             initLaunch = false
         }
+ */
         
         // Check if User is signed in: if true, keep LoginWindow closed
         checkLoginAndCloseWindow()
         
         // Set firstLaunch
         if !User.firstLaunch && User.isSignedIn {
+            // Show init song buffer warning
             showBufferIssueMessage()
+            // User first launch, set first launch to false
             User.firstLaunch = true
             Defaults.set(true, forKey: "firstLaunch")
         }
         
         // Save User CountryCode to Defaults
-        let removeBaseURL = url.replacingOccurrences(of: "https://beta.music.apple.com/", with: "")
+        // NEW
+        //let baseURLSlash = "\(Music.url)/"
+        //let removeBaseURL = url.replacingOccurrences(of: baseURLSlash, with: "")
+        // OLD
+        //let removeBaseURL = url.replacingOccurrences(of: "https://beta.music.apple.com/", with: "")
+        let removeBaseURL = url.replacingOccurrences(of: "https://music.apple.com/", with: "")
         var countryCode = removeBaseURL.replacingOccurrences(of: "/for-you", with: "")
         countryCode = countryCode.replacingOccurrences(of: "/browse", with: "")
         countryCode = countryCode.replacingOccurrences(of: "/radio", with: "")      // Remove /radio
@@ -243,7 +268,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         
         // Web Player URL Flag Markers
         let authURL = "authorize.music.apple.com"
-        let mainURL = "beta.music.apple.com"
+        let mainURL = "music.apple.com"
         // Close Apple Music Login Pop-up Window
         if lastURL.contains(authURL) && url.contains(mainURL) {
             if debug { print("User logged in successfully, close LoginWindowController") }
@@ -252,7 +277,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
         
         // UNSUPPORTED HANDLERS
         // Web Player does not yet support this radio station, view in Music app:
-        // if music.apple.com/XX/station/ <-> beta.music.apple.com/XX/radio
+        // if music.apple.com/XX/station/ <-> music.apple.com/XX/radio
         if (lastURL.contains("station") && url.contains("radio")) || lastURL.contains("radio") && url.contains("station") {
             webView.load(Music.url)
             let message = "We're sorry, Apple Music does not yet support this radio station outside of iTunes."
@@ -260,7 +285,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
             
         }
         // ERROR HANDLERS
-        // Upon error, URL: https://beta.music.apple.com/.../error
+        // Upon error, URL: https://music.apple.com/.../error
         if url.contains("error") {
             print("Apple Music Web Player: Encountered error")
             let message = "An error occured while connecting to Apple Music. Please try again."
@@ -607,7 +632,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     /// Loads `Active` (live) values from Defaults, sets them as current `Active` values:
     /// `Active.[style, clear, mode, image]`
     func loadDefaults() {
-        let defaultArray = ["vibing", "false", "true", "wave"]
+        let defaultArray = ["shadow", "false", "true", "wave"]      // Default
         let themeArray = Defaults.stringArray(forKey: "ActiveTheme") ?? defaultArray
         Theme.toActive(themeArray)
         
@@ -640,7 +665,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     /// Open current page in Safari
     @IBAction func openInSafari(_ sender: NSMenuItem) {
         let url = URL(string: nowURL)
-        if NSWorkspace.shared.open(url ?? URL(string: "https://beta.music.apple.com/")!) {
+        if NSWorkspace.shared.open(url ?? URL(string: Music.url)!) {
             print("Opened URL in Safari: \(nowURL)") }
     }
     
@@ -670,7 +695,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     }
     func toggleLoginMenu(_ isSignedOut: Bool) -> Bool {
         if isSignedOut {
-            webView.evaluateJavaScript(Script.loginUser){ (value, error) in
+            webView.evaluateJavaScript(Script.loginUser) { (value, error) in
                 if let err = error { print(err) }
             }
             return true
@@ -704,6 +729,116 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     @IBAction func goBack(_ sender: Any) { webView.goBack() }
     @IBOutlet weak var backButton: NSButton!
+    
+    /// RESET & CLEAR: All UserDefaults, WebKit cache and WebKit storage
+    @IBAction func resetAllSettings(_ sender: Any) {
+        let appDelegate = App.delegate as! AppDelegate
+        let title = "Confirm Reset"
+        let text = "Are you sure that you would like to reset all settings? Any themes, styles and preferences will be restored to their default state. You will also be signed out of Apple Music and will need to sign in again.\n\nUpon clicking OK, wait for the app to quit itself and then reopen it."
+        if showAlert(title: title, text: text, withAction: true) {
+            appWillResetSettings = true
+            appDelegate.clearDefaults()
+            appDelegate.removeDefaults()
+            clearAllWKStorage()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+                App.terminate(self)
+            })
+        }
+    }
+    
+    
+    
+    // MARK: Music Controls
+    @IBAction func getMusicStatus(_ sender: Any) {
+        if musicIsPlaying() { print("Music is playing") }
+        else { print("Music is NOT playing") }
+        
+    }
+    
+    // TODO: Join + minify JS
+    // NOTE: Multiple evaluateJavaScript statements happen on main thread, cause app to stall
+    //       Either group evaluate JS statements together - ie. musicIsPlaying(string: jsCode)
+    @IBAction func playMusic(_ sender: Any) {
+        webView.evaluateJavaScript(Script.controlMusic)
+        //if !musicIsPlaying() { webView.evaluateJavaScript(Script.controlMusic) }
+    }
+    @IBAction func pauseMusic(_ sender: Any) {
+        webView.evaluateJavaScript(Script.controlMusic)
+        //if musicIsPlaying() { webView.evaluateJavaScript(Script.controlMusic) }
+    }
+    @IBAction func goRewindSong(_ sender: Any) {
+        goBackSong(self); goNextSong(self)
+    }
+    @IBAction func goBackSong(_ sender: Any) {
+        webView.evaluateJavaScript(Script.backSong)
+    }
+    @IBAction func goNextSong(_ sender: Any) {
+        webView.evaluateJavaScript(Script.nextSong)
+    }
+    @IBAction func toggleUpNext(_ sender: Any) {
+        /* TODO: Add Observer & Toggle to NSMenuItem
+        if !upNextIsOpen() { webView.evaluateJavaScript(Script.toggleUpNext) }
+        else { webView.evaluateJavaScript(Script.toggleUpNext) } */
+        let title = "Issues with Up Next"
+        let text = "Apple Music's Up Next panel is still very buggy and may cause the app to stall – in some cases, crash. Please use this feature at your own risk."
+        if showAlert(title: title, text: text, withAction: true) {
+            openUpNextBeta = true
+            webView.evaluateJavaScript(Script.toggleUpNext)
+        }
+    }
+    @IBAction func toggleShuffle(_ sender: Any) {
+        webView.evaluateJavaScript(Script.toggleShuffle)
+    }
+    @IBAction func toggleRepeat(_ sender: Any) {
+        webView.evaluateJavaScript(Script.toggleRepeat)
+    }
+    @IBAction func repeatSingle(_ sender: Any) {
+        
+    }
+    @IBAction func goMuteSong(_ sender: Any) {
+        webView.evaluateJavaScript(Script.muteSong)
+    }
+    
+    
+    // MARK: Music Control Helpers
+    // Handles JS calls from Music Web Player
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        let jsName = message.name
+        let jsMessage = message.body
+        print("\(jsName): \(jsMessage)")
+        /*
+        if message.name == "jsHandler" {                            // Check if JS call is from jsHandler
+        if debug { print("JS: \(message.body)") }                   // Debug: Print jsHandler.value
+        if var jsCall = message.body as? String {                   // jsCall: JS callback value
+            if jsCall == "close" {  }
+            }
+        }
+        */
+    }
+    /// Checks if Music is currently playing
+    func musicIsPlaying() -> Bool {
+        webView.evaluate(script: Script.getMusicStatus, completion: { (value, error) in
+            if let value = value as? String {
+                if value == "Play" { Music.isPlaying = false }
+                else if value == "Pause" { Music.isPlaying = true }
+            }
+        })
+        print("isMusicPlaying (Music.isPlaying): \(Music.isPlaying)")
+        return Music.isPlaying
+    }
+    /// Checks if Up Next menu is currently open
+    var upNextOpen = false
+    func upNextIsOpen() -> Bool {
+        webView.evaluate(script: Script.isUpNextOpen, completion: { (value, error) in
+            if let value = value as? String {
+                if value == "true" { self.upNextOpen = true }
+                else if value == "false" { self.upNextOpen = false }
+            }
+        })
+        print("UpNext isOpen: \(upNextOpen)")
+        return upNextOpen
+    }
+    
     
     
     
@@ -1050,6 +1185,22 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, NSWi
     
     // MARK: Debug
     
+    /// Clear all WKWebView Cache and Storage
+    @IBAction func clearWKCache(_ sender: Any) {
+        clearAllWKStorage()
+    }
+    func clearAllWKStorage() {
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        print("[WebCacheCleaner] All cookies deleted")
+        
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+                if debug { print("[WebCacheCleaner] Record \(record) deleted") }
+            }
+        }
+    }
+    
     // Print new window dimensions when resized
     func windowDidResize(_ notification: Notification) {
         if debug { print("WindowDidResize:", view.window!.frame.size) }
@@ -1180,15 +1331,31 @@ extension ViewController: NSSharingServicePickerDelegate {
     }
 }
 
-extension ViewController: WKScriptMessageHandler {
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        print("WKScriptMessage: \(message.body)")
-    }
-}
-
 // TODO: USE OR DELETE
 extension NSStoryboardSegue.Identifier {
     static let walkthroughVC = NSStoryboardSegue.Identifier("WalkthroughVC")
     static let openIntroWindow = NSStoryboardSegue.Identifier("OpenIntroWindow")
+}
+
+
+extension WKWebView {
+    func evaluate(script: String, completion: @escaping (Any?, Error?) -> Void) {
+        var finished = false
+
+        evaluateJavaScript(script, completionHandler: { (result, error) in
+            if error == nil {
+                if result != nil {
+                    completion(result, nil)
+                }
+            } else {
+                completion(nil, error)
+            }
+            finished = true
+        })
+
+        while !finished {
+            RunLoop.current.run(mode: RunLoop.Mode(rawValue: "NSDefaultRunLoopMode"), before: NSDate.distantFuture)
+        }
+    }
 }
 

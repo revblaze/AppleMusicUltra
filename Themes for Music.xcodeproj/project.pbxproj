@@ -27,6 +27,7 @@
 		D0E66ADA240EB30F005D93E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E66AD9240EB30F005D93E2 /* Assets.xcassets */; };
 		D0E66ADD240EB30F005D93E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0E66ADB240EB30F005D93E2 /* Main.storyboard */; };
 		D0E66AE6240EB37F005D93E2 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E66AE5240EB37F005D93E2 /* WindowController.swift */; };
+		D0EAAFE1244A29680025A36D /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAAFE0244A29680025A36D /* Controls.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		D0E66ADE240EB30F005D93E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0E66ADF240EB30F005D93E2 /* Themes_for_Music.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Themes_for_Music.entitlements; sourceTree = "<group>"; };
 		D0E66AE5240EB37F005D93E2 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		D0EAAFE0244A29680025A36D /* Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controls.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				D0319B9A243F8C210046F3FA /* NowPlaying.swift */,
+				D0EAAFE0244A29680025A36D /* Controls.swift */,
 				D0319B9B243F8C210046F3FA /* Parser.swift */,
 				D0319B9C243F8C210046F3FA /* Scripts.swift */,
 				D020542824118C4B0073121A /* Settings.swift */,
@@ -238,6 +241,7 @@
 				D02BA1BA243F986800AEBA82 /* WebCacheCleaner.swift in Sources */,
 				D04D2F38242929E400246D6C /* Style.swift in Sources */,
 				D020542924118C4B0073121A /* Settings.swift in Sources */,
+				D0EAAFE1244A29680025A36D /* Controls.swift in Sources */,
 				D0319B9E243F8C210046F3FA /* Parser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
