@@ -3,17 +3,12 @@
 # Themes for Apple Music
 A custom Apple Music client with themes, personalized settings and more.
 
-## [Download Latest Stable Build](https://github.com/revblaze/AppleMusicUltra/releases/download/v0.9-alpha/Themes-v0.9a.zip) <sup>(macOS 10.12 and higher)</sup>
-`Themes-v0.9a.zip (27MB) Preview 5, alpha 9` (April 14, 2020)
+## [Download Latest Stable Build](https://github.com/revblaze/AppleMusicUltra/releases/download/v1.0-beta.1/Themes-v1.0b1.zip) <sup>(macOS 10.12 and higher)</sup>
+`Themes-v1.0b1.zip (25MB) Public Beta 1` (April 17, 2020)
 
 Drag & drop to `/Applications` if you want to keep it after trying. 🤗
 
 Updating from an older version? Drag and drop to `/Applications` and click `Replace`.
-
-### Support for macOS 10.13 and lower
-The [Latest Stable Build](https://github.com/revblaze/AppleMusicUltra/releases/download/v0.9-alpha/Themes-v0.9a.zip) now supports macOS 10.12 and higher.
-
-~~[Download the Latest Stable Legacy Build](https://github.com/revblaze/AppleMusicUltra/releases/download/v0.8-alpha/Themes-b4-legacy.zip) `Themes-b4-legacy.zip (13.8MB) Preview 4, alpha 8L1` (April 12, 2020)~~
 
 <i>This app is currently under heavy development.</i>
 
