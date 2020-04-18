@@ -19,9 +19,12 @@
 		D04D2F38242929E400246D6C /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D2F37242929E400246D6C /* Style.swift */; };
 		D061BF02240EBE57003F0EDD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D061BF01240EBE57003F0EDD /* LoginViewController.swift */; };
 		D061BF04240EBE71003F0EDD /* LoginWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D061BF03240EBE71003F0EDD /* LoginWindowController.swift */; };
+		D078E645244B7549002E6BE2 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D078E644244B7549002E6BE2 /* Helper.swift */; };
 		D078FA7724465698000FDDEA /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D078FA7624465698000FDDEA /* WalkthroughViewController.swift */; };
 		D078FA79244698CD000FDDEA /* WalkthroughWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D078FA78244698CD000FDDEA /* WalkthroughWindowController.swift */; };
 		D08BF13F243FD9D300E0A7AC /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08BF13E243FD9D300E0A7AC /* MenuManager.swift */; };
+		D0BBAE6B244B4CEB005B0588 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BBAE6A244B4CEB005B0588 /* PreferencesViewController.swift */; };
+		D0BBAE6F244B5C6F005B0588 /* GeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BBAE6E244B5C6F005B0588 /* GeneralView.swift */; };
 		D0E66AD6240EB30D005D93E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E66AD5240EB30D005D93E2 /* AppDelegate.swift */; };
 		D0E66AD8240EB30D005D93E2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E66AD7240EB30D005D93E2 /* ViewController.swift */; };
 		D0E66ADA240EB30F005D93E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E66AD9240EB30F005D93E2 /* Assets.xcassets */; };
@@ -43,9 +46,12 @@
 		D04D2F37242929E400246D6C /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		D061BF01240EBE57003F0EDD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D061BF03240EBE71003F0EDD /* LoginWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWindowController.swift; sourceTree = "<group>"; };
+		D078E644244B7549002E6BE2 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		D078FA7624465698000FDDEA /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 		D078FA78244698CD000FDDEA /* WalkthroughWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughWindowController.swift; sourceTree = "<group>"; };
 		D08BF13E243FD9D300E0A7AC /* MenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
+		D0BBAE6A244B4CEB005B0588 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		D0BBAE6E244B5C6F005B0588 /* GeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralView.swift; sourceTree = "<group>"; };
 		D0E66AD2240EB30D005D93E2 /* Themes for Music.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Themes for Music.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E66AD5240EB30D005D93E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0E66AD7240EB30D005D93E2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -102,10 +108,17 @@
 				D0EAAFE0244A29680025A36D /* Controls.swift */,
 				D0319B9B243F8C210046F3FA /* Parser.swift */,
 				D0319B9C243F8C210046F3FA /* Scripts.swift */,
-				D020542824118C4B0073121A /* Settings.swift */,
-				D02BA1B9243F986700AEBA82 /* WebCacheCleaner.swift */,
 			);
 			path = Music;
+			sourceTree = "<group>";
+		};
+		D078E643244B7519002E6BE2 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D078E644244B7549002E6BE2 /* Helper.swift */,
+				D02BA1B9243F986700AEBA82 /* WebCacheCleaner.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		D078FA752446564B000FDDEA /* Walkthrough */ = {
@@ -115,6 +128,16 @@
 				D078FA78244698CD000FDDEA /* WalkthroughWindowController.swift */,
 			);
 			path = Walkthrough;
+			sourceTree = "<group>";
+		};
+		D0BBAE69244B4C8D005B0588 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				D020542824118C4B0073121A /* Settings.swift */,
+				D0BBAE6A244B4CEB005B0588 /* PreferencesViewController.swift */,
+				D0BBAE6E244B5C6F005B0588 /* GeneralView.swift */,
+			);
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 		D0E66AC9240EB30D005D93E2 = {
@@ -139,15 +162,17 @@
 				D0E66AD5240EB30D005D93E2 /* AppDelegate.swift */,
 				D0E66AD7240EB30D005D93E2 /* ViewController.swift */,
 				D0E66AE5240EB37F005D93E2 /* WindowController.swift */,
-				D04D2F33242924B800246D6C /* Login */,
 				D04D2F352429251100246D6C /* Music */,
 				D04D2F34242924E900246D6C /* Themes */,
 				D0319B97243F8B080046F3FA /* Customizer */,
-				D078FA752446564B000FDDEA /* Walkthrough */,
+				D0BBAE69244B4C8D005B0588 /* Preferences */,
 				D0E66AD9240EB30F005D93E2 /* Assets.xcassets */,
 				D0E66ADB240EB30F005D93E2 /* Main.storyboard */,
-				D0319BA0243F8C890046F3FA /* WebCustomizer */,
+				D04D2F33242924B800246D6C /* Login */,
+				D078E643244B7519002E6BE2 /* Helpers */,
+				D078FA752446564B000FDDEA /* Walkthrough */,
 				D0319BA2243F8C9A0046F3FA /* WebCode */,
+				D0319BA0243F8C890046F3FA /* WebCustomizer */,
 				D0E66ADE240EB30F005D93E2 /* Info.plist */,
 				D0E66ADF240EB30F005D93E2 /* Themes_for_Music.entitlements */,
 			);
@@ -233,11 +258,14 @@
 				D061BF02240EBE57003F0EDD /* LoginViewController.swift in Sources */,
 				D061BF04240EBE71003F0EDD /* LoginWindowController.swift in Sources */,
 				D0319B9F243F8C210046F3FA /* Scripts.swift in Sources */,
+				D078E645244B7549002E6BE2 /* Helper.swift in Sources */,
 				D0319B9D243F8C210046F3FA /* NowPlaying.swift in Sources */,
 				D078FA79244698CD000FDDEA /* WalkthroughWindowController.swift in Sources */,
 				D0E66AE6240EB37F005D93E2 /* WindowController.swift in Sources */,
 				D078FA7724465698000FDDEA /* WalkthroughViewController.swift in Sources */,
+				D0BBAE6B244B4CEB005B0588 /* PreferencesViewController.swift in Sources */,
 				D0E66AD6240EB30D005D93E2 /* AppDelegate.swift in Sources */,
+				D0BBAE6F244B5C6F005B0588 /* GeneralView.swift in Sources */,
 				D02BA1BA243F986800AEBA82 /* WebCacheCleaner.swift in Sources */,
 				D04D2F38242929E400246D6C /* Style.swift in Sources */,
 				D020542924118C4B0073121A /* Settings.swift in Sources */,

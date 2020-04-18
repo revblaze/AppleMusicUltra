@@ -15,6 +15,8 @@ struct Active {
     static var mode  = true             // OLD: true
     static var image = "wave"           // OLD: ""
     static var theme = [style, clear, mode, image] as [Any]
+    
+    static var url = Music.url          // Save current URL to memory
 }
 
 struct Theme {

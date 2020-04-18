@@ -34,7 +34,7 @@ var nowURL  = ""            // Saves current URL to memory
 var lastURL = ""            // Saves previous URL to memory
 var initLaunch = true       // Determines if app just launched
 
-let debug = false           // Activates debugger functions on true
+let debug = true           // Activates debugger functions on true
 
 class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler, NSWindowDelegate, Customizable {
     
@@ -141,8 +141,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
                     /*
                     if let introVC = introWC.window?.contentViewController as? WalkthroughViewController {
                         // Do something?
-                    }
- */
+                    } */
                     // Present Walkthrough window to user
                     introWC.showWindow(self)
                 }
@@ -227,6 +226,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
         let url = cleanURL(urlString)           // Fix Optional URL String
         if debug { print("URL:", url) }         // Debug: Print new URL
         nowURL = url                            // Update nowURL to new URL
+        Active.url = url                        // Update Active URL value
         
         // Fades-in Main Player WebView on Launch
         /* Move to titleDidchange
@@ -235,6 +235,8 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
             initLaunch = false
         }
  */
+        
+        Active.url = url
         
         // Check if User is signed in: if true, keep LoginWindow closed
         checkLoginAndCloseWindow()
@@ -647,6 +649,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
     func saveDefaultSettings() {
         Defaults.set(logoIsHidden, forKey: "hideLogo")
         Defaults.set(User.isSignedIn, forKey: "signedIn")
+        Defaults.set(Active.url, forKey: "LastSessionURL")
         Defaults.synchronize()
     }
     
