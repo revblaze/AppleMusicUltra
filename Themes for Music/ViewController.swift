@@ -34,7 +34,7 @@ var nowURL  = ""            // Saves current URL to memory
 var lastURL = ""            // Saves previous URL to memory
 var initLaunch = true       // Determines if app just launched
 
-let debug = true           // Activates debugger functions on true
+let debug = false           // Activates debugger functions on true
 
 class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler, NSWindowDelegate, Customizable {
     
@@ -74,7 +74,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
     // UI Settings
     var logoIsHidden = false                                    // Toggle Hide/Show Logo
     var appWillResetSettings = false                            // Reset Settings Flag
-    var openUpNextBeta = false
+    var openUpNextBeta = false                                  // TEMP: Show Up Next issue message
     
     
     
@@ -389,7 +389,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
                 var imageURL = header.replacingOccurrences(of: "url(", with: "")
                 if !imageURL.isEmpty { imageURL.removeLast() }
                 let image = imageURL.replacingOccurrences(of: "\\", with: "")
-                print("Header Image: \(image)")
+                if debug { print("Header Image: \(image)") }
                 self.setArtwork(image)
             }
         }
@@ -696,7 +696,9 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
     func toggleLoginMenu(_ isSignedOut: Bool) -> Bool {
         if isSignedOut {
             webView.evaluateJavaScript(Script.loginUser) { (value, error) in
-                if let err = error { print(err) }
+                if let err = error {
+                    if debug { print(err) }
+                }
             }
             return true
         } else {
@@ -890,7 +892,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
             else { print("User Status: Signed out") }
             
             if let err = err {
-                print(err.localizedDescription)
+                if debug { print(err.localizedDescription) }
                 //self.userIsSignedIn = true
             } else {
                 // No error
@@ -926,7 +928,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
             if signedIn && loginWindowState {
                 if isKeyWindow { App.keyWindow?.performClose(self) }
             }
-            if let err = err { print(err.localizedDescription) }
+            if let err = err { if debug { print(err.localizedDescription) } }
             else { /* No error */ }
         }
     }
