@@ -1,7 +1,7 @@
 ![Apple Music Ultra](Media/Cover.jpg)
 
-# Themes for Apple Music
-A custom Apple Music client with themes, personalized settings and more.
+# Ultra for Music
+A custom Apple Music client with themes, styls, personalized settings and more.
 
 ## [Download Latest Stable Build](https://github.com/revblaze/AppleMusicUltra/releases/download/v1.0-beta.1/Themes-v1.0b1.zip) <sup>(macOS 10.12 and higher)</sup>
 `Themes-v1.0b1.zip (25MB) Public Beta 1` (April 17, 2020)
@@ -16,7 +16,7 @@ Updating from an older version? Drag and drop to `/Applications` and click `Repl
  - [x] Release Public Beta 1
  - [x] NSMenu graphical component
  - [ ] Save URL session for next launch
- - [ ] Add PreferencesViewController
+ - [x] Add PreferencesViewController
  - [ ] Fix custom theme issue on next session
  - [ ] Now Playing artwork as background
  - [ ] Spread out ViewController
