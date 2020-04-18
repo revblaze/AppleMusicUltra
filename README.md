@@ -12,6 +12,16 @@ Updating from an older version? Drag and drop to `/Applications` and click `Repl
 
 <i>This app is currently under heavy development.</i>
 
+### This Week's TODO
+ - [x] Release Public Beta 1
+ - [x] NSMenu graphical component
+ - [ ] Save URL session for next launch
+ - [ ] Add PreferencesViewController
+ - [ ] Fix custom theme issue on next session
+ - [ ] Now Playing artwork as background
+ - [ ] Spread out ViewController
+ - [ ] Release Public Beta 2
+
 # Customization
 Allow users to personalize their Apple Music with customization.
 
