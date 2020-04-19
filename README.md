@@ -15,10 +15,17 @@ Updating from an older version? Drag and drop to `/Applications` and click `Repl
 ### This Week's TODO
  - [x] Release Public Beta 1
  - [x] NSMenu graphical component
- - [ ] Save URL session for next launch
+ - [x] Save URL session for next launch
  - [x] Add PreferencesViewController
+ - [x] New, cleaner logo desperately needed
+ - [ ] Fix custom theme issue on next session
+ - [ ] Fix unneccessary JS alerts (see <a href="https://github.com/revblaze/AppleMusicUltra/issues/6">issue #6</a> and <a href="https://stackoverflow.com/questions/61279117/force-silence-js-alerts-by-title-value-with-wkwebview">StackOverflow page</a>)
  - [ ] Fix custom theme issue on next session
  - [ ] Now Playing artwork as background
+ - [ ] Load all playlists at launch
+ - [ ] Load all songs in playlist when opened(?)
+ - [ ] JS-based injectable observer for Now Playing
+ - [ ] Swift communication with JS observer (`WKScriptMessageHandler`)
  - [ ] Spread out ViewController
  - [ ] Release Public Beta 2
  
