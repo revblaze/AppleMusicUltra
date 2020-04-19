@@ -28,6 +28,7 @@ Updating from an older version? Drag and drop to `/Applications` and click `Repl
  - [ ] Swift communication with JS observer (`WKScriptMessageHandler`)
  - [ ] Spread out ViewController
  - [ ] Release Public Beta 2
+ - [ ] Add <a href="https://github.com/Musish/Musish">Musish</a> support
  
 Big simplicity redesign planned for post-exam season. A lot of this project is really in a POC state right now. I'm hoping, over the next few weeks (post-exam szn), this app will transition into a really slim and efficient POC – production ready. AMWP is improving every day and I plan to keep the app up-to-date.
 
