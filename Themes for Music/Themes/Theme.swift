@@ -9,16 +9,6 @@
 import AppKit
 import Foundation
 
-struct Active {
-    static var style = Style.shadow     // OLD: Style.preset
-    static var clear = false            // OLD: true
-    static var mode  = true             // OLD: true
-    static var image = "wave"           // OLD: ""
-    static var theme = [style, clear, mode, image] as [Any]
-    
-    static var url = Music.url          // Save current URL to memory
-}
-
 struct Theme {
     /**
     Converts Theme properties to `[String]` array for saving with `UserDefaults`.

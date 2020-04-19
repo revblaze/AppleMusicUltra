@@ -10,8 +10,13 @@ import AppKit
 import Foundation
 
 struct Script {
+    // Launch Scripts
+    /// JavaScript redirect required
+    
+    
     // UI Scripts
     /// Hide left side bar
+    
     
     /// Show Up Next popover
     static let toggleUpNext = "document.getElementsByClassName('web-chrome-playback-controls__up-next-btn')[0].click();"
@@ -74,6 +79,30 @@ struct Script {
     
     
     
+    //document.getElementsByClassName('web-navigation__list-item-button--playlist').hasOwnProperty('p.o3ORU8VgJgD')
+    //var x = document.getElementsByClassName('web-navigation__list-item-button--playlist');
+    
+    // var x = document.getElementsByClassName('web-navigation__list-item-button--playlist'); for (var i = 0; i < x.length; i++) {  }
+    
+    // var x = document.getElementsByClassName('web-navigation__list-item-button--playlist'); for (var i = 0; i < x.length; i++) { if x[i].getAttribute('data-test-navigation-list-item') == 'p.o3ORU8VgJgD' { return true } else { return false } }
+    
+    static func jsRedirectCode(_ value: String) -> String {
+        var js = ""
+        if value != "playlist" {
+            var jsInt = 3
+            switch value {
+            case "recently-added": jsInt = 3
+            case "artists": jsInt = 4
+            case "albums": jsInt = 5
+            case "songs": jsInt = 6
+            default: jsInt = 3
+            }
+            js = "document.getElementsByClassName('web-navigation__list-item-button')[\(jsInt)].click();"
+        } else {
+            
+        }
+        return js
+    }
     
     static func cssToJavaScript(_ css: String) -> String {
         let jsCode = "var style = document.createElement('style'); style.innerHTML = '\(css)'; document.head.appendChild(style);"

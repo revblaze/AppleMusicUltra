@@ -20,14 +20,6 @@ struct Music {
     static var isPlaying = false
 }
 
-struct User {
-    static var co = Defaults.string(forKey: "CountryCode")
-    static var isSignedIn = Defaults.bool(forKey: "signedIn")
-    static var firstLaunch = Defaults.bool(forKey: "firstLaunch")
-    static var neverShowAgain = Defaults.bool(forKey: "NeverAgain")
-    static var lastSessionURL = Defaults.string(forKey: "LastSessionURL")
-}
-
 var metadata = ["", "", ""] // Saves requested metadata to memory
 var artwork = ""            // Saves current artwork to memory
 var nowURL  = ""            // Saves current URL to memory
@@ -104,7 +96,9 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
         let webController = WKUserContentController()
         webView.configuration.userContentController = webController
         // Load Apple Music Web Player
-        webView.load(Music.url)
+        if Settings.restoreSession { loadLastURLSession() }
+        else { webView.load(Music.url) }
+        //fadePlayerAtLaunch()
         webView.alphaValue = 0
         
         // Additional Setup
@@ -156,7 +150,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
             if debug { print("Saved User Session") }
             if debug { print("Window Size: \(view.window!.frame.size)") }
         } else {
-            print("User successfully reset application settings.\nApplication restored to default state.")
+            print("User successfully reset application settings.\nApplication restored to default state.\nQuitting...")
         }
     }
     
@@ -185,7 +179,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
         // if debug { print("URL CSS Code:", css) }
         // Fades-in Main Player WebView on Launch
         if initLaunch {
-            fadePlayerAtLaunch()
+            if !Settings.restoreSession { fadePlayerAtLaunch() }
             initLaunch = false
         }
         // UI Settings: UserDefaults
@@ -228,44 +222,26 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
         nowURL = url                            // Update nowURL to new URL
         Active.url = url                        // Update Active URL value
         
-        // Fades-in Main Player WebView on Launch
-        /* Move to titleDidchange
-        if initLaunch {
-            fadePlayerAtLaunch()
-            initLaunch = false
+        // Set First Launch Defaults
+        if initLaunch && User.firstLaunch {                     // Check: Initial session launch & first launch
+            toggleLogoMenu(false)                               // Hide Logo by Default
+            Defaults.set(true, forKey: Keys.restoreSession)     // Save Last URL Session by Default
         }
- */
-        
-        Active.url = url
-        
-        // Check if User is signed in: if true, keep LoginWindow closed
-        checkLoginAndCloseWindow()
+        checkLoginAndCloseWindow()              // Check User login status & manage LoginWindow
         
         // Set firstLaunch
         if !User.firstLaunch && User.isSignedIn {
-            // Show init song buffer warning
-            showBufferIssueMessage()
-            // User first launch, set first launch to false
-            User.firstLaunch = true
-            Defaults.set(true, forKey: "firstLaunch")
+            showBufferIssueMessage()            // Show init song buffer warning
+            User.firstLaunch = true             // User first launch, set first launch to false
+            Defaults.set(true, forKey: UserKeys.firstLaunch)
         }
         
         // Save User CountryCode to Defaults
-        // NEW
-        //let baseURLSlash = "\(Music.url)/"
-        //let removeBaseURL = url.replacingOccurrences(of: baseURLSlash, with: "")
-        // OLD
-        //let removeBaseURL = url.replacingOccurrences(of: "https://beta.music.apple.com/", with: "")
-        let removeBaseURL = url.replacingOccurrences(of: "https://music.apple.com/", with: "")
-        var countryCode = removeBaseURL.replacingOccurrences(of: "/for-you", with: "")
-        countryCode = countryCode.replacingOccurrences(of: "/browse", with: "")
-        countryCode = countryCode.replacingOccurrences(of: "/radio", with: "")      // Remove /radio
-        if countryCode.count == 2 {             // Check that country code is length 2
-            if debug { print("Country Code: \(countryCode)") }
+        let removeBaseURL = url.replacingOccurrences(of: "\(Music.url)/", with: "")
+        let countryCode = String(removeBaseURL.prefix(2))
+        if User.isSignedIn && User.co != countryCode {
+            Defaults.set(countryCode, forKey: UserKeys.countryCode)
             User.co = countryCode
-            if User.isSignedIn && (User.co != Defaults.string(forKey: "CountryCode")) {
-                Defaults.set(countryCode, forKey: "CountyCode")
-            }
         }
         
         // Web Player URL Flag Markers
@@ -317,15 +293,48 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
     }
     
     
+    func loadLastURLSession() {
+        let url = User.lastSessionURL ?? Music.url
+        if debug { print("Loading URL from Last Session: \(url)") }
+        let loadableURL = WKHelper.getRestorableURL(url)
+        print("loadableURL: \(loadableURL)")
+        print("jsRedirectRequired: \(WKHelper.jsRedirectRequired)")
+        if !WKHelper.jsRedirectRequired { webView.load(url) }
+        else { webView.load(url) }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+            let js = Script.jsRedirectCode(WKHelper.jsRedirectType)
+            self.webView.evaluateJavaScript(js)
+            self.fadePlayerAtLaunch()
+        })
+        
+        
+        /*
+        if loadableURL != Music.url {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                self.webView.load(url)
+            })
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                self.fadePlayerAtLaunch()
+            })
+        }
+        */
+    }
+    
     
     // MARK: Title Manager
     // Mostly used for grabbing Apple Music metadata to share (under development) and back button management
-    
+    var callsToTitle = 0
     /// Called when the WKWebView's absolute page `Title` value changes
     func titleDidChange(pageTitle: String) {
         var title = cleanOptional(pageTitle)                            // Clean Optional("Page Title")
         if title.contains("on Apple Music") { title.removeLast(15) }    // Remove "on Apple Music" suffix
         if debug { print("Title: \(title)") }                           // Debug: Print title on change
+        
+        if callsToTitle <= 4 { callsToTitle += 1 }                      // Count calls made to title
+        //if debug { print("callsToTitle: \(callsToTitle)") }           // Debug: Print call count
+        // Once 4 calls have been made to title, AMWP is ready
+        //if callsToTitle == 4 && !Settings.restoreSession { loadLastURLSession() }
+        if callsToTitle == 4 && !Settings.restoreSession { fadePlayerAtLaunch() }//loadLastURLSession() }
         
         // Trigger Metadata Fetch & Send to NowPlaying
         if nowURL.contains("playlist") {                                // Get Metadata: Playlist
@@ -647,9 +656,9 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
     }
     /// Save User attributes and custom settings to Defaults
     func saveDefaultSettings() {
-        Defaults.set(logoIsHidden, forKey: "hideLogo")
-        Defaults.set(User.isSignedIn, forKey: "signedIn")
-        Defaults.set(Active.url, forKey: "LastSessionURL")
+        Defaults.set(logoIsHidden, forKey: Keys.hideLogo)
+        Defaults.set(User.isSignedIn, forKey: UserKeys.isSignedIn)
+        Defaults.set(Active.url, forKey: UserKeys.lastURL)
         Defaults.synchronize()
     }
     
