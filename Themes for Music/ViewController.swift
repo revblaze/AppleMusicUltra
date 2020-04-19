@@ -36,6 +36,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
     @IBOutlet weak var imageView: NSImageView!                  // Main Background Image Object
     @IBOutlet var rightConstraint: NSLayoutConstraint!          // WebView+Customizer Constraint
     @IBOutlet var launchLoader: NSProgressIndicator!            // Progress Indicator on Launch
+    @IBOutlet var leftWebViewConstraint: NSLayoutConstraint!    // Leading WebView Constraint
     // Customizer Objects
     @IBOutlet weak var customizerView: NSView!                  // Customizer Container View
     @IBOutlet weak var customizerButton: NSButton!              // Bottom Right Customizer Button
@@ -666,6 +667,19 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
     
     // MARK: Custom Settings
     
+    /// Toggles left Music side bar menu (Search, Library, Playlists, etc.)
+    @IBAction func toggleLeftSideBar(_ sender: NSMenuItem) {
+        var newConstant = 0
+        if leftWebViewConstraint.constant == 0 { newConstant = -260 }
+        NSAnimationContext.runAnimationGroup({ (context) -> Void in
+            context.duration = 0.2 //length of the animation time in seconds
+            leftWebViewConstraint.animator().constant = CGFloat(newConstant)
+        }, completionHandler: { () -> Void in
+            if debug { print("WebView (width, height):", self.webView.frame.size) }
+        })
+    }
+    
+    /// Toggles bottom left Customizer button
     @IBAction func toggleCustomizerButton(_ sender: NSButton) {
         if !customizerView.isHidden { hideCustomizer()
             sender.image = NSImage(named: "NSSmartBadgeTemplate")

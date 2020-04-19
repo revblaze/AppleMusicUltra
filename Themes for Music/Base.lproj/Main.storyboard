@@ -649,7 +649,7 @@
                                             <rect key="frame" x="10" y="33" width="754" height="467"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ecz-Fc-bcG">
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ecz-Fc-bcG">
                                                     <rect key="frame" x="15" y="434" width="124" height="30"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" title="Advanced" id="oVM-dR-G4Q">
                                                         <font key="font" metaFont="systemSemibold" size="26"/>
@@ -657,7 +657,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ho4-JN-4yz">
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ho4-JN-4yz">
                                                     <rect key="frame" x="15" y="410" width="454" height="16"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" title="Don't know what you're doing? Maybe don't touch these preferences then." id="dP6-rM-Oql">
                                                         <font key="font" metaFont="system"/>
@@ -665,7 +665,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IjZ-O0-ljN">
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IjZ-O0-ljN">
                                                     <rect key="frame" x="15" y="371" width="92" height="21"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" title="Developer" id="YGq-dZ-UWO">
                                                         <font key="font" metaFont="systemBold" size="18"/>
@@ -681,14 +681,14 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UVc-91-8OE">
+                                                <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UVc-91-8OE">
                                                     <rect key="frame" x="15" y="347" width="144" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Debug Menu" bezelStyle="regularSquare" imagePosition="left" inset="2" id="zM0-an-0Lo">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
                                                 </button>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c4V-HU-TiE">
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c4V-HU-TiE">
                                                     <rect key="frame" x="15" y="331" width="241" height="14"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" title="This will show the Debug menu in the top bar" id="2OY-ye-6Az">
                                                         <font key="font" metaFont="menu" size="11"/>
@@ -756,7 +756,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="m3J-aE-KU2">
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m3J-aE-KU2">
                                                     <rect key="frame" x="15" y="289" width="260" height="14"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" title="This will show the Developer menu in the top bar" id="fgL-BN-F35">
                                                         <font key="font" metaFont="menu" size="11"/>
@@ -764,7 +764,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cZq-ge-wyn">
+                                                <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cZq-ge-wyn">
                                                     <rect key="frame" x="15" y="305" width="201" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Enable Developer Tools Menu" bezelStyle="regularSquare" imagePosition="left" inset="2" id="JL6-fB-SaH">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -778,8 +778,8 @@
                                                         <constraint firstAttribute="width" constant="5" id="X2J-Cg-meg"/>
                                                     </constraints>
                                                 </box>
-                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pVc-Er-uSh">
-                                                    <rect key="frame" x="145" y="438" width="22" height="22"/>
+                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pVc-Er-uSh">
+                                                    <rect key="frame" x="145" y="438" width="128" height="22"/>
                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="MenuVibrantDash" id="eho-1I-WA0"/>
                                                 </imageView>
                                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UxK-3S-Gfc">
@@ -1620,6 +1620,25 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
+                                        <menuItem title="UI Editor" id="G8h-bv-cFR">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="UI Editor" id="MHF-YQ-gu5">
+                                                <items>
+                                                    <menuItem title="Show Side Bar Nav" id="M3l-EG-Swx">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="showSideBar:" target="Ady-hI-5gd" id="NFg-4K-3d3"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Hide Side Bar Nav" id="aWt-gq-iBw">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="hideSideBar:" target="Ady-hI-5gd" id="G97-Gq-BJT"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="2qf-f3-3kv"/>
                                         <menuItem title="Music Controls" id="Qb0-ZT-v0N">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -2082,8 +2101,11 @@
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="ywT-w7-s0T"/>
-                                                    <menuItem title="Hide Left Side Bar" id="zeo-Wo-f0m">
+                                                    <menuItem title="Toggle Left Side Bar" id="zeo-Wo-f0m">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="toggleLeftSideBar:" target="Ady-hI-5gd" id="uhJ-2m-uQf"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="QEo-zS-K6H"/>
                                                     <menuItem title="Open UI Editor ᴮᴱᵀᴬ" id="XJu-xe-rgA">
@@ -2347,6 +2369,7 @@
                         <outlet property="customizerView" destination="Z1B-PB-Ziq" id="yM5-Ko-nvD"/>
                         <outlet property="imageView" destination="0Bv-Ax-4EW" id="goh-2S-AQQ"/>
                         <outlet property="launchLoader" destination="kAY-WS-pwG" id="4rH-Gm-lNe"/>
+                        <outlet property="leftWebViewConstraint" destination="8Nu-Ph-Tqx" id="unB-tf-ErU"/>
                         <outlet property="rightConstraint" destination="mjR-Od-ibp" id="rOf-pM-IyM"/>
                         <outlet property="webView" destination="gKV-nA-AfL" id="vqR-L9-Pue"/>
                     </connections>

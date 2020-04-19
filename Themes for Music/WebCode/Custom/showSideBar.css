@@ -1,0 +1,68 @@
+/*<nav class="web-navigation__navigation-container web-navigation__navigation-container--header-sticking" id="web-navigation-container">*/
+
+/* Hide Left Side Bar Navigation */
+
+
+/* Entire Web Container */
+/* Layout: (margin: 260px [Main: Auto 1420px]) */
+div.web-navigation {
+    -webkit-margin-start: 260px;
+    margin-inline-start: 260px;
+    
+    display: block;
+    position: static;
+    box-sizing: border-box;
+    z-index: auto;
+}
+
+/* Left Navigation Container */
+/* Layout: [Menu: 260px, 100vh] + [Main: Auto 1420px] */
+nav#web-navigation-container, .web-navigation__navigation-container {
+    display: flex;
+    position: fixed;
+    box-sizing: border-box;
+    
+    height: 100vh;
+    width: 260px;
+    min-width: 260px;
+    max-width: 260px;
+    z-index: 1;
+}
+
+/* Left Navigation View */
+/* Layout: (padding: 25px [Menu Content: 209px] padding: 25px) */
+div#web-navigation-scrollable, .web-navigation__scrollable {
+    display: block;
+    position: static;
+    box-sizing: border-box;
+    z-index: auto;
+}
+
+
+
+
+
+
+
+/* Left Side Bar WebKit Styles */
+.web-navigation__navigation-container {
+    display: flex;
+    height: 100vh;
+    width: 260px;
+    min-width: 260px;
+    max-width: 260px;
+}
+
+#web-navigation-scrollable {
+    display: block;
+    position: static;
+    box-sizing: border-box;
+    z-index: auto;
+}
+
+.web-navigation__scrollable {
+    display: block;
+    position: static;
+    box-sizing: border-box;
+    z-index: auto;
+}
