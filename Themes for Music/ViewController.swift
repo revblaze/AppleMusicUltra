@@ -14,7 +14,7 @@ let App = NSApplication.shared
 let Defaults = UserDefaults.standard
 
 struct Music {
-    static let app = "Themes for Music"
+    static let app = "Ultra for Music"
     static let url = "https://music.apple.com"
     static let userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15"
     static var isPlaying = false
@@ -224,7 +224,7 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
         
         // Set First Launch Defaults
         if initLaunch && User.firstLaunch {                     // Check: Initial session launch & first launch
-            toggleLogoMenu(false)                               // Hide Logo by Default
+            //toggleLogoMenu(true)                              // Hide Logo by Default
             Defaults.set(true, forKey: Keys.restoreSession)     // Save Last URL Session by Default
         }
         checkLoginAndCloseWindow()              // Check User login status & manage LoginWindow

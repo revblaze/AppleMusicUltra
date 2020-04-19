@@ -14,7 +14,7 @@ div.upsell-banner { display: none !important; }
 /* Replace logo with Themes logo */
 .web-navigation__header {
     margin-top: 30px !important;
-    background: url(https://get.ezure.io/logo-dark.png) !important;
+    background: url(https://get.ezure.io/logo/ultra-dark.png) !important;
     background-size: 260px 54px !important;
     background-repeat: no-repeat !important;
 }

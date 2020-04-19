@@ -16,13 +16,13 @@ struct Script {
     
     // UI Scripts
     /// Hide left side bar
-    
+    static let hideSideBar = ""
+    static let showSideBar = ""
     
     /// Show Up Next popover
     static let toggleUpNext = "document.getElementsByClassName('web-chrome-playback-controls__up-next-btn')[0].click();"
     /// Check if Up Next popover is open; returns: `true` or `false`
     static let isUpNextOpen = "document.getElementsByClassName('web-chrome-playback-controls__up-next-btn')[0].getAttribute('aria-expanded');"
-    
     
     /// Get title/metadata of audio that's current playing
     static let nowPlaying = "document.getElementsByTagName('audio')[0].title"
@@ -91,14 +91,17 @@ struct Script {
         if value != "playlist" {
             var jsInt = 3
             switch value {
-            case "recently-added": jsInt = 3
-            case "artists": jsInt = 4
-            case "albums": jsInt = 5
-            case "songs": jsInt = 6
+            case "recently-added": jsInt = 3        // Recently Added
+            case "artists": jsInt = 4               // Artists
+            case "albums": jsInt = 5                // Albums
+            case "songs": jsInt = 6                 // Songs
             default: jsInt = 3
             }
             js = "document.getElementsByClassName('web-navigation__list-item-button')[\(jsInt)].click();"
         } else {
+            // TODO: Playlist query and selection code + click(); here
+            // For now, open Recently Added
+            js = "document.getElementsByClassName('web-navigation__list-item-button')[3].click();"
             
         }
         return js
