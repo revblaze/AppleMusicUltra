@@ -12,7 +12,7 @@ Updating from an older version? Drag and drop to `/Applications` and click `Repl
 
 <i>This app is currently under heavy development.</i>
 
-### This Week's TODO
+### This Week's TODO <sup>May 10, 2020</sup>
  - [x] Release Public Beta 1
  - [x] NSMenu graphical component
  - [x] Save URL session for next launch
@@ -104,10 +104,11 @@ Assignment due at midnight, brb.
 
 # Branches
 
- - **alpha:** The original Ultra for Apple Music build
+ - **alpha:** *(retired)* The original Ultra for Apple Music build
      - Prior to restructuring the Themes & Style code and adding the new Customizer from private repository
  - **beta:** *(retired)* The nightly builds for the current master that will replace the alpha build as master
  - **legacy:** Ultra for Apple Music with support for macOS 10.13 and below
+ - **webkit/fx:** All effects (static and dynamic) done through a single WebKit manager
 
 
 ## Requirements
