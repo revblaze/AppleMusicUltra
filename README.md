@@ -12,7 +12,7 @@ Updating from an older version? Drag and drop to `/Applications` and click `Repl
 
 <i>This app is currently under heavy development.</i>
 
-### This Week's TODO <sup>May 10, 2020</sup>
+### This Month's TODO <sup>May 20, 2020</sup>
  - [x] Release Public Beta 1
  - [x] NSMenu graphical component
  - [x] Save URL session for next launch
@@ -112,6 +112,6 @@ Assignment due at midnight, brb.
 
 
 ## Requirements
-Requires macOS 10.14 or later.
+Requires macOS 10.12 or later.
 
-<sub><i>Please note that the app is being built with Swift 5.</i></sub>
+<sub><i>Please note that the app is being built with Swift 5</i></sub>
