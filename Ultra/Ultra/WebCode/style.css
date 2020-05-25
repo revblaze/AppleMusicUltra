@@ -1,0 +1,92 @@
+/* START CORE STYLES */
+/* Hide Open in Apple Music button */
+.web-navigation__native-upsell { display: none; }
+/* Hide Footer */
+.dt-footer { display: none; }
+/* Hide Signed-Out Bottom Banner */
+div.upsell-banner { display: none !important; }
+.web-navigation__native-upsell { display: none !important; }
+/* Hide Scrollbar for native feel */
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Transparent scrollbar placeholder */
+}
+/* Replace logo with Themes logo */
+.web-navigation__header {
+    margin-top: 30px !important;
+    background: url(https://get.ezure.io/logo/ultra-dark.png) !important;
+    background-size: 260px 54px !important;
+    background-repeat: no-repeat !important;
+}
+/* Hide Music logo & Beta tag */
+.web-navigation__logo-container { opacity: 0 !important; }
+.web-navigation__beta-vector { opacity: 0 !important; }
+/* END CORE STYLES */
+
+/* START DISABLE BOUNCE SCROLL */
+/* Disable Scroll: Global */
+html, body {
+    overflow: hidden !important;
+}
+/* Enable Scroll: Player Container */
+.web-navigation {
+    overflow: auto !important;
+}
+/* Enable Scroll: Left Menu */
+#web-navigation-container {
+    height: 100vh;
+    overflow: auto !important;
+}
+/* Enable Scroll: Detail View */
+.web-navigation__navigation-details-view {
+    height: 100vh;
+    overflow: auto !important;
+}
+/* END DISABLE BOUNCE SCROLL */
+
+/* START GLOBAL UI STYLES */
+/* Set Global UI Style (start with transparent BG) */
+body {
+    background-color: rgba(0,0,0,0) !important;
+}
+/* Side Menu Style */
+#web-navigation-container {
+    background-color: rgba(0,0,0,0.1) !important;
+}
+
+.web-navigation {
+    background-color: rgba(0,0,0,0.1) !important;
+}
+
+/* Search Box */
+.dt-search-box__input {
+    background-color: rgba(0,0,0,0.1) !important;
+}
+
+/* Apple Music Features (Cards) */
+.replay-upsell__card {
+    background-color: rgba(0,0,0,0.3) !important;
+}
+.locale-switcher--amweb, .locale-switcher__banner,
+.locale-switcher__banner__content {
+    display: none !important;
+}
+/* END GLOBAL UI STYLES */
+
+/* CUSTOM CONTEXT MENU */
+/* Fix transparent blur with backdrop-filter */
+.context-menu {
+    background-color: var(--contextMenuBackgroundColor); /* var(--contextMenuBackgroundColor) */
+    /*background-color: rgba(0,0,0,0.6) !important;*/ /* rgba(235, 235, 245, 0.18) */
+    -webkit-backdrop-filter: saturate(75%) blur(15px);
+    /* backdrop-filter: saturate(75%) blur(15px) !important; */
+    -webkit-animation: menuBlurEffect .28s 20ms linear forwards 1;
+    /* animation: menuBlurEffect .28s 20ms linear forwards 1 !important; */
+    /*background-color: rgba(0,0,0,0.75) !important;*/
+}
+/* Show Share menu always */
+.context-menu__option { /* , .context-menu__option--parent {*/
+    display: flex !important;
+    background-color: rgba(0,0,0,0.6) !important;
+}
+
