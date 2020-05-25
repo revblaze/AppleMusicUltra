@@ -128,6 +128,8 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
         fxView.allowsLinkPreview = false                       // Disable Link Previews
         fxView.allowsMagnification = false                     // Disable Magnification (CSS Handled)
         fxView.allowsBackForwardNavigationGestures = true     // Disable Back-Forward Navigation
+        
+        fxView.loadFile("index", path: "WebFX")
     }
     
     
@@ -135,7 +137,7 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
     // MARK:– Blur Manager
     
     func initBlurView() {
-        blurView.material = .menu
+        blurView.material = .light //.menu
     }
     
     

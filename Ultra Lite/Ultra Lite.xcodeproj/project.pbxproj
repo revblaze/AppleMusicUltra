@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D02D10BD247C301800E31CB8 /* WebFX in Resources */ = {isa = PBXBuildFile; fileRef = D02D10BC247C301800E31CB8 /* WebFX */; };
 		D0736A4224781DDF00AD6432 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A4124781DDF00AD6432 /* AppDelegate.swift */; };
 		D0736A4424781DDF00AD6432 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A4324781DDF00AD6432 /* ViewController.swift */; };
 		D0736A4624781DE100AD6432 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0736A4524781DE100AD6432 /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D02D10BC247C301800E31CB8 /* WebFX */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebFX; sourceTree = "<group>"; };
 		D0736A3E24781DDF00AD6432 /* Ultra Lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ultra Lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0736A4124781DDF00AD6432 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0736A4324781DDF00AD6432 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				D0736A7624782DBA00AD6432 /* Customizer */,
 				D0736A73247825C000AD6432 /* WebCode */,
 				D0736A72247825C000AD6432 /* WebCustomizer */,
+				D02D10BC247C301800E31CB8 /* WebFX */,
 				D0736A4524781DE100AD6432 /* Assets.xcassets */,
 				D0736A4724781DE100AD6432 /* Main.storyboard */,
 				D0736A4A24781DE100AD6432 /* Info.plist */,
@@ -251,6 +254,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D02D10BD247C301800E31CB8 /* WebFX in Resources */,
 				D0736A75247825C000AD6432 /* WebCode in Resources */,
 				D0736A4624781DE100AD6432 /* Assets.xcassets in Resources */,
 				D0736A74247825C000AD6432 /* WebCustomizer in Resources */,

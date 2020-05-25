@@ -14,19 +14,24 @@ import WebKit
 
 // WKWebView Extension
 extension WKWebView {
-    /// Quick load a URL in the WebView with ease
+    /// Quick and short load URL String in a WKWebView
     func load(_ string: String) {
         if let url = URL(string: string) {
             let request = URLRequest(url: url)
             load(request)
         }
     }
-    /// Quick load a URL in the WebView with ease
+    /// Quick and short load URL in a WKWebView
     func load(_ url: URL) {
         let request = URLRequest(url: url)
         load(request)
     }
     /// Quick load a `file` (without `.html`) and `path` to the directory
+    /// # Usage
+    ///     webView.loadFile("index", path: "Website")
+    ///  - parameters:
+    ///     - name: Name of the HTML file to load (without `.html`, ie. `"index"`)
+    ///     - path: Path where the HTML file is located (`"website"` for `website/index.html`)
     func loadFile(_ name: String, path: String) {
         if let url = Bundle.main.url(forResource: name, withExtension: "html", subdirectory: path) {
             self.loadFileURL(url, allowingReadAccessTo: url)
@@ -63,7 +68,7 @@ extension URL {
     func toString() -> String {
         return self.absoluteString
     }
-    
+    /// Returns `true` if `URL` is secure
     func isSecure() -> Bool {
         let string = self.toString()
         if string.contains("https://") { return true }
@@ -73,7 +78,9 @@ extension URL {
 
 // MARK: String
 extension String {
-    /// Converts `String` to `URL`
+    /// Quick convert `String` to `URL`
+    /// # Usage
+    ///     let url = String.toURL
     func toURL() -> URL {
         return URL(string: self)!
     }
