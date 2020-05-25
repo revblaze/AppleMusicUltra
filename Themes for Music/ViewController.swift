@@ -679,6 +679,12 @@ class ViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKSc
         })
     }
     
+    /// Toggle top bar Music Player + Controls
+    @IBAction func toggleTopBarPlayer(_ sender: NSMenuItem) {
+        // 1. JS code to move down logo & search bar
+        // 2. Make & move Top WebView Constraint constant = -54
+    }
+    
     /// Toggles bottom left Customizer button
     @IBAction func toggleCustomizerButton(_ sender: NSButton) {
         if !customizerView.isHidden { hideCustomizer()

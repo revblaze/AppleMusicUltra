@@ -1,0 +1,490 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D0736A4224781DDF00AD6432 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A4124781DDF00AD6432 /* AppDelegate.swift */; };
+		D0736A4424781DDF00AD6432 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A4324781DDF00AD6432 /* ViewController.swift */; };
+		D0736A4624781DE100AD6432 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0736A4524781DE100AD6432 /* Assets.xcassets */; };
+		D0736A4924781DE100AD6432 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0736A4724781DE100AD6432 /* Main.storyboard */; };
+		D0736A5224781E4A00AD6432 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A5124781E4A00AD6432 /* WindowController.swift */; };
+		D0736A552478204C00AD6432 /* Ultra.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A542478204C00AD6432 /* Ultra.swift */; };
+		D0736A582478213600AD6432 /* Scripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A572478213600AD6432 /* Scripts.swift */; };
+		D0736A5B2478216A00AD6432 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A5A2478216A00AD6432 /* Extensions.swift */; };
+		D0736A5D2478217200AD6432 /* Glyphs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A5C2478217200AD6432 /* Glyphs.swift */; };
+		D0736A5F2478217A00AD6432 /* JSHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A5E2478217A00AD6432 /* JSHelper.swift */; };
+		D0736A642478228600AD6432 /* LoginWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A612478228600AD6432 /* LoginWindowController.swift */; };
+		D0736A652478228600AD6432 /* LoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A622478228600AD6432 /* LoginHelper.swift */; };
+		D0736A662478228600AD6432 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A632478228600AD6432 /* LoginViewController.swift */; };
+		D0736A6C247822BE00AD6432 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A68247822BE00AD6432 /* Keys.swift */; };
+		D0736A6D247822BE00AD6432 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A69247822BE00AD6432 /* User.swift */; };
+		D0736A6E247822BE00AD6432 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A6A247822BE00AD6432 /* Settings.swift */; };
+		D0736A6F247822BE00AD6432 /* Active.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A6B247822BE00AD6432 /* Active.swift */; };
+		D0736A712478233400AD6432 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A702478233400AD6432 /* Helper.swift */; };
+		D0736A74247825C000AD6432 /* WebCustomizer in Resources */ = {isa = PBXBuildFile; fileRef = D0736A72247825C000AD6432 /* WebCustomizer */; };
+		D0736A75247825C000AD6432 /* WebCode in Resources */ = {isa = PBXBuildFile; fileRef = D0736A73247825C000AD6432 /* WebCode */; };
+		D0736A7E24782DBA00AD6432 /* FXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A7724782DBA00AD6432 /* FXViewController.swift */; };
+		D0736A7F24782DBA00AD6432 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A7924782DBA00AD6432 /* Style.swift */; };
+		D0736A8024782DBA00AD6432 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A7A24782DBA00AD6432 /* Theme.swift */; };
+		D0736A8324782DBA00AD6432 /* CustomizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A7D24782DBA00AD6432 /* CustomizerViewController.swift */; };
+		D0736A8624782ED300AD6432 /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A8524782ED300AD6432 /* URLHandler.swift */; };
+		D0736A8824782FA400AD6432 /* Clean.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0736A8724782FA400AD6432 /* Clean.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D0736A3E24781DDF00AD6432 /* Ultra Lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ultra Lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0736A4124781DDF00AD6432 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D0736A4324781DDF00AD6432 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D0736A4524781DE100AD6432 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D0736A4824781DE100AD6432 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D0736A4A24781DE100AD6432 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0736A4B24781DE100AD6432 /* Ultra_Lite.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ultra_Lite.entitlements; sourceTree = "<group>"; };
+		D0736A5124781E4A00AD6432 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		D0736A542478204C00AD6432 /* Ultra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ultra.swift; sourceTree = "<group>"; };
+		D0736A572478213600AD6432 /* Scripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scripts.swift; sourceTree = "<group>"; };
+		D0736A5A2478216A00AD6432 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D0736A5C2478217200AD6432 /* Glyphs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Glyphs.swift; sourceTree = "<group>"; };
+		D0736A5E2478217A00AD6432 /* JSHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSHelper.swift; sourceTree = "<group>"; };
+		D0736A612478228600AD6432 /* LoginWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginWindowController.swift; sourceTree = "<group>"; };
+		D0736A622478228600AD6432 /* LoginHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginHelper.swift; sourceTree = "<group>"; };
+		D0736A632478228600AD6432 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D0736A68247822BE00AD6432 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		D0736A69247822BE00AD6432 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D0736A6A247822BE00AD6432 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		D0736A6B247822BE00AD6432 /* Active.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Active.swift; sourceTree = "<group>"; };
+		D0736A702478233400AD6432 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		D0736A72247825C000AD6432 /* WebCustomizer */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebCustomizer; sourceTree = "<group>"; };
+		D0736A73247825C000AD6432 /* WebCode */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebCode; sourceTree = "<group>"; };
+		D0736A7724782DBA00AD6432 /* FXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FXViewController.swift; sourceTree = "<group>"; };
+		D0736A7924782DBA00AD6432 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		D0736A7A24782DBA00AD6432 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		D0736A7D24782DBA00AD6432 /* CustomizerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizerViewController.swift; sourceTree = "<group>"; };
+		D0736A8524782ED300AD6432 /* URLHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLHandler.swift; sourceTree = "<group>"; };
+		D0736A8724782FA400AD6432 /* Clean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clean.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D0736A3B24781DDF00AD6432 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D0736A3524781DDF00AD6432 = {
+			isa = PBXGroup;
+			children = (
+				D0736A4024781DDF00AD6432 /* Ultra Lite */,
+				D0736A3F24781DDF00AD6432 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D0736A3F24781DDF00AD6432 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D0736A3E24781DDF00AD6432 /* Ultra Lite.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D0736A4024781DDF00AD6432 /* Ultra Lite */ = {
+			isa = PBXGroup;
+			children = (
+				D0736A4124781DDF00AD6432 /* AppDelegate.swift */,
+				D0736A4324781DDF00AD6432 /* ViewController.swift */,
+				D0736A5124781E4A00AD6432 /* WindowController.swift */,
+				D0736A532478203700AD6432 /* Client */,
+				D0736A562478212D00AD6432 /* WebKit */,
+				D0736A67247822BE00AD6432 /* Settings */,
+				D0736A592478214C00AD6432 /* Helpers */,
+				D0736A602478228600AD6432 /* Login */,
+				D0736A7624782DBA00AD6432 /* Customizer */,
+				D0736A73247825C000AD6432 /* WebCode */,
+				D0736A72247825C000AD6432 /* WebCustomizer */,
+				D0736A4524781DE100AD6432 /* Assets.xcassets */,
+				D0736A4724781DE100AD6432 /* Main.storyboard */,
+				D0736A4A24781DE100AD6432 /* Info.plist */,
+				D0736A4B24781DE100AD6432 /* Ultra_Lite.entitlements */,
+			);
+			path = "Ultra Lite";
+			sourceTree = "<group>";
+		};
+		D0736A532478203700AD6432 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				D0736A542478204C00AD6432 /* Ultra.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		D0736A562478212D00AD6432 /* WebKit */ = {
+			isa = PBXGroup;
+			children = (
+				D0736A8424782EC000AD6432 /* Handlers */,
+				D0736A572478213600AD6432 /* Scripts.swift */,
+				D0736A5E2478217A00AD6432 /* JSHelper.swift */,
+			);
+			path = WebKit;
+			sourceTree = "<group>";
+		};
+		D0736A592478214C00AD6432 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D0736A8724782FA400AD6432 /* Clean.swift */,
+				D0736A5C2478217200AD6432 /* Glyphs.swift */,
+				D0736A702478233400AD6432 /* Helper.swift */,
+				D0736A5A2478216A00AD6432 /* Extensions.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D0736A602478228600AD6432 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D0736A622478228600AD6432 /* LoginHelper.swift */,
+				D0736A632478228600AD6432 /* LoginViewController.swift */,
+				D0736A612478228600AD6432 /* LoginWindowController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		D0736A67247822BE00AD6432 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				D0736A6B247822BE00AD6432 /* Active.swift */,
+				D0736A68247822BE00AD6432 /* Keys.swift */,
+				D0736A69247822BE00AD6432 /* User.swift */,
+				D0736A6A247822BE00AD6432 /* Settings.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		D0736A7624782DBA00AD6432 /* Customizer */ = {
+			isa = PBXGroup;
+			children = (
+				D0736A7724782DBA00AD6432 /* FXViewController.swift */,
+				D0736A7824782DBA00AD6432 /* Objects */,
+				D0736A7D24782DBA00AD6432 /* CustomizerViewController.swift */,
+			);
+			path = Customizer;
+			sourceTree = "<group>";
+		};
+		D0736A7824782DBA00AD6432 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				D0736A7924782DBA00AD6432 /* Style.swift */,
+				D0736A7A24782DBA00AD6432 /* Theme.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		D0736A8424782EC000AD6432 /* Handlers */ = {
+			isa = PBXGroup;
+			children = (
+				D0736A8524782ED300AD6432 /* URLHandler.swift */,
+			);
+			path = Handlers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D0736A3D24781DDF00AD6432 /* Ultra Lite */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0736A4E24781DE100AD6432 /* Build configuration list for PBXNativeTarget "Ultra Lite" */;
+			buildPhases = (
+				D0736A3A24781DDF00AD6432 /* Sources */,
+				D0736A3B24781DDF00AD6432 /* Frameworks */,
+				D0736A3C24781DDF00AD6432 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Ultra Lite";
+			productName = "Ultra Lite";
+			productReference = D0736A3E24781DDF00AD6432 /* Ultra Lite.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D0736A3624781DDF00AD6432 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1150;
+				LastUpgradeCheck = 1150;
+				ORGANIZATIONNAME = "Justin Bush";
+				TargetAttributes = {
+					D0736A3D24781DDF00AD6432 = {
+						CreatedOnToolsVersion = 11.5;
+					};
+				};
+			};
+			buildConfigurationList = D0736A3924781DDF00AD6432 /* Build configuration list for PBXProject "Ultra Lite" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D0736A3524781DDF00AD6432;
+			productRefGroup = D0736A3F24781DDF00AD6432 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D0736A3D24781DDF00AD6432 /* Ultra Lite */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D0736A3C24781DDF00AD6432 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0736A75247825C000AD6432 /* WebCode in Resources */,
+				D0736A4624781DE100AD6432 /* Assets.xcassets in Resources */,
+				D0736A74247825C000AD6432 /* WebCustomizer in Resources */,
+				D0736A4924781DE100AD6432 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D0736A3A24781DDF00AD6432 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0736A6D247822BE00AD6432 /* User.swift in Sources */,
+				D0736A7E24782DBA00AD6432 /* FXViewController.swift in Sources */,
+				D0736A4424781DDF00AD6432 /* ViewController.swift in Sources */,
+				D0736A6C247822BE00AD6432 /* Keys.swift in Sources */,
+				D0736A5B2478216A00AD6432 /* Extensions.swift in Sources */,
+				D0736A6E247822BE00AD6432 /* Settings.swift in Sources */,
+				D0736A5D2478217200AD6432 /* Glyphs.swift in Sources */,
+				D0736A7F24782DBA00AD6432 /* Style.swift in Sources */,
+				D0736A5224781E4A00AD6432 /* WindowController.swift in Sources */,
+				D0736A8324782DBA00AD6432 /* CustomizerViewController.swift in Sources */,
+				D0736A712478233400AD6432 /* Helper.swift in Sources */,
+				D0736A642478228600AD6432 /* LoginWindowController.swift in Sources */,
+				D0736A552478204C00AD6432 /* Ultra.swift in Sources */,
+				D0736A4224781DDF00AD6432 /* AppDelegate.swift in Sources */,
+				D0736A8624782ED300AD6432 /* URLHandler.swift in Sources */,
+				D0736A8824782FA400AD6432 /* Clean.swift in Sources */,
+				D0736A8024782DBA00AD6432 /* Theme.swift in Sources */,
+				D0736A5F2478217A00AD6432 /* JSHelper.swift in Sources */,
+				D0736A6F247822BE00AD6432 /* Active.swift in Sources */,
+				D0736A582478213600AD6432 /* Scripts.swift in Sources */,
+				D0736A652478228600AD6432 /* LoginHelper.swift in Sources */,
+				D0736A662478228600AD6432 /* LoginViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D0736A4724781DE100AD6432 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D0736A4824781DE100AD6432 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D0736A4C24781DE100AD6432 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D0736A4D24781DE100AD6432 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		D0736A4F24781DE100AD6432 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Ultra Lite/Ultra_Lite.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1300;
+				DEVELOPMENT_TEAM = 85N3S3DG8M;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "Ultra Lite/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MARKETING_VERSION = 0.1.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.justinbush.Ultra-Lite";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D0736A5024781DE100AD6432 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Ultra Lite/Ultra_Lite.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1300;
+				DEVELOPMENT_TEAM = 85N3S3DG8M;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "Ultra Lite/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MARKETING_VERSION = 0.1.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.justinbush.Ultra-Lite";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D0736A3924781DDF00AD6432 /* Build configuration list for PBXProject "Ultra Lite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0736A4C24781DE100AD6432 /* Debug */,
+				D0736A4D24781DE100AD6432 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D0736A4E24781DE100AD6432 /* Build configuration list for PBXNativeTarget "Ultra Lite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0736A4F24781DE100AD6432 /* Debug */,
+				D0736A5024781DE100AD6432 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D0736A3624781DDF00AD6432 /* Project object */;
+}

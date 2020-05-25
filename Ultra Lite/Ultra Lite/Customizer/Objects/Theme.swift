@@ -6,10 +6,39 @@
 //  Copyright © 2020 Justin Bush. All rights reserved.
 //
 
-import AppKit
-import Foundation
+import Cocoa
 
 struct Theme {
+    
+    enum FX {
+        case transparent
+        case image
+        case video
+        case dynamic
+        case custom
+        
+        var toString: String {
+            switch self {
+            case .transparent: return "transparent"
+            case .image: return "image"
+            case .video: return "video"
+            case .dynamic: return "dynamic"
+            case .custom: return "custom"
+            }
+        }
+    }
+    
+    static func type(_ type: String) -> Theme.FX {
+        switch type {
+        case "transparent": return FX.transparent
+        case "image": return FX.image
+        case "video": return FX.video
+        case "dynamic": return FX.dynamic
+        case "custom": return FX.custom
+        default: return FX.image
+        }
+    }
+    
     /**
     Converts Theme properties to `[String]` array for saving with `UserDefaults`.
     
@@ -30,6 +59,7 @@ struct Theme {
         let mode = array[2]
         let image = array[3]
      */
+    /*
     static func toArray(_ style: Style, clear: Bool, mode: Bool, image: String) -> [String] {
         let styleString = style.name
         var clearTheme = "true"
@@ -37,6 +67,17 @@ struct Theme {
         if !clear { clearTheme = "false" }
         if !mode { themeIsDark = "false" }
         return [styleString, clearTheme, themeIsDark, image]
+    }
+    */
+    static func toArray(_ style: Style, clear: Bool, mode: Bool, type: FX, name: String) -> [String] {
+        let styleString = style.name
+        var clearTheme = "true"
+        var isDark = "true"
+        if !clear { clearTheme = "false" }
+        if !mode { isDark = "false" }
+        let fxType = type.toString
+        return [styleString, clearTheme, isDark, fxType, name]
+        //return [styleString, clearTheme, themeIsDark, image]
     }
     
     /**
@@ -55,6 +96,7 @@ struct Theme {
         Active.mode = array[2] as Bool
         Active.image = array[3] as String
      */
+    /*
     static func toActive(_ array: [String]) {
         let style = array[0]
         let clear = array[1]
@@ -70,35 +112,31 @@ struct Theme {
         else { Active.mode = false }
         // Image: String of image
         Active.image = image
+    }*/
+    static func toActive(_ array: [String]) {
+        let style = array[0]
+        let clear = array[1]
+        let mode = array[2]
+        let type = array[3]
+        let name = array[4]
+        // Style -> Style.value
+        Active.style = StyleHelper.toMaterial(style)
+        // Clear: isTransparent =  true ? false
+        if clear == "true" { Active.clear = true }
+        else { Active.clear = false }
+        // Mode: NSAppearance.isDark = true ? false
+        if mode == "true" { Active.mode = true }
+        else { Active.mode = false }
+        // FX Type: Theme.FX
+        Active.type = Theme.type(type)
+        Active.name = name
+        
+        print("Theme.toActive:\n style: \(style)\n clear: \(clear)\n  dark: \(mode)\n  type: \(type)\n  name: \(name)")
+        
+        
+        // Image: String of image
+        //Active.image = image
     }
     
 }
 
-
-enum Themes {
-    case wave
-    case spring
-    case dunes
-    case quartz
-    case silk
-    case bubbles
-    case goblin
-    case purple
-    case custom
-}
-
-
-enum Type {
-    case transparent
-    case image
-    
-    // if Type.isTransparent { imageView.isHidden = true }
-    var isTransparent: Bool {
-        switch self {
-        case .transparent:
-            return true
-        case .image:
-            return false
-        }
-    }
-}
