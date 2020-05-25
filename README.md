@@ -1,7 +1,7 @@
 ![Apple Music Ultra](Media/Cover.jpg)
 
 # Ultra for Music
-A custom Apple Music client with themes, styls, personalized settings and more.
+A custom Apple Music client with themes, styles, personalized settings and more.
 
 ## [Download Latest Stable Build](https://github.com/revblaze/AppleMusicUltra/releases/download/v1.0-beta.1/Themes-v1.0b1.zip) <sup>(macOS 10.12 and higher)</sup>
 `Themes-v1.0b1.zip (25MB) Public Beta 1` (April 17, 2020)
@@ -12,14 +12,14 @@ Updating from an older version? Drag and drop to `/Applications` and click `Repl
 
 <i>This app is currently under heavy development.</i>
 
-### This Week's TODO
+### This Month's TODO <sup>May 20, 2020</sup>
  - [x] Release Public Beta 1
  - [x] NSMenu graphical component
  - [x] Save URL session for next launch
  - [x] Add PreferencesViewController
  - [x] New, cleaner logo desperately needed
  - [ ] Fix custom theme issue on next session
- - [ ] Fix unneccessary JS alerts (see <a href="https://github.com/revblaze/AppleMusicUltra/issues/6">issue #6</a> and <a href="https://stackoverflow.com/questions/61279117/force-silence-js-alerts-by-title-value-with-wkwebview">StackOverflow page</a>)
+ - [ ] Fix unnecessary JS alerts (see <a href="https://github.com/revblaze/AppleMusicUltra/issues/6">issue #6</a> and <a href="https://stackoverflow.com/questions/61279117/force-silence-js-alerts-by-title-value-with-wkwebview">StackOverflow page</a>)
  - [ ] Fix custom theme issue on next session
  - [ ] Now Playing artwork as background
  - [ ] Load all playlists at launch
@@ -104,13 +104,15 @@ Assignment due at midnight, brb.
 
 # Branches
 
- - **alpha:** The original Ultra for Apple Music build
+ - ~~**alpha:**~~ *(retired)* The original Ultra for Apple Music build
      - Prior to restructuring the Themes & Style code and adding the new Customizer from private repository
- - **beta:** *(retired)* The nightly builds for the current master that will replace the alpha build as master
+ - ~~**beta:**~~ *(retired)* The nightly builds for the current master that will replace the alpha build as master
  - **legacy:** Ultra for Apple Music with support for macOS 10.13 and below
+ - **webkit/fx:** All effects (static and dynamic) done through a single WebKit manager
+ - **lite/musish:** Ultra <sup>LITE</sup> for <a href="https://musi.sh/">Musish</a> (<a href="https://github.com/Musish/Musish">GitHub</a>)
 
 
 ## Requirements
-Requires macOS 10.14 or later.
+Requires macOS 10.12 or later.
 
-<sub><i>Please note that the app is being built with Swift 5.</i></sub>
+<sub><i>Please note that the app is being built with Swift 5</i></sub>
