@@ -19,6 +19,7 @@ class WindowController: NSWindowController, NSWindowDelegate {
             window!.titlebarAppearsTransparent = true
             window!.isMovableByWindowBackground  = true
             window!.titleVisibility = .hidden
+            window!.title = "Ultra Lite"
         }
         
         func windowWillClose(_ notification: Notification) {

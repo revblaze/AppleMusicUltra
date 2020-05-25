@@ -1,19 +1,19 @@
 /* START CORE STYLES */
 /* Hide Scrollbar for native feel */
 ::-webkit-scrollbar {
-    width: 0px;  /* Remove scrollbar space */
-    background: transparent;  /* Transparent scrollbar placeholder */
+    width: 0px;                 /* Remove scrollbar space */
+    background: transparent;    /* Transparent scrollbar placeholder */
 }
 /* Hide GitHub Ribbon */
 .github-fork-ribbon {
-    display: none !important;
     opacity: 0;
+    display: none !important;
 }
-
+/* Transparent Global BG */
 html {
     background-color: rgba(255,255,255,0);
 }
-/* Transparent Body*/
+/* Transparent Body BG */
 body {
     background-color: rgba(255,255,255,0.3);
 }
@@ -21,9 +21,9 @@ body {
 h1.dcfd {
     padding-top: 12px;
 }
-/* Semi-Transparent Menu Separator */
+/* Semi-Transparent Left-Menu Separator */
 aside._4ed7 {
     background-color: rgba(255,255,255,0.8);
 }
-
+/* END CORE STYLES */
 
