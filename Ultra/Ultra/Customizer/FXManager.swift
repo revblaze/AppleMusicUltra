@@ -18,6 +18,14 @@ struct FXManager {
         return html
     }
     
+    static func setVideo(_ url: String) -> String {
+        /*
+        let html = "<body style=\"margin: 0px; background-color: black;\"><video autoplay playsinline loop width=\"100%\"  src=\"\(url)\"> </video>"
+        */
+        let html = "<body style=\"margin: 0px; background-color: black;\"><video autoplay playsinline loop height=\"100%\"  src=\"\(url)\"> </video>"
+        return html
+    }
+    
     /// Returns HTML of image to be loaded into FX WebView
     static func setCustomImage(_ file: String) -> String {
         let html = "<!DOCTYPE html><html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>body, html { height: 100%; margin: 0; }.bg { background-image: url(\"\(file)\"); height: 100%; background-position: center; background-repeat: no-repeat; background-size: cover; } </style></head><body><div class=\"bg\"></div></body></html>"

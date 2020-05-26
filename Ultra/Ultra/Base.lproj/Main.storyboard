@@ -763,7 +763,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <wkWebView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NTX-0I-4dJ">
+                            <wkWebView wantsLayer="YES" allowsLinkPreview="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTX-0I-4dJ">
                                 <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -772,22 +772,14 @@
                             </wkWebView>
                             <visualEffectView wantsLayer="YES" blendingMode="withinWindow" material="menu" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="f9H-1B-axE">
                                 <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
-                                <subviews>
-                                    <wkWebView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GLn-0G-5MD">
-                                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
-                                        <wkWebViewConfiguration key="configuration">
-                                            <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                            <wkPreferences key="preferences"/>
-                                        </wkWebViewConfiguration>
-                                    </wkWebView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="GLn-0G-5MD" firstAttribute="top" secondItem="f9H-1B-axE" secondAttribute="top" id="RqB-34-3P8"/>
-                                    <constraint firstItem="GLn-0G-5MD" firstAttribute="leading" secondItem="f9H-1B-axE" secondAttribute="leading" id="m6k-zY-vos"/>
-                                    <constraint firstAttribute="trailing" secondItem="GLn-0G-5MD" secondAttribute="trailing" id="u9n-wJ-ftd"/>
-                                    <constraint firstAttribute="bottom" secondItem="GLn-0G-5MD" secondAttribute="bottom" id="wGI-lL-WBC"/>
-                                </constraints>
                             </visualEffectView>
+                            <wkWebView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GLn-0G-5MD">
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="uNS-HQ-b13">
                                 <rect key="frame" x="520" y="0.0" width="280" height="600"/>
                                 <constraints>
@@ -843,6 +835,7 @@
                             <constraint firstItem="uNS-HQ-b13" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="CeV-Cu-2Tl"/>
                             <constraint firstItem="uNS-HQ-b13" firstAttribute="leading" secondItem="17U-Pa-owS" secondAttribute="trailing" id="ED8-qW-SVI"/>
                             <constraint firstAttribute="bottom" secondItem="NTX-0I-4dJ" secondAttribute="bottom" id="GBF-Fb-jap"/>
+                            <constraint firstItem="GLn-0G-5MD" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="HLX-it-pYu"/>
                             <constraint firstItem="NTX-0I-4dJ" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="Hc3-6s-kFO"/>
                             <constraint firstItem="WPg-GK-7xD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" priority="250" constant="50" id="JOo-RU-uuY"/>
                             <constraint firstAttribute="trailing" secondItem="NTX-0I-4dJ" secondAttribute="trailing" id="Mmf-M7-rdc"/>
@@ -850,11 +843,14 @@
                             <constraint firstAttribute="trailing" secondItem="uNS-HQ-b13" secondAttribute="trailing" id="XnC-Gv-dg6"/>
                             <constraint firstItem="17U-Pa-owS" firstAttribute="leading" relation="lessThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="80" id="ZEV-PH-eQf"/>
                             <constraint firstAttribute="trailing" secondItem="uNS-HQ-b13" secondAttribute="leading" constant="280" id="ZbS-Q0-6Jp"/>
+                            <constraint firstItem="GLn-0G-5MD" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="ewI-dE-iBb"/>
                             <constraint firstAttribute="bottom" secondItem="WPg-GK-7xD" secondAttribute="bottom" constant="12" id="fda-xa-yDP"/>
                             <constraint firstAttribute="bottom" secondItem="f9H-1B-axE" secondAttribute="bottom" id="idH-YJ-MWy"/>
                             <constraint firstAttribute="trailing" secondItem="f9H-1B-axE" secondAttribute="trailing" id="nLQ-bX-sV6"/>
                             <constraint firstItem="MOu-a6-iEJ" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="s8v-NE-WLw"/>
                             <constraint firstItem="Isj-Xc-zee" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="65" id="spo-SI-l3q"/>
+                            <constraint firstAttribute="bottom" secondItem="GLn-0G-5MD" secondAttribute="bottom" id="thU-cL-5BW"/>
+                            <constraint firstAttribute="trailing" secondItem="GLn-0G-5MD" secondAttribute="trailing" id="uDb-9L-Uac"/>
                             <constraint firstItem="17U-Pa-owS" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="wS9-IT-rh0"/>
                             <constraint firstItem="f9H-1B-axE" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="wUA-Fi-UUu"/>
                             <constraint firstItem="NTX-0I-4dJ" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="zal-nO-Hfg"/>
@@ -868,7 +864,6 @@
                         <outlet property="customizerView" destination="uNS-HQ-b13" id="uuy-sp-Ycz"/>
                         <outlet property="fxView" destination="NTX-0I-4dJ" id="Rce-dj-x3f"/>
                         <outlet property="launchLoader" destination="MOu-a6-iEJ" id="pfN-Sn-qCW"/>
-                        <outlet property="leftWebViewConstraint" destination="m6k-zY-vos" id="OJf-Fl-gQF"/>
                         <outlet property="webView" destination="GLn-0G-5MD" id="vVv-IC-ggv"/>
                     </connections>
                 </viewController>

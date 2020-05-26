@@ -306,9 +306,18 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
         transparentWindow(false)
         fxView.loadFile(name, path: "WebFX/fx")
     }
+    
     func setFX(_ name: String, path: String = "WebFX/fx") {
         transparentWindow(false)
+        
         fxView.loadFile(name, path: path)
+        if path == "WebFX/fx/kscope" {
+            let html = FXManager.setVideo("https://visualizer.muza.io/videos/kscope.mov")
+            fxView.loadHTMLString(html, baseURL: nil)
+            blurView.material = .dark
+        } else {
+            blurView.material = Active.style.fx
+        }
     }
     
     
