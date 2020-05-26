@@ -667,6 +667,12 @@
                                                             <action selector="fxGradient:" target="Ady-hI-5gd" id="xQ7-xP-Nb6"/>
                                                         </connections>
                                                     </menuItem>
+                                                    <menuItem title="Kaleidoscope" id="bMb-Ha-cDU">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="fxKScope:" target="Ady-hI-5gd" id="6QM-A2-6w5"/>
+                                                        </connections>
+                                                    </menuItem>
                                                 </items>
                                             </menu>
                                         </menuItem>

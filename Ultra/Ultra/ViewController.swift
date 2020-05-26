@@ -300,10 +300,15 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
     }
     
     @IBAction func fxGradient(_ sender: Any) { setFX("gradient") }
+    @IBAction func fxKScope(_ sender: Any) { setFX("index", path: "WebFX/fx/kscope") }
     
     func setFX(_ name: String) {
         transparentWindow(false)
         fxView.loadFile(name, path: "WebFX/fx")
+    }
+    func setFX(_ name: String, path: String = "WebFX/fx") {
+        transparentWindow(false)
+        fxView.loadFile(name, path: path)
     }
     
     
