@@ -10,6 +10,11 @@ Drag & drop to `/Applications` if you want to keep it after trying. 🤗
 
 Updating from an older version? Drag and drop to `/Applications` and click `Replace`.
 
+### Update <sup>August 1, 2020</sup>
+Hey guys! I apologize for the lack of updates – we had a COVID-positive situation in the workspace. I've had some major updates in the works for some time now, including a complete rewrite of the project from scratch (hence why I haven't committed any updates in the past few weeks). I hope to have the newest code up on the repo at some point in August, along with an entirely new release.
+
+I'm aware of the modifications that Apple has made to the AMWP codebase, as well as its breaking changes. I'm hoping that the newest update will cover any future, tedious changes made to the platform. Talk soon! – <i>Justin</i>
+
 <i>This app is currently under heavy development.</i>
 
 ### This Month's TODO <sup>May 20, 2020</sup>
