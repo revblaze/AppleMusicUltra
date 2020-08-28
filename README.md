@@ -12,6 +12,10 @@ Drag & drop to `/Applications` if you want to keep it after trying. 🤗
 
 <sup>Updating from an older version? Drag and drop to `/Applications` and click `Replace`.</sup>
 
+**Next Release:** My MacBook was recently wiped clean by an authorized reseller. Due to this, and the accidental maxing-out of my Developer ID Application certificates, I am unable to release new builds at this time. Public Beta 2 is ready and available in the new codebase. I will sign and add `Ultra-b2.app` as a release once Apple has resolved this issue.
+
+<sup>Email to Apple Developer Support sent: August 28, 2020.</sup>
+
 # Customization
 Personalize your music experience with the **Customizer**. User-selectable images, videos, web content and more.
 
@@ -151,9 +155,9 @@ shadow:    .toolTip              .dark              50%
 vibing:    .dark                 .dark              30%
 ```
 
-Styles are the top-layer effects that appear over every theme type. Using `setTheme`, they can be set to overlap your object-based theme to add some vibrant effects; or alternatively, they can be set to blur your system background using `Theme.isTransparent = true`.
+Styles are the top-layer effects that overlay the `fxWebView`, as well as determine `.light` or `.dark` appearance modes. Using `Theme.style`, they can be set to overlap your object-based theme to add some vibrant effects; or alternatively, they can be set to blur your system background using `Theme.isTransparent = true`.
 
-## Custom Themes
+## Custom Themes <sup>Temporarily Disabled</sup>
 ![Apple Music Ultra](Media/Custom.gif)
 Setting a custom, user-selected image is as simple as prompting the user for the `URL` path of their `file://` and setting it as the `media` property.
 
