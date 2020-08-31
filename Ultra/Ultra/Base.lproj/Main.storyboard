@@ -1035,6 +1035,19 @@
                             <progressIndicator wantsLayer="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="QZA-hN-yIq">
                                 <rect key="frame" x="-8" y="-9" width="816" height="20"/>
                             </progressIndicator>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KC8-Y8-dcR">
+                                <rect key="frame" x="270" y="512" width="24" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="NMq-P2-U6I"/>
+                                </constraints>
+                                <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSGoBackTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vP9-ca-ztl">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="goBackPage:" target="Em6-wv-XUe" id="mZQ-fy-dEc"/>
+                                </connections>
+                            </button>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="ncN-lb-Arp">
                                 <rect key="frame" x="520" y="0.0" width="280" height="600"/>
                                 <constraints>
@@ -1076,6 +1089,7 @@
                             <constraint firstAttribute="bottom" secondItem="QZA-hN-yIq" secondAttribute="bottom" constant="-8" id="7eM-h5-6Vi"/>
                             <constraint firstItem="AlI-7V-uWb" firstAttribute="leading" secondItem="1eq-CL-Tpp" secondAttribute="leading" id="84F-P4-MzL"/>
                             <constraint firstItem="ncN-lb-Arp" firstAttribute="leading" secondItem="Ocf-Ta-Ec2" secondAttribute="trailing" constant="12" id="9yC-et-Hmn"/>
+                            <constraint firstItem="KC8-Y8-dcR" firstAttribute="top" secondItem="1eq-CL-Tpp" secondAttribute="top" constant="65" id="CGf-ed-sRw"/>
                             <constraint firstItem="ncN-lb-Arp" firstAttribute="leading" secondItem="ANh-ja-SQU" secondAttribute="trailing" id="DdL-y4-rCK"/>
                             <constraint firstItem="6UD-Cq-3Ob" firstAttribute="leading" secondItem="1eq-CL-Tpp" secondAttribute="leading" id="FAC-Ib-De6"/>
                             <constraint firstItem="6UD-Cq-3Ob" firstAttribute="top" secondItem="1eq-CL-Tpp" secondAttribute="top" id="Fqz-Z6-1rk"/>
@@ -1085,6 +1099,7 @@
                             <constraint firstAttribute="trailing" secondItem="sr6-0U-lb3" secondAttribute="trailing" id="OPD-gL-4eE"/>
                             <constraint firstItem="sr6-0U-lb3" firstAttribute="leading" secondItem="1eq-CL-Tpp" secondAttribute="leading" id="TEU-8c-IFJ"/>
                             <constraint firstItem="a0y-BM-Zey" firstAttribute="centerX" secondItem="1eq-CL-Tpp" secondAttribute="centerX" id="Tve-iB-JnT"/>
+                            <constraint firstItem="KC8-Y8-dcR" firstAttribute="leading" secondItem="1eq-CL-Tpp" secondAttribute="leading" constant="270" id="UGU-AI-hd9"/>
                             <constraint firstItem="sr6-0U-lb3" firstAttribute="top" secondItem="1eq-CL-Tpp" secondAttribute="top" id="ZpQ-UM-i93"/>
                             <constraint firstItem="ncN-lb-Arp" firstAttribute="top" secondItem="1eq-CL-Tpp" secondAttribute="top" id="bnf-VG-twc"/>
                             <constraint firstAttribute="bottom" secondItem="ncN-lb-Arp" secondAttribute="bottom" id="cDO-Mq-ENI"/>
@@ -1104,6 +1119,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="KC8-Y8-dcR" id="ubE-ht-h98"/>
                         <outlet property="blurView" destination="6UD-Cq-3Ob" id="fxh-FK-pOX"/>
                         <outlet property="customizerButton" destination="Ocf-Ta-Ec2" id="eWC-uU-XWg"/>
                         <outlet property="customizerConstraint" destination="3dQ-2f-vdO" id="wrE-C3-rHP"/>
@@ -1238,6 +1254,7 @@
         <image name="MenuVideoClip" width="22" height="22"/>
         <image name="MenuWaveTransparent" width="22" height="22"/>
         <image name="NSActionTemplate" width="14" height="14"/>
+        <image name="NSGoBackTemplate" width="9" height="12"/>
         <image name="NSStopProgressTemplate" width="11" height="11"/>
         <namedColor name="PlayerBG">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

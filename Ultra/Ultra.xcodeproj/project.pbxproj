@@ -16,7 +16,6 @@
 		C2014DC424F82E9A00D83619 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2014DC324F82E9A00D83619 /* Appearance.swift */; };
 		C2014DC724F82F1700D83619 /* LoadFXWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2014DC624F82F1700D83619 /* LoadFXWebView.swift */; };
 		C2014DC924F82F9C00D83619 /* Glyph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2014DC824F82F9C00D83619 /* Glyph.swift */; };
-		C2014DCB24F830E300D83619 /* ObserverDidChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2014DCA24F830E300D83619 /* ObserverDidChange.swift */; };
 		C2014DCE24F8319800D83619 /* URLDidChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2014DCD24F8319800D83619 /* URLDidChange.swift */; };
 		C2014DD024F831B400D83619 /* Menu+Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2014DCF24F831B400D83619 /* Menu+Controls.swift */; };
 		C2014DD224F832FD00D83619 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2014DD124F832FD00D83619 /* Theme.swift */; };
@@ -44,6 +43,9 @@
 		C20E223424F80BEF00BAF1FE /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E223324F80BEF00BAF1FE /* Player.swift */; };
 		C20E22C424F80E8500BAF1FE /* Script+Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E22C324F80E8500BAF1FE /* Script+Controls.swift */; };
 		C20E22C724F80FE400BAF1FE /* Account+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E22C624F80FE400BAF1FE /* Account+Login.swift */; };
+		C264457124F9BE5000E3906C /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C264457024F9BE5000E3906C /* BackButton.swift */; };
+		C269688D24FD4AF400E12EA2 /* TitleDidChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C269688C24FD4AF400E12EA2 /* TitleDidChange.swift */; };
+		C269688F24FD4AFE00E12EA2 /* ProgressDidChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C269688E24FD4AFE00E12EA2 /* ProgressDidChange.swift */; };
 		C2A8CD8C24F7FB2D000EE88B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A8CD8B24F7FB2D000EE88B /* AppDelegate.swift */; };
 		C2A8CD8E24F7FB2D000EE88B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A8CD8D24F7FB2D000EE88B /* ViewController.swift */; };
 		C2A8CD9024F7FB2E000EE88B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2A8CD8F24F7FB2E000EE88B /* Assets.xcassets */; };
@@ -60,7 +62,6 @@
 		C2014DC324F82E9A00D83619 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		C2014DC624F82F1700D83619 /* LoadFXWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadFXWebView.swift; sourceTree = "<group>"; };
 		C2014DC824F82F9C00D83619 /* Glyph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glyph.swift; sourceTree = "<group>"; };
-		C2014DCA24F830E300D83619 /* ObserverDidChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverDidChange.swift; sourceTree = "<group>"; };
 		C2014DCD24F8319800D83619 /* URLDidChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDidChange.swift; sourceTree = "<group>"; };
 		C2014DCF24F831B400D83619 /* Menu+Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Menu+Controls.swift"; sourceTree = "<group>"; };
 		C2014DD124F832FD00D83619 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -88,6 +89,9 @@
 		C20E223324F80BEF00BAF1FE /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		C20E22C324F80E8500BAF1FE /* Script+Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Script+Controls.swift"; sourceTree = "<group>"; };
 		C20E22C624F80FE400BAF1FE /* Account+Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Account+Login.swift"; sourceTree = "<group>"; };
+		C264457024F9BE5000E3906C /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		C269688C24FD4AF400E12EA2 /* TitleDidChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleDidChange.swift; sourceTree = "<group>"; };
+		C269688E24FD4AFE00E12EA2 /* ProgressDidChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDidChange.swift; sourceTree = "<group>"; };
 		C2A8CD8824F7FB2D000EE88B /* Ultra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ultra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2A8CD8B24F7FB2D000EE88B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2A8CD8D24F7FB2D000EE88B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -112,7 +116,6 @@
 			isa = PBXGroup;
 			children = (
 				C2014DB524F8144600D83619 /* EventListeners.swift */,
-				C2014DCA24F830E300D83619 /* ObserverDidChange.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				C2014DC324F82E9A00D83619 /* Appearance.swift */,
+				C264457024F9BE5000E3906C /* BackButton.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -161,6 +165,8 @@
 			isa = PBXGroup;
 			children = (
 				C2014DCD24F8319800D83619 /* URLDidChange.swift */,
+				C269688C24FD4AF400E12EA2 /* TitleDidChange.swift */,
+				C269688E24FD4AFE00E12EA2 /* ProgressDidChange.swift */,
 			);
 			path = Observers;
 			sourceTree = "<group>";
@@ -399,6 +405,7 @@
 				C2014DB624F8144600D83619 /* EventListeners.swift in Sources */,
 				C20E217F24F8002800BAF1FE /* CustomizerViewController.swift in Sources */,
 				C20E219524F803BF00BAF1FE /* Keys.swift in Sources */,
+				C264457124F9BE5000E3906C /* BackButton.swift in Sources */,
 				C2014DD424F8333500D83619 /* Style.swift in Sources */,
 				C20E217A24F7FE0400BAF1FE /* WindowController.swift in Sources */,
 				C20E21A224F80A9000BAF1FE /* Music.swift in Sources */,
@@ -411,6 +418,7 @@
 				C20E219824F804E800BAF1FE /* User.swift in Sources */,
 				C2014DCE24F8319800D83619 /* URLDidChange.swift in Sources */,
 				C20E219324F8038B00BAF1FE /* DefaultsManager.swift in Sources */,
+				C269688D24FD4AF400E12EA2 /* TitleDidChange.swift in Sources */,
 				C2014DC424F82E9A00D83619 /* Appearance.swift in Sources */,
 				C2014DC224F82E1700D83619 /* LoadCustomizer.swift in Sources */,
 				C20E218E24F8030D00BAF1FE /* Client.swift in Sources */,
@@ -422,7 +430,7 @@
 				C20E22C424F80E8500BAF1FE /* Script+Controls.swift in Sources */,
 				C2A8CD8C24F7FB2D000EE88B /* AppDelegate.swift in Sources */,
 				C2014DDC24F84A9C00D83619 /* ThemeHTML.swift in Sources */,
-				C2014DCB24F830E300D83619 /* ObserverDidChange.swift in Sources */,
+				C269688F24FD4AFE00E12EA2 /* ProgressDidChange.swift in Sources */,
 				C2014DC724F82F1700D83619 /* LoadFXWebView.swift in Sources */,
 				C2014DBF24F824DE00D83619 /* LoadPlayer.swift in Sources */,
 				C2014DDA24F8484800D83619 /* FXLoader.swift in Sources */,

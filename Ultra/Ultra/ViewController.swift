@@ -19,6 +19,7 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
     @IBOutlet var blurView: NSVisualEffectView!             // Global Blur Overlay
     @IBOutlet var leftConstraint: NSLayoutConstraint!       // Left WebView Constraint
     @IBOutlet var playerBG: NSTextField!                    // Opaque for Player Background
+    @IBOutlet var backButton: NSButton!                     // WebView Back Button
     
     @IBOutlet var progressSpinner: NSProgressIndicator!     // Launch Loading Animation
     @IBOutlet var progressBar: NSProgressIndicator!         // Launch Loading Bar
@@ -42,6 +43,7 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
         super.viewDidLoad()
         
         progressBar.doubleValue = progressValue
+        backButton.alphaValue = 0
         
         // MARK: Observers
         webViewURLObserver = webView.observe(\.url, options: .new) { [weak self] webView, change in
