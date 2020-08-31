@@ -1,5 +1,5 @@
 //
-//  Account+Login.swift
+//  LoginManager.swift
 //  Ultra
 //
 //  Created by Justin Bush on 2020-08-25.

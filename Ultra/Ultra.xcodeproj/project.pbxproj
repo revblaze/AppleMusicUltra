@@ -42,7 +42,7 @@
 		C20E21A224F80A9000BAF1FE /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E21A124F80A9000BAF1FE /* Music.swift */; };
 		C20E223424F80BEF00BAF1FE /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E223324F80BEF00BAF1FE /* Player.swift */; };
 		C20E22C424F80E8500BAF1FE /* Script+Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E22C324F80E8500BAF1FE /* Script+Controls.swift */; };
-		C20E22C724F80FE400BAF1FE /* Account+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E22C624F80FE400BAF1FE /* Account+Login.swift */; };
+		C20E22C724F80FE400BAF1FE /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E22C624F80FE400BAF1FE /* LoginManager.swift */; };
 		C264457124F9BE5000E3906C /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C264457024F9BE5000E3906C /* BackButton.swift */; };
 		C269688D24FD4AF400E12EA2 /* TitleDidChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C269688C24FD4AF400E12EA2 /* TitleDidChange.swift */; };
 		C269688F24FD4AFE00E12EA2 /* ProgressDidChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C269688E24FD4AFE00E12EA2 /* ProgressDidChange.swift */; };
@@ -88,7 +88,7 @@
 		C20E21A124F80A9000BAF1FE /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
 		C20E223324F80BEF00BAF1FE /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		C20E22C324F80E8500BAF1FE /* Script+Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Script+Controls.swift"; sourceTree = "<group>"; };
-		C20E22C624F80FE400BAF1FE /* Account+Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Account+Login.swift"; sourceTree = "<group>"; };
+		C20E22C624F80FE400BAF1FE /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		C264457024F9BE5000E3906C /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		C269688C24FD4AF400E12EA2 /* TitleDidChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleDidChange.swift; sourceTree = "<group>"; };
 		C269688E24FD4AFE00E12EA2 /* ProgressDidChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDidChange.swift; sourceTree = "<group>"; };
@@ -112,12 +112,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C2014DB924F8201600D83619 /* Events */ = {
+		C2014DB924F8201600D83619 /* JSEvents */ = {
 			isa = PBXGroup;
 			children = (
 				C2014DB524F8144600D83619 /* EventListeners.swift */,
 			);
-			path = Events;
+			path = JSEvents;
 			sourceTree = "<group>";
 		};
 		C2014DBA24F821BA00D83619 /* Menu */ = {
@@ -157,18 +157,19 @@
 			children = (
 				C2014DC324F82E9A00D83619 /* Appearance.swift */,
 				C264457024F9BE5000E3906C /* BackButton.swift */,
+				C20E22C624F80FE400BAF1FE /* LoginManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		C2014DCC24F8317300D83619 /* Observers */ = {
+		C2014DCC24F8317300D83619 /* WKObservers */ = {
 			isa = PBXGroup;
 			children = (
 				C2014DCD24F8319800D83619 /* URLDidChange.swift */,
 				C269688C24FD4AF400E12EA2 /* TitleDidChange.swift */,
 				C269688E24FD4AFE00E12EA2 /* ProgressDidChange.swift */,
 			);
-			path = Observers;
+			path = WKObservers;
 			sourceTree = "<group>";
 		};
 		C20E217C24F7FEF400BAF1FE /* CoreController */ = {
@@ -178,9 +179,8 @@
 				C2014DD924F8484800D83619 /* FXLoader.swift */,
 				C2014DBD24F824A400D83619 /* Launch */,
 				C2014DBA24F821BA00D83619 /* Menu */,
-				C2014DB924F8201600D83619 /* Events */,
-				C2014DCC24F8317300D83619 /* Observers */,
-				C20E22C824F8105800BAF1FE /* Account */,
+				C2014DB924F8201600D83619 /* JSEvents */,
+				C2014DCC24F8317300D83619 /* WKObservers */,
 				C2014DC524F82ED300D83619 /* Managers */,
 			);
 			path = CoreController;
@@ -276,14 +276,6 @@
 				C20E223324F80BEF00BAF1FE /* Player.swift */,
 			);
 			path = MusicPlayer;
-			sourceTree = "<group>";
-		};
-		C20E22C824F8105800BAF1FE /* Account */ = {
-			isa = PBXGroup;
-			children = (
-				C20E22C624F80FE400BAF1FE /* Account+Login.swift */,
-			);
-			path = Account;
 			sourceTree = "<group>";
 		};
 		C2A8CD7F24F7FB2D000EE88B = {
@@ -426,7 +418,7 @@
 				C20E223424F80BEF00BAF1FE /* Player.swift in Sources */,
 				C2014DD224F832FD00D83619 /* Theme.swift in Sources */,
 				C2014DD624F839B900D83619 /* ThemeManager.swift in Sources */,
-				C20E22C724F80FE400BAF1FE /* Account+Login.swift in Sources */,
+				C20E22C724F80FE400BAF1FE /* LoginManager.swift in Sources */,
 				C20E22C424F80E8500BAF1FE /* Script+Controls.swift in Sources */,
 				C2A8CD8C24F7FB2D000EE88B /* AppDelegate.swift in Sources */,
 				C2014DDC24F84A9C00D83619 /* ThemeHTML.swift in Sources */,
