@@ -58,7 +58,7 @@ extension ViewController {
     func getRawPath() -> String {
         let file = Theme.raw.removePath()
         let path = Theme.raw.replacingOccurrences(of: file, with: "")
-        return path ?? webContentPath
+        return path
     }
     
 }

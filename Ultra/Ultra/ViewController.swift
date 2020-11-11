@@ -68,7 +68,7 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
         Theme.save()
     }
     
-    
+     
     
     // MARK:- WebView Setup
     
