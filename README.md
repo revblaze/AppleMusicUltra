@@ -16,6 +16,10 @@ Drag & drop to `/Applications` if you want to keep it after trying. 🤗
 
 <sup>Email to Apple Developer Support sent: August 28, 2020.</sup>
 
+**Update** (November 11, 2020)
+
+Still no word from Apple. Big Sur update coming soon! More details to follow once I'm done grinding these tests and assignments for school.
+
 # Customization
 Personalize your music experience with the **Customizer**. User-selectable images, videos, web content and more.
 
