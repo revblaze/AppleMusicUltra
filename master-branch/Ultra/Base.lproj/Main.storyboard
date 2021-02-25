@@ -657,22 +657,6 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Debug" id="LhE-zi-hnF">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Debug" id="TXv-lh-RbF">
-                                    <items>
-                                        <menuItem title="Item 1" id="WBa-BA-Igq">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title="Item 2" id="S5d-jk-4JL">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title="Item 3" id="mdu-nw-yXA">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
                             <menuItem title="Help" id="wpr-3q-Mcd">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
@@ -685,6 +669,22 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Debug" id="3iZ-hr-f5f">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Debug" id="XGL-eU-DqU">
+                                    <items>
+                                        <menuItem title="Item 1" id="RAo-s5-8T6">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Item 2" id="KWJ-V3-0yd">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Item 3" id="ufd-WG-8ty">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                         </items>
                     </menu>
                     <connections>
@@ -693,7 +693,7 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Ultra" customModuleProvider="target">
                     <connections>
-                        <outlet property="debugMenu" destination="LhE-zi-hnF" id="xY2-Ej-QeB"/>
+                        <outlet property="menuDebug" destination="3iZ-hr-f5f" id="tHl-sP-Q6e"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>

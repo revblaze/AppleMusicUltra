@@ -1,8 +1,9 @@
 //
 //  AppDelegate.swift
 //  Ultra
+//  Client for Music
 //
-//  Created by Justin Bush on 2021-02-25.
+//  Created by Justin Bush on 2020-08-01.
 //
 
 import Cocoa
@@ -12,28 +13,29 @@ let debug = true
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    var mainWindow: NSWindow!
-    @IBOutlet var debugMenu: NSMenuItem!
+    @IBOutlet var window: NSWindow!
+    @IBOutlet weak var menuDebug: NSMenuItem!
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        mainWindow = NSApplication.shared.windows[0]
-        NSApp.activate(ignoringOtherApps: true)
-        debugMenu.isHidden = !debug
+        // Insert code here to initialize your application
+        menuDebug.isHidden = !debug
+    }
+
+    internal func applicationWillTerminate(_ aNotification: Notification) {
+        // Insert code here to tear down your application
+        //Theme.save()
     }
     
     // Handles Reopening of Main Window
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         if !flag {
             for window in sender.windows {
+                print(sender.windows)
                 window.makeKeyAndOrderFront(self)
             }
         }
         return true
-    }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
     }
 
 
