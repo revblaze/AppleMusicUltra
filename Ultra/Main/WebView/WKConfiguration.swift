@@ -14,20 +14,26 @@ extension ViewController {
     
     /// Initialize main `WebView` client for UWeb
     func initWebView() {
-        webView.uiDelegate = self                           // Set WebView UI Delegate
-        webView.navigationDelegate = self                   // Set WebView Navigation Delegate
-        webView.allowsLinkPreview = false                   // Disable Link Preview
-        webView.allowsMagnification = false                 // Disable Magnification
-        webView.allowsBackForwardNavigationGestures = false // Disable Back-Forward Gestures
-        //webView.customUserAgent = Client.userAgent          // Set Client UserAgent
+        webView.uiDelegate = self                               // Set WebView UI Delegate
+        webView.navigationDelegate = self                       // Set WebView Navigation Delegate
         // WebView Configuration
-        //webView.configuration.applicationNameForUserAgent = Client.name
+        webView.allowsLinkPreview = false                       // Disable Link Preview
+        webView.allowsMagnification = false                     // Disable Magnification
+        webView.allowsBackForwardNavigationGestures = false     // Disable Back-Forward Gestures
+        webView.setValue(false, forKey: "drawsBackground")      // Set Transparent WebView Background
+        webView.customUserAgent = Client.userAgent              // Set Client UserAgent
+        let preferences = WKPreferences()                       // WebKit Preferences
+        preferences.javaScriptEnabled = true                    // Enable JavaScript
+        preferences.javaScriptCanOpenWindowsAutomatically = true
+        webView.configuration.preferences = preferences
+        let configuration = WKWebViewConfiguration()            // WebKit Configuration
+        configuration.preferences = preferences
+        configuration.allowsAirPlayForMediaPlayback = true      // Enable WebKit AirPlay
+        webView.configuration.applicationNameForUserAgent = Client.name
         // JavaScript Event Listeners
         webView.configuration.userContentController.add(self, name: "eventListeners")
-        webView.setValue(false, forKey: "drawsBackground")
-        // Load UWeb
-        //webView.load(Client.url)
-        
+        // Load Apple Music
+        webView.load("https://google.com")//webView.load(Client.url)
         //initBackButton()
     }
     
