@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
-        <plugIn identifier="com.apple.WebKit2IBPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -738,11 +738,25 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ACJ-u1-Jea">
+                                <rect key="frame" x="-2" y="570" width="804" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="eh9-XE-rCX"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" id="xXd-Dx-jEc">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="clZ-eh-4fj" secondAttribute="bottom" id="ShA-AP-fg5"/>
                             <constraint firstAttribute="trailing" secondItem="clZ-eh-4fj" secondAttribute="trailing" id="fnO-v9-Fcu"/>
+                            <constraint firstItem="ACJ-u1-Jea" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="gaT-WZ-iNk"/>
+                            <constraint firstItem="ACJ-u1-Jea" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="llB-8n-JCP"/>
                             <constraint firstItem="clZ-eh-4fj" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="m7T-iG-U4J"/>
+                            <constraint firstAttribute="trailing" secondItem="ACJ-u1-Jea" secondAttribute="trailing" id="mgl-az-ddE"/>
                             <constraint firstItem="clZ-eh-4fj" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="q7Y-3j-zc4"/>
                         </constraints>
                     </view>

@@ -33,7 +33,7 @@ extension ViewController {
         // JavaScript Event Listeners
         webView.configuration.userContentController.add(self, name: "eventListeners")
         // Load Apple Music
-        webView.load("https://google.com")//webView.load(Client.url)
+        webView.load(Client.url)
         //initBackButton()
     }
     
