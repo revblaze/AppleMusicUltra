@@ -1,9 +1,16 @@
-![Ultra for Apple Music](Media/Cover.jpg)
+![Ultra for Apple Music](Media/Title.jpg)
+
+<sup>This project uses the [TypeSwift](https://github.com/TypeSwift) framework, a bridging-interface for TypeScript and Swift.</sup>
 
 # Ultra for Music
-Music client with a customizable personality.
+The ultimate Music client with a customizable personality. Upgrade your music experience with themes, styles, custom scripting, personalized settings, friends, followers and more. Built on [macOS Monterey](https://www.apple.com/macos/monterey-preview/) with backwards compatibility in-mind.
 
-Upgrade your music experience with themes, styles, custom scripting, personalized settings and more.
+## Coming Soon <sup>v2</sup>
+Brace yourselves, a major update is coming to Ultra! I've completely redesigned the codebase, added further functionality and freedom with custom scripting, as well as UI customization. Furthermore, I'm in the process of implementing a Spotify-like social feed that'll allow you to keep up with what your [Music friends](https://github.com/revblaze/AppleMusicFriends) are listening to. 
+
+The current project, along with this README, need a complete rework. Since many of you have been waiting patiently – over the past year and a little bit – for the next release, I will be priortizing the publication of the standalone Ultra v2 app. The programmatic documentation will follow soon after.
+
+In the meantime, feel free to checkout [Music Friends](https://github.com/revblaze/AppleMusicFriends). Any contribution is welcome and greatly appreciated!
 
 ## [Download Latest Stable Build](https://github.com/revblaze/AppleMusicUltra/releases/download/v1.0-beta.1/Themes-v1.0b1.zip) <sup>(macOS 10.12 and higher)</sup>
 `Themes-v1.0b1.zip (25MB) Public Beta 1` (April 17, 2020)
@@ -11,14 +18,6 @@ Upgrade your music experience with themes, styles, custom scripting, personalize
 Drag & drop to `/Applications` if you want to keep it after trying. 🤗
 
 <sup>Updating from an older version? Drag and drop to `/Applications` and click `Replace`.</sup>
-
-**Next Release:** My MacBook was recently wiped clean by an authorized reseller. Due to this, and the accidental maxing-out of my Developer ID Application certificates, I am unable to release new builds at this time. Public Beta 2 is ready and available in the new codebase. I will sign and add `Ultra-b2.app` as a release once Apple has resolved this issue.
-
-<sup>Email to Apple Developer Support sent: August 28, 2020.</sup>
-
-**Update** (November 11, 2020)
-
-Still no word from Apple. Big Sur update coming soon! More details to follow once I'm done grinding these tests and assignments for school.
 
 # Customization
 Personalize your music experience with the **Customizer**. User-selectable images, videos, web content and more.
