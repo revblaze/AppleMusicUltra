@@ -18,9 +18,11 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // Initialize Objects & Views
         initWebView()
         
+        // Set Observers
         webViewURLObserver = webView.observe(\.url, options: .new) { [weak self] webView, change in
             self?.urlDidChange("\(String(describing: change.newValue))") }
     }

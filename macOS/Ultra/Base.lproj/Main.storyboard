@@ -797,7 +797,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="aZQ-xN-NaJ"/>
                                 </constraints>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="baS-ae-Wco">
+                                <textFieldCell key="cell" lineBreakMode="clipping" id="baS-ae-Wco">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
