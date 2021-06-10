@@ -1,0 +1,39 @@
+{
+  "name": "wktypescript",
+  "version": "1.0.0",
+  "description": "A basic framework for evaluating TypeScript through WebKit",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx tsc"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "npx prettier --write",
+      "eslint --cache --fix"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inter-ops/WKTypeScript.git"
+  },
+  "author": "Francesco Virga @francescov1",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/inter-ops/WKTypeScript/issues"
+  },
+  "homepage": "https://github.com/inter-ops/WKTypeScript#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@typescript-eslint/parser": "^4.10.0",
+    "eslint": "^7.16.0",
+    "husky": "^4.3.6",
+    "lint-staged": "^10.5.3",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.3"
+  }
+}

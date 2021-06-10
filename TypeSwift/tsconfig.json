@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    // opinionated rules
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowUnreachableCode": false,
+    "forceConsistentCasingInFileNames": true,
+    
+    // config
+    "allowJs": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "importHelpers": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "outDir": "dist",
+    "rootDir": "src",
+    "target": "es5",
+    "esModuleInterop": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "typeRoots": ["src/types", "node_modules/@types"],
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
+  "exclude": ["./node_modules"]
+}
