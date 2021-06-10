@@ -10,7 +10,6 @@ import WebKit
 
 extension ViewController {
     
-    /// Initialize `webView: auth, builder, dashboard (websites & domains)`
     func initWebView() {
         webView.uiDelegate = self                               // Set WebView UI Delegate
         webView.navigationDelegate = self                       // Set WebView Navigation Delegate
@@ -23,7 +22,7 @@ extension ViewController {
         // JavaScript Event Listeners
         webView.configuration.userContentController.add(self, name: "eventListeners")
         webView.setValue(false, forKey: "drawsBackground")
-        //webView.load(AppleMusic.url(forPage: .listenNow))
+        webView.load(AppleMusic.home)
     }
     
 }

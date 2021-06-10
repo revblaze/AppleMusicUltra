@@ -12,6 +12,7 @@ struct AMService {
     
     /// The base Apple Music URL: `https://music.apple.com`
     static let baseURL = "https://music.apple.com"
+    static let home = baseURL   // url(forPage: .home)
     
     /// Returns the URL for the selected Apple Music page as a `String`
     /// # Usage:
@@ -24,10 +25,11 @@ struct AMService {
     }
     
     enum Page {
-        case listenNow, browse, album, profile
+        case home, listenNow, browse, album, profile
         
         var path: String {
             switch self {
+            case .home:         return ""
             case .listenNow:    return "listen-now"
             case .browse:       return "browse"
             case .album:        return "album"      // ambigious URL scheme
