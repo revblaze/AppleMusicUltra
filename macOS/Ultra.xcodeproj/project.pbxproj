@@ -17,6 +17,8 @@
 		C2A923C026726CD3009638C2 /* URLDidChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923BF26726CD3009638C2 /* URLDidChange.swift */; };
 		C2A923C226726CEB009638C2 /* WKClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923C126726CEB009638C2 /* WKClient.swift */; };
 		C2A923C426726D03009638C2 /* AMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923C326726D03009638C2 /* AMService.swift */; };
+		C2A923C826726F14009638C2 /* WKExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923C726726F14009638C2 /* WKExtensions.swift */; };
+		C2A923CA26726F2D009638C2 /* WKCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923C926726F2D009638C2 /* WKCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,8 @@
 		C2A923BF26726CD3009638C2 /* URLDidChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDidChange.swift; sourceTree = "<group>"; };
 		C2A923C126726CEB009638C2 /* WKClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKClient.swift; sourceTree = "<group>"; };
 		C2A923C326726D03009638C2 /* AMService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMService.swift; sourceTree = "<group>"; };
+		C2A923C726726F14009638C2 /* WKExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKExtensions.swift; sourceTree = "<group>"; };
+		C2A923C926726F2D009638C2 /* WKCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,8 +85,9 @@
 		C2A923BA26726C3C009638C2 /* WebKit */ = {
 			isa = PBXGroup;
 			children = (
-				C2A923BE26726CC6009638C2 /* Observers */,
 				C2A923BD26726CB7009638C2 /* Configuration */,
+				C2A923C626726F09009638C2 /* Extensions */,
+				C2A923BE26726CC6009638C2 /* Observers */,
 			);
 			path = WebKit;
 			sourceTree = "<group>";
@@ -90,9 +95,9 @@
 		C2A923BD26726CB7009638C2 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				C2A923BB26726C54009638C2 /* WKConfiguration.swift */,
-				C2A923C126726CEB009638C2 /* WKClient.swift */,
 				C2A923C326726D03009638C2 /* AMService.swift */,
+				C2A923C126726CEB009638C2 /* WKClient.swift */,
+				C2A923BB26726C54009638C2 /* WKConfiguration.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -111,6 +116,15 @@
 				C2A923B826726B2C009638C2 /* FXView.swift */,
 			);
 			path = CoreFX;
+			sourceTree = "<group>";
+		};
+		C2A923C626726F09009638C2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C2A923C726726F14009638C2 /* WKExtensions.swift */,
+				C2A923C926726F2D009638C2 /* WKCache.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,12 +196,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2A923CA26726F2D009638C2 /* WKCache.swift in Sources */,
 				C2A923B926726B2C009638C2 /* FXView.swift in Sources */,
 				C2A923C426726D03009638C2 /* AMService.swift in Sources */,
 				C2A923A92672687D009638C2 /* ViewController.swift in Sources */,
 				C2A923BC26726C54009638C2 /* WKConfiguration.swift in Sources */,
 				C2A923C226726CEB009638C2 /* WKClient.swift in Sources */,
 				C2A923B726726960009638C2 /* WindowController.swift in Sources */,
+				C2A923C826726F14009638C2 /* WKExtensions.swift in Sources */,
 				C2A923A72672687D009638C2 /* AppDelegate.swift in Sources */,
 				C2A923C026726CD3009638C2 /* URLDidChange.swift in Sources */,
 			);
@@ -330,6 +346,7 @@
 				CODE_SIGN_ENTITLEMENTS = Ultra/Ultra.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2000;
 				DEVELOPMENT_TEAM = 85N3S3DG8M;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Ultra/Info.plist;
@@ -353,6 +370,7 @@
 				CODE_SIGN_ENTITLEMENTS = Ultra/Ultra.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2000;
 				DEVELOPMENT_TEAM = 85N3S3DG8M;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Ultra/Info.plist;
