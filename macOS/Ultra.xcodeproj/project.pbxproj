@@ -19,6 +19,13 @@
 		C2A923C426726D03009638C2 /* AMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923C326726D03009638C2 /* AMService.swift */; };
 		C2A923C826726F14009638C2 /* WKExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923C726726F14009638C2 /* WKExtensions.swift */; };
 		C2A923CA26726F2D009638C2 /* WKCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923C926726F2D009638C2 /* WKCache.swift */; };
+		C2A923CE26727A8A009638C2 /* TypeSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923CD26727A8A009638C2 /* TypeSwift.swift */; };
+		C2A923D126727CD7009638C2 /* TSUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923D026727CD7009638C2 /* TSUtility.swift */; };
+		C2A923D426727D0D009638C2 /* TSConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923D326727D0D009638C2 /* TSConfig.swift */; };
+		C2A923D626727E06009638C2 /* JSUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923D526727E06009638C2 /* JSUtility.swift */; };
+		C2A923DA26727EE1009638C2 /* dist in Resources */ = {isa = PBXBuildFile; fileRef = C2A923D926727EE1009638C2 /* dist */; };
+		C2A923DE267283BD009638C2 /* DebugMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923DD267283BD009638C2 /* DebugMenu.swift */; };
+		C2A923E12672840A009638C2 /* WK+JavaScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923E02672840A009638C2 /* WK+JavaScript.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +44,13 @@
 		C2A923C326726D03009638C2 /* AMService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMService.swift; sourceTree = "<group>"; };
 		C2A923C726726F14009638C2 /* WKExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKExtensions.swift; sourceTree = "<group>"; };
 		C2A923C926726F2D009638C2 /* WKCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKCache.swift; sourceTree = "<group>"; };
+		C2A923CD26727A8A009638C2 /* TypeSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSwift.swift; sourceTree = "<group>"; };
+		C2A923D026727CD7009638C2 /* TSUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSUtility.swift; sourceTree = "<group>"; };
+		C2A923D326727D0D009638C2 /* TSConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSConfig.swift; sourceTree = "<group>"; };
+		C2A923D526727E06009638C2 /* JSUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSUtility.swift; sourceTree = "<group>"; };
+		C2A923D926727EE1009638C2 /* dist */ = {isa = PBXFileReference; lastKnownFileType = folder; name = dist; path = ../../../TypeSwift/dist; sourceTree = "<group>"; };
+		C2A923DD267283BD009638C2 /* DebugMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenu.swift; sourceTree = "<group>"; };
+		C2A923E02672840A009638C2 /* WK+JavaScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WK+JavaScript.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,12 +86,14 @@
 				C2A923A62672687D009638C2 /* AppDelegate.swift */,
 				C2A923A82672687D009638C2 /* ViewController.swift */,
 				C2A923B626726960009638C2 /* WindowController.swift */,
+				C2A923CC26727A43009638C2 /* CoreController */,
 				C2A923C526726D6D009638C2 /* CoreFX */,
 				C2A923BA26726C3C009638C2 /* WebKit */,
 				C2A923AA2672687F009638C2 /* Assets.xcassets */,
 				C2A923AC2672687F009638C2 /* Main.storyboard */,
 				C2A923AF2672687F009638C2 /* Info.plist */,
 				C2A923B02672687F009638C2 /* Ultra.entitlements */,
+				C2A923CB26727847009638C2 /* TypeSwift */,
 			);
 			path = Ultra;
 			sourceTree = "<group>";
@@ -123,6 +139,59 @@
 			children = (
 				C2A923C726726F14009638C2 /* WKExtensions.swift */,
 				C2A923C926726F2D009638C2 /* WKCache.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C2A923CB26727847009638C2 /* TypeSwift */ = {
+			isa = PBXGroup;
+			children = (
+				C2A923CD26727A8A009638C2 /* TypeSwift.swift */,
+				C2A923D226727CFF009638C2 /* Configuration */,
+				C2A923DF267283EB009638C2 /* Extensions */,
+				C2A923CF26727CB6009638C2 /* Helpers */,
+				C2A923D926727EE1009638C2 /* dist */,
+			);
+			path = TypeSwift;
+			sourceTree = "<group>";
+		};
+		C2A923CC26727A43009638C2 /* CoreController */ = {
+			isa = PBXGroup;
+			children = (
+				C2A923DC267283B2009638C2 /* Menu */,
+			);
+			path = CoreController;
+			sourceTree = "<group>";
+		};
+		C2A923CF26727CB6009638C2 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C2A923D026727CD7009638C2 /* TSUtility.swift */,
+				C2A923D526727E06009638C2 /* JSUtility.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		C2A923D226727CFF009638C2 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				C2A923D326727D0D009638C2 /* TSConfig.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		C2A923DC267283B2009638C2 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				C2A923DD267283BD009638C2 /* DebugMenu.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		C2A923DF267283EB009638C2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C2A923E02672840A009638C2 /* WK+JavaScript.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -184,6 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2A923DA26727EE1009638C2 /* dist in Resources */,
 				C2A923AB2672687F009638C2 /* Assets.xcassets in Resources */,
 				C2A923AE2672687F009638C2 /* Main.storyboard in Resources */,
 			);
@@ -197,12 +267,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2A923CA26726F2D009638C2 /* WKCache.swift in Sources */,
+				C2A923D126727CD7009638C2 /* TSUtility.swift in Sources */,
+				C2A923E12672840A009638C2 /* WK+JavaScript.swift in Sources */,
 				C2A923B926726B2C009638C2 /* FXView.swift in Sources */,
+				C2A923CE26727A8A009638C2 /* TypeSwift.swift in Sources */,
 				C2A923C426726D03009638C2 /* AMService.swift in Sources */,
+				C2A923D626727E06009638C2 /* JSUtility.swift in Sources */,
 				C2A923A92672687D009638C2 /* ViewController.swift in Sources */,
+				C2A923D426727D0D009638C2 /* TSConfig.swift in Sources */,
 				C2A923BC26726C54009638C2 /* WKConfiguration.swift in Sources */,
 				C2A923C226726CEB009638C2 /* WKClient.swift in Sources */,
 				C2A923B726726960009638C2 /* WindowController.swift in Sources */,
+				C2A923DE267283BD009638C2 /* DebugMenu.swift in Sources */,
 				C2A923C826726F14009638C2 /* WKExtensions.swift in Sources */,
 				C2A923A72672687D009638C2 /* AppDelegate.swift in Sources */,
 				C2A923C026726CD3009638C2 /* URLDidChange.swift in Sources */,

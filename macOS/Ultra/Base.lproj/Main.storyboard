@@ -674,8 +674,17 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Debug" id="ZEG-d8-udc">
                                     <items>
+                                        <menuItem title="Inject Script" id="0lL-0h-Txw">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="injectJavaScript:" target="Ady-hI-5gd" id="ElV-GE-cgU"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Run Script" id="oNn-Re-5Gt">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="runJavaScript:" target="Ady-hI-5gd" id="0a7-Cc-sww"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="q8a-wj-9fG"/>
                                         <menuItem title="JavaScript" id="vgw-wW-75t">
@@ -689,6 +698,26 @@
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                     </menuItem>
                                                     <menuItem title="Style" id="Jbx-2c-VCs">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="I1S-sJ-SsH"/>
+                                        <menuItem title="UI" id="VfJ-o2-CJR">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" id="j62-r6-H8V">
+                                                <items>
+                                                    <menuItem title="Toggle WebView" id="iR8-HW-3ja">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugToggleWebView:" target="Ady-hI-5gd" id="8ZM-Vc-vKf"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Item 2" id="uKq-dj-hPH">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Item 3" id="hT3-PB-GVf">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                     </menuItem>
                                                 </items>

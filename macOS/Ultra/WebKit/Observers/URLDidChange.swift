@@ -10,6 +10,7 @@ import Foundation
 extension ViewController {
     
     func urlDidChange(_ urlString: String) {
+        webView.ts(.didLoad())
 //        let url = Clean.url(urlString)          // Clean: Optional URL
 //        Debug.log("URL: \(url)")                // Debug: Print URL to load
 //

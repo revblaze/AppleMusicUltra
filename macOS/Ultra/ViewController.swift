@@ -26,6 +26,14 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
         webViewURLObserver = webView.observe(\.url, options: .new) { [weak self] webView, change in
             self?.urlDidChange("\(String(describing: change.newValue))") }
     }
+    
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        webView.loadTS()
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        webView.ts(.didLoad())
+    }
 
     
     
