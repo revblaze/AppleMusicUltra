@@ -12,6 +12,7 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
 
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var fxView: FXView!
+    @IBOutlet weak var backgroundView: NSView!
     
     // Observers
     var webViewURLObserver: NSKeyValueObservation?
@@ -25,6 +26,10 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
         // Set Observers
         webViewURLObserver = webView.observe(\.url, options: .new) { [weak self] webView, change in
             self?.urlDidChange("\(String(describing: change.newValue))") }
+    }
+    
+    override func viewDidAppear() {
+        backgroundView.layer?.backgroundColor = CGColor(red: 0.00, green: 0.48, blue: 1.00, alpha: 1.00)
     }
     
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {

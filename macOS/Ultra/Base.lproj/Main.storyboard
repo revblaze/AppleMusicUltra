@@ -788,6 +788,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="900" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="VKz-J7-xNH">
+                                <rect key="frame" x="260" y="0.0" width="640" height="600"/>
+                            </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="oCJ-qv-jyG" userLabel="FX View" customClass="FXView" customModule="Ultra" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="900" height="600"/>
                                 <subviews>
@@ -836,11 +839,15 @@
                         <constraints>
                             <constraint firstItem="oCJ-qv-jyG" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="0QH-C4-iNT"/>
                             <constraint firstItem="exw-p1-dor" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="1W2-tV-fqV"/>
+                            <constraint firstAttribute="bottom" secondItem="VKz-J7-xNH" secondAttribute="bottom" id="4Fv-xB-5CO"/>
+                            <constraint firstAttribute="trailing" secondItem="VKz-J7-xNH" secondAttribute="trailing" id="B5u-jj-XaP"/>
                             <constraint firstItem="oCJ-qv-jyG" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="GeU-ot-pZC"/>
                             <constraint firstItem="exw-p1-dor" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="I3q-u3-7Q5"/>
                             <constraint firstAttribute="trailing" secondItem="exw-p1-dor" secondAttribute="trailing" id="OwV-Ih-kw8"/>
+                            <constraint firstItem="VKz-J7-xNH" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="260" id="TG1-vi-uVW"/>
                             <constraint firstAttribute="bottom" secondItem="exw-p1-dor" secondAttribute="bottom" id="U2U-Qs-9ZQ"/>
                             <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Hjd-6k-H63" secondAttribute="trailing" priority="500" constant="150" id="fnR-Qm-acX"/>
+                            <constraint firstItem="VKz-J7-xNH" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="gyx-W8-zEr"/>
                             <constraint firstItem="Hjd-6k-H63" firstAttribute="leading" relation="lessThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" priority="500" constant="150" id="hrV-iD-Pqj"/>
                             <constraint firstAttribute="trailing" secondItem="oCJ-qv-jyG" secondAttribute="trailing" id="nYx-J8-7e6"/>
                             <constraint firstAttribute="bottom" secondItem="oCJ-qv-jyG" secondAttribute="bottom" id="q7g-lB-Mn0"/>
@@ -848,6 +855,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backgroundView" destination="VKz-J7-xNH" id="B5H-gJ-mbL"/>
                         <outlet property="fxView" destination="oCJ-qv-jyG" id="o1a-CH-6UE"/>
                         <outlet property="webView" destination="exw-p1-dor" id="Jp7-1s-e8n"/>
                     </connections>
