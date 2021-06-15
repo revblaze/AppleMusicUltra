@@ -1,3 +1,11 @@
+/**
+ * Global Variables
+ */
+declare let pageDidLoad: boolean;
+declare let isDarkMode: boolean;
+declare let isSignedIn: boolean;
+declare function checkBody(): Promise<void>;
+declare function checkPageLoad(): void;
 declare function didLoad(): void;
 /**
  * GLOBAL STYLES
