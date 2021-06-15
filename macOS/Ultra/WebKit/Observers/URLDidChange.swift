@@ -7,9 +7,14 @@
 
 import Foundation
 
+var url = ""
+
 extension ViewController {
     
     func urlDidChange(_ urlString: String) {
+        url = urlString.clean()
+        if debug { print("URL: \(url)") }
+        
         webView.ts(.didLoad())
         
         updateBackButton()
@@ -35,4 +40,18 @@ extension ViewController {
 
     }
 
+}
+
+
+
+extension String {
+    /// Cleans and reformats Optional URL string.
+    /// `Optional("rawURL") -> rawURL`
+    func clean() -> String {
+        var url = self.replacingOccurrences(of: "Optional", with: "")
+        let brackets: Set<Character> = ["(", ")"]
+        url.removeAll(where: { brackets.contains($0) })
+        return url
+    }
+    
 }

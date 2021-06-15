@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C200421D2678FD0200DE5CA6 /* JS+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200421C2678FD0200DE5CA6 /* JS+Auth.swift */; };
-		C200421F267901ED00DE5CA6 /* FullContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200421E267901ED00DE5CA6 /* FullContentWindow.swift */; };
+		C2004224267919E300DE5CA6 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2004223267919E300DE5CA6 /* BackButton.swift */; };
 		C2A923A72672687D009638C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923A62672687D009638C2 /* AppDelegate.swift */; };
 		C2A923A92672687D009638C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923A82672687D009638C2 /* ViewController.swift */; };
 		C2A923AB2672687F009638C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2A923AA2672687F009638C2 /* Assets.xcassets */; };
@@ -32,7 +32,7 @@
 
 /* Begin PBXFileReference section */
 		C200421C2678FD0200DE5CA6 /* JS+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JS+Auth.swift"; sourceTree = "<group>"; };
-		C200421E267901ED00DE5CA6 /* FullContentWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullContentWindow.swift; sourceTree = "<group>"; };
+		C2004223267919E300DE5CA6 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		C2A923A32672687D009638C2 /* Ultra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ultra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2A923A62672687D009638C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2A923A82672687D009638C2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +84,29 @@
 			path = EventListeners;
 			sourceTree = "<group>";
 		};
+		C2004222267919D400DE5CA6 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				C2004223267919E300DE5CA6 /* BackButton.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		C200422526791BFB00DE5CA6 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C200422626791C0100DE5CA6 /* Includes */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		C200422626791C0100DE5CA6 /* Includes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Includes;
+			sourceTree = "<group>";
+		};
 		C2A9239A2672687D009638C2 = {
 			isa = PBXGroup;
 			children = (
@@ -106,11 +129,11 @@
 				C2A923A62672687D009638C2 /* AppDelegate.swift */,
 				C2A923A82672687D009638C2 /* ViewController.swift */,
 				C2A923B626726960009638C2 /* WindowController.swift */,
-				C200421E267901ED00DE5CA6 /* FullContentWindow.swift */,
 				C2A923CC26727A43009638C2 /* CoreController */,
 				C2A923C526726D6D009638C2 /* CoreFX */,
 				C200421A2678FCD200DE5CA6 /* JavaScript */,
 				C2A923BA26726C3C009638C2 /* WebKit */,
+				C200422526791BFB00DE5CA6 /* Settings */,
 				C2A923AA2672687F009638C2 /* Assets.xcassets */,
 				C2A923AC2672687F009638C2 /* Main.storyboard */,
 				C2A923AF2672687F009638C2 /* Info.plist */,
@@ -180,6 +203,7 @@
 		C2A923CC26727A43009638C2 /* CoreController */ = {
 			isa = PBXGroup;
 			children = (
+				C2004222267919D400DE5CA6 /* UI */,
 				C2A923DC267283B2009638C2 /* Menu */,
 			);
 			path = CoreController;
@@ -290,7 +314,6 @@
 			files = (
 				C2A923CA26726F2D009638C2 /* WKCache.swift in Sources */,
 				C2A923D126727CD7009638C2 /* TSUtility.swift in Sources */,
-				C200421F267901ED00DE5CA6 /* FullContentWindow.swift in Sources */,
 				C2A923E12672840A009638C2 /* WK+JavaScript.swift in Sources */,
 				C200421D2678FD0200DE5CA6 /* JS+Auth.swift in Sources */,
 				C2A923B926726B2C009638C2 /* FXView.swift in Sources */,
@@ -303,6 +326,7 @@
 				C2A923C226726CEB009638C2 /* WKClient.swift in Sources */,
 				C2A923B726726960009638C2 /* WindowController.swift in Sources */,
 				C2A923DE267283BD009638C2 /* DebugMenu.swift in Sources */,
+				C2004224267919E300DE5CA6 /* BackButton.swift in Sources */,
 				C2A923C826726F14009638C2 /* WKExtensions.swift in Sources */,
 				C2A923A72672687D009638C2 /* AppDelegate.swift in Sources */,
 				C2A923C026726CD3009638C2 /* URLDidChange.swift in Sources */,

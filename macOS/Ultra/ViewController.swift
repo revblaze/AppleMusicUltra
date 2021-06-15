@@ -9,10 +9,12 @@ import Cocoa
 import WebKit
 
 class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler {
-
+    // Views
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var fxView: FXView!
     @IBOutlet weak var backgroundView: NSView!
+    // UI Elements
+    @IBOutlet weak var backButton: NSButton!
     
     // Observers
     var webViewURLObserver: NSKeyValueObservation?
@@ -22,6 +24,7 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
         
         // Initialize Objects & Views
         initWebView()
+        initBackButton()
         
         // Set Observers
         webViewURLObserver = webView.observe(\.url, options: .new) { [weak self] webView, change in
@@ -45,11 +48,12 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
     }
 
     
+    // MARK:- JavaScript Message Handler
     var newMessage = ""
     var lastMessage = ""
     var objectCount = 0
     var countObjects = false
-    // MARK: JavaScript Message Handler
+    
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         
         if message.name == "eventListeners" {
@@ -59,13 +63,14 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
                 lastMessage = newMessage
                 newMessage = message
                 
-                
+                //webView.ts(.didLoad())
+                if message.contains("artist-index") { webView.ts(.didLoad()) }
                 
                 // Auth Login Handler
                 willAttemptAuth()
                 if countObjects { reloadOnAuth() }
-                
             }
+            
             
             
         }
