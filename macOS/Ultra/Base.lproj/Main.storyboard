@@ -824,10 +824,23 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hjd-6k-H63" userLabel="Top Bar">
-                                <rect key="frame" x="148" y="568" width="604" height="32"/>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VQP-Bm-YS4">
+                                <rect key="frame" x="267" y="517" width="26" height="23"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="aZQ-xN-NaJ"/>
+                                    <constraint firstAttribute="width" constant="24" id="XqX-Yj-SlO"/>
+                                </constraints>
+                                <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="chevron.left" catalog="system" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WWS-aA-9Us">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="systemMedium" size="13"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="goBack:" target="exw-p1-dor" id="gg6-3N-VXc"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hjd-6k-H63" userLabel="Top Bar">
+                                <rect key="frame" x="148" y="582" width="604" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="aZQ-xN-NaJ"/>
                                 </constraints>
                                 <textFieldCell key="cell" lineBreakMode="clipping" id="baS-ae-Wco">
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -841,20 +854,23 @@
                             <constraint firstItem="exw-p1-dor" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="1W2-tV-fqV"/>
                             <constraint firstAttribute="bottom" secondItem="VKz-J7-xNH" secondAttribute="bottom" id="4Fv-xB-5CO"/>
                             <constraint firstAttribute="trailing" secondItem="VKz-J7-xNH" secondAttribute="trailing" id="B5u-jj-XaP"/>
+                            <constraint firstItem="VQP-Bm-YS4" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="268" id="F9L-0T-JEg"/>
                             <constraint firstItem="oCJ-qv-jyG" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="GeU-ot-pZC"/>
                             <constraint firstItem="exw-p1-dor" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="I3q-u3-7Q5"/>
                             <constraint firstAttribute="trailing" secondItem="exw-p1-dor" secondAttribute="trailing" id="OwV-Ih-kw8"/>
+                            <constraint firstItem="VQP-Bm-YS4" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="61" id="PSd-Va-DBa"/>
                             <constraint firstItem="VKz-J7-xNH" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="260" id="TG1-vi-uVW"/>
                             <constraint firstAttribute="bottom" secondItem="exw-p1-dor" secondAttribute="bottom" id="U2U-Qs-9ZQ"/>
                             <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Hjd-6k-H63" secondAttribute="trailing" priority="500" constant="150" id="fnR-Qm-acX"/>
                             <constraint firstItem="VKz-J7-xNH" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="gyx-W8-zEr"/>
-                            <constraint firstItem="Hjd-6k-H63" firstAttribute="leading" relation="lessThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" priority="500" constant="150" id="hrV-iD-Pqj"/>
+                            <constraint firstItem="Hjd-6k-H63" firstAttribute="leading" relation="lessThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" priority="400" constant="150" id="hrV-iD-Pqj"/>
                             <constraint firstAttribute="trailing" secondItem="oCJ-qv-jyG" secondAttribute="trailing" id="nYx-J8-7e6"/>
                             <constraint firstAttribute="bottom" secondItem="oCJ-qv-jyG" secondAttribute="bottom" id="q7g-lB-Mn0"/>
                             <constraint firstItem="Hjd-6k-H63" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="yV5-bJ-gsT"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="VQP-Bm-YS4" id="dSf-Uf-03A"/>
                         <outlet property="backgroundView" destination="VKz-J7-xNH" id="B5H-gJ-mbL"/>
                         <outlet property="fxView" destination="oCJ-qv-jyG" id="o1a-CH-6UE"/>
                         <outlet property="webView" destination="exw-p1-dor" id="Jp7-1s-e8n"/>
@@ -865,4 +881,7 @@
             <point key="canvasLocation" x="75" y="419"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="chevron.left" catalog="system" width="10" height="14"/>
+    </resources>
 </document>
