@@ -15,4 +15,9 @@ interface Window {
       };
     };
   };
+  //WebKitMutationObserver: {};
 }
+
+
+// window.webkit.messageHandlers.eventListeners.postMessage(`[WKTS] ${msg}`)
+// window.WebKitMutationObserver
