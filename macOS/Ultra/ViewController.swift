@@ -34,14 +34,21 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
     
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         webView.loadTS()
+        //webView.loadCSS()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         webView.ts(.didLoad())
+        //webView.loadCSS()
+        print("webView didFinish")
+        
     }
 
     
-    
+    var newMessage = ""
+    var lastMessage = ""
+    var objectCount = 0
+    var countObjects = false
     // MARK: JavaScript Message Handler
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         
@@ -49,7 +56,33 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
             if let message = message.body as? String {
                 if debug { print("> \(message)") }
                 //handleJS(message)
+                
+                lastMessage = newMessage
+                newMessage = message
+                
+                if lastMessage.contains("not-authenticated") && newMessage.contains("[object Object]") {
+                    countObjects = true
+                    if debug { print("User is attempting to login") }
+                }
+                
+                if countObjects {
+                    objectCount += 1
+                    if objectCount >= 4 {
+                        countObjects = false
+                        if debug { print("User logged in, reloading client") }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            self.webView.reload()
+                        }
+                    }
+                    
+                }
+                
             }
+            
+            
+            
+            
         }
     }
     
