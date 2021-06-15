@@ -55,32 +55,17 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
         if message.name == "eventListeners" {
             if let message = message.body as? String {
                 if debug { print("> \(message)") }
-                //handleJS(message)
                 
                 lastMessage = newMessage
                 newMessage = message
                 
-                if lastMessage.contains("not-authenticated") && newMessage.contains("[object Object]") {
-                    countObjects = true
-                    if debug { print("User is attempting to login") }
-                }
                 
-                if countObjects {
-                    objectCount += 1
-                    if objectCount >= 4 {
-                        countObjects = false
-                        if debug { print("User logged in, reloading client") }
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            self.webView.reload()
-                        }
-                    }
-                    
-                }
+                
+                // Auth Login Handler
+                willAttemptAuth()
+                if countObjects { reloadOnAuth() }
                 
             }
-            
-            
             
             
         }

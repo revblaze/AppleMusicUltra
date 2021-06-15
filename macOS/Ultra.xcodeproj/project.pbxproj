@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C200421D2678FD0200DE5CA6 /* JS+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200421C2678FD0200DE5CA6 /* JS+Auth.swift */; };
+		C200421F267901ED00DE5CA6 /* FullContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200421E267901ED00DE5CA6 /* FullContentWindow.swift */; };
 		C2A923A72672687D009638C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923A62672687D009638C2 /* AppDelegate.swift */; };
 		C2A923A92672687D009638C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923A82672687D009638C2 /* ViewController.swift */; };
 		C2A923AB2672687F009638C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2A923AA2672687F009638C2 /* Assets.xcassets */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C200421C2678FD0200DE5CA6 /* JS+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JS+Auth.swift"; sourceTree = "<group>"; };
+		C200421E267901ED00DE5CA6 /* FullContentWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullContentWindow.swift; sourceTree = "<group>"; };
 		C2A923A32672687D009638C2 /* Ultra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ultra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2A923A62672687D009638C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2A923A82672687D009638C2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +68,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C200421A2678FCD200DE5CA6 /* JavaScript */ = {
+			isa = PBXGroup;
+			children = (
+				C200421B2678FCE100DE5CA6 /* EventListeners */,
+			);
+			path = JavaScript;
+			sourceTree = "<group>";
+		};
+		C200421B2678FCE100DE5CA6 /* EventListeners */ = {
+			isa = PBXGroup;
+			children = (
+				C200421C2678FD0200DE5CA6 /* JS+Auth.swift */,
+			);
+			path = EventListeners;
+			sourceTree = "<group>";
+		};
 		C2A9239A2672687D009638C2 = {
 			isa = PBXGroup;
 			children = (
@@ -86,8 +106,10 @@
 				C2A923A62672687D009638C2 /* AppDelegate.swift */,
 				C2A923A82672687D009638C2 /* ViewController.swift */,
 				C2A923B626726960009638C2 /* WindowController.swift */,
+				C200421E267901ED00DE5CA6 /* FullContentWindow.swift */,
 				C2A923CC26727A43009638C2 /* CoreController */,
 				C2A923C526726D6D009638C2 /* CoreFX */,
+				C200421A2678FCD200DE5CA6 /* JavaScript */,
 				C2A923BA26726C3C009638C2 /* WebKit */,
 				C2A923AA2672687F009638C2 /* Assets.xcassets */,
 				C2A923AC2672687F009638C2 /* Main.storyboard */,
@@ -268,7 +290,9 @@
 			files = (
 				C2A923CA26726F2D009638C2 /* WKCache.swift in Sources */,
 				C2A923D126727CD7009638C2 /* TSUtility.swift in Sources */,
+				C200421F267901ED00DE5CA6 /* FullContentWindow.swift in Sources */,
 				C2A923E12672840A009638C2 /* WK+JavaScript.swift in Sources */,
+				C200421D2678FD0200DE5CA6 /* JS+Auth.swift in Sources */,
 				C2A923B926726B2C009638C2 /* FXView.swift in Sources */,
 				C2A923CE26727A8A009638C2 /* TypeSwift.swift in Sources */,
 				C2A923C426726D03009638C2 /* AMService.swift in Sources */,
