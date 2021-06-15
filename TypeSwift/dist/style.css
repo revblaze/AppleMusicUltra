@@ -1,0 +1,13 @@
+footer,
+.upsell-banner,
+.locale-switcher-banner,
+.web-navigation__native-upsell,
+.locale-switcher--amweb,
+cwc-music-upsell-banner-web {
+  display: none !important;
+}
+
+.web-navigation__header--logo,
+.web-navigation__header.web-navigation__header--logo {
+  display: none !important;
+}

@@ -27,6 +27,10 @@ extension WKWebView {
         evaluateJavaScript(function.js)
     }
     
+    func loadCSS() {
+        evaluateJavaScript(styleString())
+    }
+    
     
     
     
@@ -81,6 +85,34 @@ extension WKWebView {
         if let filePath = Bundle.main.path(forResource: "\(path)\(fileName)", ofType: "js") {
             do {
                 print("Success: Found \(path)\(fileName).js")
+                let contents = try String(contentsOfFile: filePath)
+                return contents
+            } catch {
+                print("Error: contents could not be loaded")
+            }
+        } else {
+            print("Error: \(fileName).js not found")
+        }
+        return "Error"
+    }
+    
+    
+    
+    // MARK:- CSS
+    
+    func styleJS() -> String {
+        return "var style = document.createElement('style'); style.innerHTML = '\(styleString())'; document.head.appendChild(style);"
+    }
+    
+    func styleString() -> String {
+        return getStyleString(fromFile: "style", path: TSConfig.dir)
+    }
+    
+    func getStyleString(fromFile: String, path: String) -> String {
+        let fileName = TSUtility.removeExtension(fromFile)
+        if let filePath = Bundle.main.path(forResource: "\(path)\(fileName)", ofType: "css") {
+            do {
+                print("Success: Found \(path)\(fileName).css")
                 let contents = try String(contentsOfFile: filePath)
                 return contents
             } catch {
