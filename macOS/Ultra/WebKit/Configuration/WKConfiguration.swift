@@ -22,7 +22,7 @@ extension ViewController {
         // JavaScript Event Listeners
         webView.configuration.userContentController.add(self, name: "eventListeners")
         webView.setValue(false, forKey: "drawsBackground")
-        webView.load(AppleMusic.home)
+        webView.load(AppleMusic.listenNow) // AppleMusic.home
     }
     
 }

@@ -13,6 +13,7 @@ struct AMService {
     /// The base Apple Music URL: `https://music.apple.com`
     static let baseURL = "https://music.apple.com"
     static let home = baseURL   // url(forPage: .home)
+    static let listenNow = url(forPage: .listenNow)
     
     /// Returns the URL for the selected Apple Music page as a `String`
     /// # Usage:
