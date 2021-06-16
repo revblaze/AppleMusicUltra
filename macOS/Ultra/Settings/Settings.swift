@@ -39,7 +39,7 @@ struct Settings {
     static func restoreDefaults() {
         Settings.save(false, forKey: Keys.isSignedIn)
         Settings.save(false, forKey: Keys.hasLaunchedBefore)
-        Settings.save(false, forKey: Keys.hasLaunchedUpdate)
+        //Settings.save(false, forKey: Keys.hasLaunchedUpdate)
         Settings.save(false, forKey: Keys.dontShowAgain)
         Settings.save(false, forKey: Keys.mobileBetaDidAppear)
         sync()

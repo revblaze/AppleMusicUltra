@@ -31,10 +31,6 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
             self?.urlDidChange("\(String(describing: change.newValue))") }
     }
     
-    override func viewDidAppear() {
-        backgroundView.layer?.backgroundColor = CGColor(red: 0, green: 0.48, blue: 1, alpha: 1)
-    }
-    
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         webView.loadTS()
         //webView.loadCSS()
