@@ -826,7 +826,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="XqX-Yj-SlO"/>
                                 </constraints>
-                                <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="chevron.left" catalog="system" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WWS-aA-9Us">
+                                <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="chevron.left.fade" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WWS-aA-9Us">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="systemMedium" size="13"/>
                                 </buttonCell>
@@ -874,6 +874,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="chevron.left" catalog="system" width="10" height="14"/>
+        <image name="chevron.left.fade" width="6" height="10"/>
     </resources>
 </document>
