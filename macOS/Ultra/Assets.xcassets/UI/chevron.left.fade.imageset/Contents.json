@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "chevron-left-dark-bg.png",
+      "filename" : "chevron-left-fade-dark.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "chevron-left-bg.png",
+      "filename" : "chevron-left-fade.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "chevron-left-dark-bg@2x.png",
+      "filename" : "chevron-left-fade-dark@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "chevron-left-bg@2x.png",
+      "filename" : "chevron-left-fade@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "chevron-left-dark-bg@3x.png",
+      "filename" : "chevron-left-fade-dark@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "chevron-left-bg@3x.png",
+      "filename" : "chevron-left-fade@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

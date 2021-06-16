@@ -1,23 +1,23 @@
 {
   "images" : [
     {
-      "filename" : "chevron-left.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
       "filename" : "chevron-left-dark.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "chevron-left@2x.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "chevron-left.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "chevron-left-dark@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "chevron-left-dark@2x.png",
+      "filename" : "chevron-left@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "chevron-left@3x.png",
+      "filename" : "chevron-left-dark@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "chevron-left-dark@3x.png",
+      "filename" : "chevron-left@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
