@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		C200421D2678FD0200DE5CA6 /* JS+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200421C2678FD0200DE5CA6 /* JS+Auth.swift */; };
 		C2004224267919E300DE5CA6 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2004223267919E300DE5CA6 /* BackButton.swift */; };
+		C2004229267A283A00DE5CA6 /* LegacyStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2004228267A283A00DE5CA6 /* LegacyStyles.swift */; };
+		C200422C267A28FD00DE5CA6 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200422B267A28FD00DE5CA6 /* Theme.swift */; };
+		C200422E267A2A3D00DE5CA6 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C200422D267A2A3D00DE5CA6 /* Settings.swift */; };
+		C2004231267A2A5800DE5CA6 /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2004230267A2A5800DE5CA6 /* DefaultsManager.swift */; };
+		C2004233267A2A7F00DE5CA6 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2004232267A2A7F00DE5CA6 /* Keys.swift */; };
 		C2A923A72672687D009638C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923A62672687D009638C2 /* AppDelegate.swift */; };
 		C2A923A92672687D009638C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A923A82672687D009638C2 /* ViewController.swift */; };
 		C2A923AB2672687F009638C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2A923AA2672687F009638C2 /* Assets.xcassets */; };
@@ -33,6 +38,11 @@
 /* Begin PBXFileReference section */
 		C200421C2678FD0200DE5CA6 /* JS+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JS+Auth.swift"; sourceTree = "<group>"; };
 		C2004223267919E300DE5CA6 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		C2004228267A283A00DE5CA6 /* LegacyStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyStyles.swift; sourceTree = "<group>"; };
+		C200422B267A28FD00DE5CA6 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		C200422D267A2A3D00DE5CA6 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		C2004230267A2A5800DE5CA6 /* DefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsManager.swift; sourceTree = "<group>"; };
+		C2004232267A2A7F00DE5CA6 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		C2A923A32672687D009638C2 /* Ultra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ultra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2A923A62672687D009638C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2A923A82672687D009638C2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +105,9 @@
 		C200422526791BFB00DE5CA6 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C200422D267A2A3D00DE5CA6 /* Settings.swift */,
+				C2004232267A2A7F00DE5CA6 /* Keys.swift */,
+				C200422F267A2A4E00DE5CA6 /* Defaults */,
 				C200422626791C0100DE5CA6 /* Includes */,
 			);
 			path = Settings;
@@ -105,6 +118,30 @@
 			children = (
 			);
 			path = Includes;
+			sourceTree = "<group>";
+		};
+		C2004227267A280700DE5CA6 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				C2004228267A283A00DE5CA6 /* LegacyStyles.swift */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		C200422A267A28CF00DE5CA6 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				C200422B267A28FD00DE5CA6 /* Theme.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		C200422F267A2A4E00DE5CA6 /* Defaults */ = {
+			isa = PBXGroup;
+			children = (
+				C2004230267A2A5800DE5CA6 /* DefaultsManager.swift */,
+			);
+			path = Defaults;
 			sourceTree = "<group>";
 		};
 		C2A9239A2672687D009638C2 = {
@@ -174,6 +211,8 @@
 		C2A923C526726D6D009638C2 /* CoreFX */ = {
 			isa = PBXGroup;
 			children = (
+				C200422A267A28CF00DE5CA6 /* Theme */,
+				C2004227267A280700DE5CA6 /* Legacy */,
 				C2A923B826726B2C009638C2 /* FXView.swift */,
 			);
 			path = CoreFX;
@@ -316,6 +355,7 @@
 				C2A923D126727CD7009638C2 /* TSUtility.swift in Sources */,
 				C2A923E12672840A009638C2 /* WK+JavaScript.swift in Sources */,
 				C200421D2678FD0200DE5CA6 /* JS+Auth.swift in Sources */,
+				C2004233267A2A7F00DE5CA6 /* Keys.swift in Sources */,
 				C2A923B926726B2C009638C2 /* FXView.swift in Sources */,
 				C2A923CE26727A8A009638C2 /* TypeSwift.swift in Sources */,
 				C2A923C426726D03009638C2 /* AMService.swift in Sources */,
@@ -324,10 +364,14 @@
 				C2A923D426727D0D009638C2 /* TSConfig.swift in Sources */,
 				C2A923BC26726C54009638C2 /* WKConfiguration.swift in Sources */,
 				C2A923C226726CEB009638C2 /* WKClient.swift in Sources */,
+				C2004229267A283A00DE5CA6 /* LegacyStyles.swift in Sources */,
 				C2A923B726726960009638C2 /* WindowController.swift in Sources */,
 				C2A923DE267283BD009638C2 /* DebugMenu.swift in Sources */,
 				C2004224267919E300DE5CA6 /* BackButton.swift in Sources */,
 				C2A923C826726F14009638C2 /* WKExtensions.swift in Sources */,
+				C200422C267A28FD00DE5CA6 /* Theme.swift in Sources */,
+				C200422E267A2A3D00DE5CA6 /* Settings.swift in Sources */,
+				C2004231267A2A5800DE5CA6 /* DefaultsManager.swift in Sources */,
 				C2A923A72672687D009638C2 /* AppDelegate.swift in Sources */,
 				C2A923C026726CD3009638C2 /* URLDidChange.swift in Sources */,
 			);

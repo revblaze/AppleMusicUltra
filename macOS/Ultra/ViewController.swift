@@ -32,7 +32,7 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
     }
     
     override func viewDidAppear() {
-        backgroundView.layer?.backgroundColor = CGColor(red: 0.00, green: 0.48, blue: 1.00, alpha: 1.00)
+        backgroundView.layer?.backgroundColor = CGColor(red: 0, green: 0.48, blue: 1, alpha: 1)
     }
     
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
