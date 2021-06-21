@@ -59,7 +59,7 @@ checkPageLoad()
 
 
 // Page did load
-function didLoad() {
+async function didLoad() {
   hideBanners()
   hideUIComponents()
   applyStyles()
