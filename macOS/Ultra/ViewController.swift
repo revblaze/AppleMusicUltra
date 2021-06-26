@@ -34,10 +34,8 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
         // Set Observers
         webViewURLObserver = webView.observe(\.url, options: .new) { [weak self] webView, change in
             self?.urlDidChange("\(String(describing: change.newValue))") }
-    }
-    
-    override func viewDidAppear() {
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.setWallpaper), name: .setWallpaper, object: nil)
     }
     
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
@@ -51,6 +49,11 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
         print("webView didFinish")
         //toggleCustomizer()
         
+    }
+    
+    @objc func setWallpaper() {
+        let image = NSImage(named: wallpaperName)
+        fxView.setImage((image ?? NSImage(named: "monterey"))!)
     }
     
     func initFXView() {
@@ -117,5 +120,11 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
     }
 
 
+}
+
+
+// MARK: Type-Safe Notifications
+extension Notification.Name {
+    static let setWallpaper = Notification.Name("setWallpaper")
 }
 
