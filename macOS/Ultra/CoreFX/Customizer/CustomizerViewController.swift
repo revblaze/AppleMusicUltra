@@ -8,6 +8,8 @@
 import Cocoa
 import WebKit
 
+var wallpaperName = "monterey"
+
 class CustomizerViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler {
     
     @IBOutlet weak var webView: WKWebView!
@@ -20,18 +22,31 @@ class CustomizerViewController: NSViewController, WKUIDelegate, WKNavigationDele
         webView.navigationDelegate = self
         webView.configuration.userContentController.add(self, name: "eventListeners")
         webView.load(file: "images", path: "WebContent/Customizer")
-        
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "eventListeners" {
             if let message = message.body as? String {
                 if debug { print("[Customizer] > \(message)") }
-                
+                wallpaperName = message
+                NotificationCenter.default.post(Notification(name: .setWallpaper))
             }
         }
     }
     
+}
+
+enum Images: String {
+    case monterey
+    case wave
+    case spring
+    case dunes
+    case quartz
+    case silk
+    case bubbles
+    case goblin
+    case purple
+    //case custom
 }
 
 
