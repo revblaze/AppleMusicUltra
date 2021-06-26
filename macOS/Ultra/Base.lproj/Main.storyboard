@@ -791,11 +791,11 @@
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="oCJ-qv-jyG" userLabel="FX View" customClass="FXView" customModule="Ultra" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="900" height="600"/>
                                 <subviews>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L5X-cL-j9r">
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="L5X-cL-j9r">
                                         <rect key="frame" x="0.0" y="0.0" width="900" height="600"/>
-                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="s87-5x-ji6"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="s87-5x-ji6"/>
                                     </imageView>
-                                    <visualEffectView blendingMode="behindWindow" material="fullScreenUI" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="U2X-99-6VL">
+                                    <visualEffectView wantsLayer="YES" blendingMode="behindWindow" material="fullScreenUI" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="U2X-99-6VL">
                                         <rect key="frame" x="0.0" y="0.0" width="900" height="600"/>
                                     </visualEffectView>
                                 </subviews>
@@ -821,6 +821,29 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="pbK-zE-nJE">
+                                <rect key="frame" x="620" y="0.0" width="280" height="600"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" priority="500" constant="280" id="Q6N-vK-4q8"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="NCh-Rs-4T9" kind="embed" id="gzM-eh-HAE"/>
+                                </connections>
+                            </containerView>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="78w-W5-zxa">
+                                <rect key="frame" x="590" y="12" width="18" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="18" id="0bM-Xp-SLn"/>
+                                    <constraint firstAttribute="height" constant="18" id="5sb-Ix-2fx"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gear" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="X1l-6z-AF2">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="onToggleCustomizer:" target="XfG-lQ-9wD" id="lDB-0r-t2e"/>
+                                </connections>
+                            </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VQP-Bm-YS4">
                                 <rect key="frame" x="267" y="517" width="26" height="23"/>
                                 <constraints>
@@ -849,21 +872,29 @@
                         <constraints>
                             <constraint firstItem="oCJ-qv-jyG" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="0QH-C4-iNT"/>
                             <constraint firstItem="exw-p1-dor" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="1W2-tV-fqV"/>
+                            <constraint firstItem="pbK-zE-nJE" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="5gX-gj-aeg"/>
+                            <constraint firstAttribute="bottom" secondItem="pbK-zE-nJE" secondAttribute="bottom" id="F6c-LU-idD"/>
                             <constraint firstItem="VQP-Bm-YS4" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="268" id="F9L-0T-JEg"/>
                             <constraint firstItem="oCJ-qv-jyG" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="GeU-ot-pZC"/>
                             <constraint firstItem="exw-p1-dor" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="I3q-u3-7Q5"/>
+                            <constraint firstAttribute="bottom" secondItem="78w-W5-zxa" secondAttribute="bottom" constant="12" id="J2p-Ru-2s8"/>
                             <constraint firstAttribute="trailing" secondItem="exw-p1-dor" secondAttribute="trailing" id="OwV-Ih-kw8"/>
                             <constraint firstItem="VQP-Bm-YS4" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="61" id="PSd-Va-DBa"/>
                             <constraint firstAttribute="bottom" secondItem="exw-p1-dor" secondAttribute="bottom" id="U2U-Qs-9ZQ"/>
+                            <constraint firstItem="pbK-zE-nJE" firstAttribute="leading" secondItem="78w-W5-zxa" secondAttribute="trailing" constant="12" id="Vgx-RO-TIv"/>
+                            <constraint firstItem="pbK-zE-nJE" firstAttribute="leading" relation="lessThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="trailing" constant="-280" id="cMW-TO-aZI"/>
                             <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Hjd-6k-H63" secondAttribute="trailing" priority="500" constant="150" id="fnR-Qm-acX"/>
                             <constraint firstItem="Hjd-6k-H63" firstAttribute="leading" relation="lessThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" priority="400" constant="150" id="hrV-iD-Pqj"/>
                             <constraint firstAttribute="trailing" secondItem="oCJ-qv-jyG" secondAttribute="trailing" id="nYx-J8-7e6"/>
+                            <constraint firstAttribute="trailing" secondItem="pbK-zE-nJE" secondAttribute="trailing" id="o6G-VB-4hq"/>
                             <constraint firstAttribute="bottom" secondItem="oCJ-qv-jyG" secondAttribute="bottom" id="q7g-lB-Mn0"/>
                             <constraint firstItem="Hjd-6k-H63" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="yV5-bJ-gsT"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="VQP-Bm-YS4" id="dSf-Uf-03A"/>
+                        <outlet property="customizerButton" destination="78w-W5-zxa" id="5Io-cq-EqM"/>
+                        <outlet property="customizerConstraint" destination="cMW-TO-aZI" id="bjp-ie-SB2"/>
                         <outlet property="fxView" destination="oCJ-qv-jyG" id="o1a-CH-6UE"/>
                         <outlet property="webView" destination="exw-p1-dor" id="Jp7-1s-e8n"/>
                     </connections>
@@ -872,8 +903,72 @@
             </objects>
             <point key="canvasLocation" x="75" y="419"/>
         </scene>
+        <!--Customizer View Controller-->
+        <scene sceneID="5Mv-Xm-AXh">
+            <objects>
+                <viewController id="NCh-Rs-4T9" customClass="CustomizerViewController" customModule="Ultra" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="lcX-Pr-Sfp">
+                        <rect key="frame" x="0.0" y="0.0" width="280" height="600"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <visualEffectView wantsLayer="YES" blendingMode="withinWindow" material="menu" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="5KR-3P-VNo">
+                                <rect key="frame" x="0.0" y="0.0" width="280" height="600"/>
+                            </visualEffectView>
+                            <wkWebView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eG2-R5-rxi">
+                                <rect key="frame" x="0.0" y="0.0" width="280" height="600"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <visualEffectView blendingMode="withinWindow" material="menu" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="0NR-EQ-uzv">
+                                <rect key="frame" x="0.0" y="546" width="280" height="54"/>
+                                <subviews>
+                                    <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OYg-32-MA3">
+                                        <rect key="frame" x="31" y="14" width="219" height="24"/>
+                                        <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="GVb-ch-pMQ">
+                                            <font key="font" metaFont="system"/>
+                                            <segments>
+                                                <segment label="Material"/>
+                                                <segment label="Themes" selected="YES" tag="1"/>
+                                                <segment label="Visualizer"/>
+                                            </segments>
+                                        </segmentedCell>
+                                    </segmentedControl>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="OYg-32-MA3" firstAttribute="top" secondItem="0NR-EQ-uzv" secondAttribute="top" constant="17" id="TiL-bn-h2h"/>
+                                    <constraint firstItem="OYg-32-MA3" firstAttribute="centerX" secondItem="0NR-EQ-uzv" secondAttribute="centerX" id="Tmb-g3-9Lk"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="54" id="vJf-WD-P66"/>
+                                    <constraint firstAttribute="height" constant="54" id="vmV-Le-n3P"/>
+                                </constraints>
+                            </visualEffectView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="5KR-3P-VNo" secondAttribute="trailing" id="0Jg-Wa-LAK"/>
+                            <constraint firstItem="0NR-EQ-uzv" firstAttribute="top" secondItem="lcX-Pr-Sfp" secondAttribute="top" id="9cv-Gp-H7L"/>
+                            <constraint firstItem="5KR-3P-VNo" firstAttribute="leading" secondItem="lcX-Pr-Sfp" secondAttribute="leading" id="IgQ-wZ-hZz"/>
+                            <constraint firstItem="5KR-3P-VNo" firstAttribute="top" secondItem="lcX-Pr-Sfp" secondAttribute="top" id="Nib-lg-mBh"/>
+                            <constraint firstItem="0NR-EQ-uzv" firstAttribute="leading" secondItem="lcX-Pr-Sfp" secondAttribute="leading" id="OkY-iJ-0mr"/>
+                            <constraint firstAttribute="bottom" secondItem="5KR-3P-VNo" secondAttribute="bottom" id="S3t-c7-o9M"/>
+                            <constraint firstAttribute="trailing" secondItem="eG2-R5-rxi" secondAttribute="trailing" id="UOH-R9-ex1"/>
+                            <constraint firstAttribute="bottom" secondItem="eG2-R5-rxi" secondAttribute="bottom" id="WKP-ab-cd5"/>
+                            <constraint firstItem="eG2-R5-rxi" firstAttribute="leading" secondItem="lcX-Pr-Sfp" secondAttribute="leading" id="Wp6-Ch-vZd"/>
+                            <constraint firstAttribute="trailing" secondItem="0NR-EQ-uzv" secondAttribute="trailing" id="rU4-xz-0d1"/>
+                            <constraint firstItem="eG2-R5-rxi" firstAttribute="top" secondItem="lcX-Pr-Sfp" secondAttribute="top" id="yO8-bP-6H1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="eG2-R5-rxi" id="CC5-wD-mJ7"/>
+                    </connections>
+                </viewController>
+                <customObject id="u6v-ln-N1F" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="723" y="419"/>
+        </scene>
     </scenes>
     <resources>
         <image name="chevron.left.fade" width="6" height="10"/>
+        <image name="gear" width="64" height="64"/>
     </resources>
 </document>
