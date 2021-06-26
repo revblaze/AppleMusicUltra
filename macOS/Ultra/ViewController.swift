@@ -12,6 +12,10 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
     // Views
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var fxView: FXView!
+    @IBOutlet weak var customizerView: NSView!
+    @IBOutlet weak var customizerConstraint: NSLayoutConstraint!
+    @IBOutlet weak var customizerButton: NSButton!
+    
     @IBOutlet weak var backgroundView: NSView!
     // UI Elements
     @IBOutlet weak var backButton: NSButton!
@@ -25,10 +29,15 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
         // Initialize Objects & Views
         initWebView()
         initBackButton()
+        initFXView()
         
         // Set Observers
         webViewURLObserver = webView.observe(\.url, options: .new) { [weak self] webView, change in
             self?.urlDidChange("\(String(describing: change.newValue))") }
+    }
+    
+    override func viewDidAppear() {
+        
     }
     
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
@@ -40,6 +49,27 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
         webView.ts(.didLoad())
         //webView.loadCSS()
         print("webView didFinish")
+        //toggleCustomizer()
+        
+    }
+    
+    func initFXView() {
+        let image = NSImage(imageLiteralResourceName: "monterey")
+        fxView.setImage(image)
+    }
+    
+    @IBAction func onToggleCustomizer(_ sender: Any) { toggleCustomizer() }
+    
+    func toggleCustomizer() {
+        var alpha = CGFloat(0.7)
+        var constraintWidth = CGFloat(-280)
+        if customizerConstraint.constant != 0 { constraintWidth = 0; alpha = 1 }
+        
+        NSAnimationContext.runAnimationGroup({ (context) -> Void in
+            context.duration = 0.25
+            customizerConstraint.animator().constant = constraintWidth
+            webView.animator().alphaValue = alpha
+        }, completionHandler: { () -> Void in })
         
     }
 
@@ -49,6 +79,7 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
     var lastMessage = ""
     var objectCount = 0
     var countObjects = false
+    var initShowCustomizer = false
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         
@@ -61,6 +92,11 @@ class ViewController: NSViewController, NSWindowDelegate, WKUIDelegate, WKNaviga
                 
                 //webView.ts(.didLoad())
                 if message.contains("artist-index") { webView.ts(.didLoad()) }
+                
+                if !initShowCustomizer && message.hasSuffix("pageDidLoad = true") {
+                    toggleCustomizer()
+                    initShowCustomizer = true
+                }
                 
                 // Auth Login Handler
                 willAttemptAuth()
