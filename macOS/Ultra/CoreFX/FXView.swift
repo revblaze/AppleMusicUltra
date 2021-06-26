@@ -13,6 +13,11 @@ class FXView: NSView {
     @IBOutlet weak var imageView: NSImageView!
     @IBOutlet weak var backgroundView: NSImageView!
     
+    func setImage(_ image: NSImage) {
+        imageView.image = image
+        blurView.blendingMode = .withinWindow
+    }
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
 
