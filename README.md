@@ -2,6 +2,8 @@
 
 <sup>This project uses the [TypeSwift](https://github.com/TypeSwift) framework, a bridging-interface for TypeScript and Swift.</sup>
 
+Download Latest Beta: [Ultra (Preview 2)](https://github.com/revblaze/AppleMusicUltra/releases/tag/v1.0-beta.2) <sup>JUNE 26, 2021</sup>
+
 # Ultra for Music
 The ultimate Music client with a customizable personality. Upgrade your music experience with themes, styles, custom scripting, personalized settings, friends, followers and more. Built on [macOS Monterey](https://www.apple.com/macos/monterey-preview/) with backwards compatibility in-mind.
 
