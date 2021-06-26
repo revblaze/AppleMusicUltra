@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Themes</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+
+  <body>
+    <!-- Wrapper -->
+    <div id="wrapper">
+		  <div class="row">
+
+  		  <div class="hover cards">
+                <card><a onclick="setClear()"><img src="images/themes/transparent.png"></a></card>
+                <card><a onclick="setCustom()"><img src="images/themes/custom.png"></a></card>
+								<card><a onclick="setMonterey()"><img src="images/themes/monterey.png"></a></card>
+    			<card><a onclick="setWave()"><img src="images/themes/wave.png"></a></card>
+    			<card><a onclick="setSpring()"><img src="images/themes/spring.png"></a></card>
+    			<card><a onclick="setDunes()"><img src="images/themes/dunes.png"></a></card>
+    			<card><a onclick="setQuartz()"><img src="images/themes/quartz.png"></a></card>
+    			<card><a onclick="setSilk()"><img src="images/themes/silk.png"></a></card>
+    			<card><a onclick="setBubbles()"><img src="images/themes/bubbles.png"></a></card>
+                <card><a onclick="setGoblin()"><img src="images/themes/goblin.png"></a></card>
+                <card><a onclick="setPurple()"><img src="images/themes/purple.png"></a></card>
+                <!--<card><a onclick="setDefault()"><img src="images/themes/transparent.png"></a></card>-->
+    		</div>
+
+  		</div>
+    </div>
+
+    <script>
+        function closeWindow(){ window.webkit.messageHandlers.eventListeners.postMessage("close"); }
+
+        function setClear()  { window.webkit.messageHandlers.eventListeners.postMessage("clear"); }
+        function setCustom()  { window.webkit.messageHandlers.eventListeners.postMessage("custom"); }
+
+        function setDefault() { window.webkit.messageHandlers.eventListeners.postMessage("preset"); }
+        function setWave()    { window.webkit.messageHandlers.eventListeners.postMessage("wave"); }
+        function setSpring()  { window.webkit.messageHandlers.eventListeners.postMessage("spring"); }
+        function setDunes()   { window.webkit.messageHandlers.eventListeners.postMessage("dunes"); }
+        function setQuartz()  { window.webkit.messageHandlers.eventListeners.postMessage("quartz"); }
+        function setSilk()    { window.webkit.messageHandlers.eventListeners.postMessage("silk"); }
+        function setBubbles() { window.webkit.messageHandlers.eventListeners.postMessage("bubbles"); }
+        function setGoblin()  { window.webkit.messageHandlers.eventListeners.postMessage("goblin"); }
+        function setPurple()  { window.webkit.messageHandlers.eventListeners.postMessage("purple"); }
+    </script>
+
+</body>
+
+</html>

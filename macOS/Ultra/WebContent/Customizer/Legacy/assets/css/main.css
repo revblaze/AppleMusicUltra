@@ -1,0 +1,147 @@
+/* Hide Scrollbar */
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+html, body, div, span, applet, object,
+iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
+pre, a, abbr, acronym, address, big, cite,
+code, del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b,
+u, i, center, dl, dt, dd, ol, ul, li, fieldset,
+form, label, legend, table, caption, tbody,
+tfoot, thead, tr, th, td, article, aside,
+canvas, details, embed, figure, figcaption,
+footer, header, hgroup, menu, nav, output, ruby,
+section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+html {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+  }
+
+html,
+body {
+  background-color: rgba(0,0,0,0) !important;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  padding: 0 0 0 0; /*0 0 4em 0;*/
+}
+
+body {
+	color: #333;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+
+  display: flex;
+  justify-content: center;
+
+  min-width: fit-content;
+  width: 100%;
+
+  }
+
+/* START ROW & CARDS */
+.row {
+  display: flex;
+  display: -webkit-box;
+  flex-wrap: wrap;
+  text-align: center;
+  /*margin-top: 4em;*/
+  /*margin-bottom: 3em;*/
+
+  position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    /*
+    padding-top: 0.5em; */ /*5em;*/
+    padding-top: 4em;
+    padding-bottom: 5em;
+}
+
+.cards {
+  	/* flex: 50%; */
+    /*max-width: 50%;*/
+}
+
+.cards img {
+  margin-top: 1em;
+  vertical-align: middle;
+  width: 85%;
+  /*
+  margin-left: 20px;
+  margin-right: 20px;
+  */
+}
+
+.cards div span {
+	position: absolute;
+	bottom: -20px;
+	left: 0;
+	z-index: -1;
+	display: block;
+	width: 300px;
+	margin: 0;
+	padding: 0;
+	color: #444;
+	font-size: 18px;
+	text-decoration: none;
+	text-align: center;
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+	opacity: 0;
+}
+
+.hover card img {
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+
+.hover card:hover img {
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+}
+
+
+.switch {
+  display: flex;
+  display: -webkit-box; /* -webkit-flex; -webkit-box; */
+  flex-wrap: wrap;
+   flex-direction: row;
+  text-align: center;
+
+  position: relative; /* fixed ? absolute */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+}
+
+
+#frame {
+  /*margin-top: 1em;*/ /* 5%; */
+  width: 100%;
+  height: 100%; /* 95% */
+  z-index: -1;
+}
+
+
+
+
