@@ -30,6 +30,7 @@ extension WKWebView {
     ///     - path: Path where the HTML file is located (`"website"` for `website/index.html`)
     func load(file: String, path: String) {
         if let url = Bundle.main.url(forResource: file, withExtension: "html", subdirectory: path) {
+            if debug { print("load: \(path)/\(file).html") }
             self.loadFileURL(url, allowingReadAccessTo: url)
             let request = URLRequest(url: url)
             load(request)

@@ -11,3 +11,8 @@ cwc-music-upsell-banner-web {
 .web-navigation__header.web-navigation__header--logo {
   display: none !important;
 }
+
+::-webkit-scrollbar {
+    width: 0px !important;  /* Remove scrollbar space */
+    background: transparent !important;  /* Transparent scrollbar placeholder */
+}
