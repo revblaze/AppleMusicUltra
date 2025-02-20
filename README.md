@@ -7,13 +7,6 @@ Download Latest Beta: [Ultra (Preview 2)](https://github.com/revblaze/AppleMusic
 # Ultra for Music
 The ultimate Music client with a customizable personality. Upgrade your music experience with themes, styles, custom scripting, personalized settings, friends, followers and more. Built on [macOS Monterey](https://www.apple.com/macos/monterey-preview/) with backwards compatibility in-mind.
 
-## Coming Soon <sup>v2</sup>
-Brace yourselves, a major update is coming to Ultra! I've completely redesigned the codebase, added further functionality and freedom with custom scripting, as well as UI customization. Furthermore, I'm in the process of implementing a Spotify-like social feed that'll allow you to keep up with what your [Music friends](https://github.com/revblaze/AppleMusicFriends) are listening to. 
-
-The current project, along with this README, need a complete rework. Since many of you have been waiting patiently – over the past year and a little bit – for the next release, I will be priortizing the publication of the standalone Ultra v2 app. The programmatic documentation will follow soon after.
-
-In the meantime, feel free to checkout [Music Friends](https://github.com/revblaze/AppleMusicFriends). Any contribution is welcome and greatly appreciated!
-
 ## [Download Latest Stable Build](https://github.com/revblaze/AppleMusicUltra/releases/download/v1.0-beta.1/Themes-v1.0b1.zip) <sup>(macOS 10.12 and higher)</sup>
 `Themes-v1.0b1.zip (25MB) Public Beta 1` (April 17, 2020)
 
